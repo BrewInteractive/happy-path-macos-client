@@ -1,0 +1,566 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5E41B1442A497F51001E90AC /* HappyPathTimeTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E41B1432A497F51001E90AC /* HappyPathTimeTrackerApp.swift */; };
+		5E41B1462A497F51001E90AC /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E41B1452A497F51001E90AC /* MainScreen.swift */; };
+		5E41B1482A497F52001E90AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E41B1472A497F52001E90AC /* Assets.xcassets */; };
+		5E41B14B2A497F52001E90AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E41B14A2A497F52001E90AC /* Preview Assets.xcassets */; };
+		5E797CDF2A4B1CD9003FCD06 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 5E797CDE2A4B1CD9003FCD06 /* SwiftDate */; };
+		5E797CE22A4B1EE4003FCD06 /* CircleDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E797CE12A4B1EE4003FCD06 /* CircleDay.swift */; };
+		5EE13CEA2A5757AE004BF3DA /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5EE13CE92A5757AE004BF3DA /* .gitignore */; };
+		5EE371FC2A4EDEDF00859278 /* NewTimeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE371FB2A4EDEDF00859278 /* NewTimeEntryView.swift */; };
+		5EE371FF2A4EDF0C00859278 /* TimeDividier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE371FE2A4EDF0C00859278 /* TimeDividier.swift */; };
+		5EE372012A4FFB1900859278 /* TimeEntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372002A4FFB1900859278 /* TimeEntryListView.swift */; };
+		5EE372032A4FFBA400859278 /* TimeEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372022A4FFBA400859278 /* TimeEntry.swift */; };
+		5EE372052A4FFCD900859278 /* TimeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372042A4FFCD900859278 /* TimeEntryView.swift */; };
+		5EE372092A5030D800859278 /* BottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372082A5030D800859278 /* BottomView.swift */; };
+		5EE3720B2A50311C00859278 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE3720A2A50311C00859278 /* HeaderView.swift */; };
+		5EE3720D2A50317900859278 /* CircleDayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE3720C2A50317900859278 /* CircleDayListView.swift */; };
+		5EE3720F2A50322E00859278 /* CircleDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE3720E2A50322E00859278 /* CircleDayView.swift */; };
+		5EE372122A50483B00859278 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 5EE372112A50483B00859278 /* Apollo */; };
+		5EE372152A50523D00859278 /* Tasks.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5EE372142A50523D00859278 /* Tasks.graphql */; };
+		5EE372172A50B82B00859278 /* Timers.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5EE372162A50B82B00859278 /* Timers.graphql */; };
+		5EE3721C2A50B91100859278 /* DirectusGraphql in Frameworks */ = {isa = PBXBuildFile; productRef = 5EE3721B2A50B91100859278 /* DirectusGraphql */; };
+		5EE3721F2A50BD0C00859278 /* GraphqlClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE3721E2A50BD0C00859278 /* GraphqlClient.swift */; };
+		5EE372212A50BE7400859278 /* NetworkInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372202A50BE7400859278 /* NetworkInterceptorProvider.swift */; };
+		5EE372232A50BEC600859278 /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372222A50BEC600859278 /* TokenInterceptor.swift */; };
+		5EE372262A50C1A500859278 /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372252A50C1A500859278 /* MainScreenViewModel.swift */; };
+		5EE372292A520B5E00859278 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372282A520B5E00859278 /* AppState.swift */; };
+		5EE3722C2A5212A900859278 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE3722B2A5212A900859278 /* LoginScreen.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5E41B1402A497F51001E90AC /* HappyPathTimeTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HappyPathTimeTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E41B1432A497F51001E90AC /* HappyPathTimeTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HappyPathTimeTrackerApp.swift; sourceTree = "<group>"; };
+		5E41B1452A497F51001E90AC /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		5E41B1472A497F52001E90AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5E41B14A2A497F52001E90AC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5E41B14C2A497F52001E90AC /* HappyPathTimeTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HappyPathTimeTracker.entitlements; sourceTree = "<group>"; };
+		5E797CE12A4B1EE4003FCD06 /* CircleDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleDay.swift; sourceTree = "<group>"; };
+		5EE13CE92A5757AE004BF3DA /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		5EE371FB2A4EDEDF00859278 /* NewTimeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTimeEntryView.swift; sourceTree = "<group>"; };
+		5EE371FE2A4EDF0C00859278 /* TimeDividier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDividier.swift; sourceTree = "<group>"; };
+		5EE372002A4FFB1900859278 /* TimeEntryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryListView.swift; sourceTree = "<group>"; };
+		5EE372022A4FFBA400859278 /* TimeEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntry.swift; sourceTree = "<group>"; };
+		5EE372042A4FFCD900859278 /* TimeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryView.swift; sourceTree = "<group>"; };
+		5EE372082A5030D800859278 /* BottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomView.swift; sourceTree = "<group>"; };
+		5EE3720A2A50311C00859278 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		5EE3720C2A50317900859278 /* CircleDayListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleDayListView.swift; sourceTree = "<group>"; };
+		5EE3720E2A50322E00859278 /* CircleDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleDayView.swift; sourceTree = "<group>"; };
+		5EE372142A50523D00859278 /* Tasks.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tasks.graphql; sourceTree = "<group>"; };
+		5EE372162A50B82B00859278 /* Timers.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Timers.graphql; sourceTree = "<group>"; };
+		5EE372192A50B89700859278 /* DirectusGraphql */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DirectusGraphql; sourceTree = "<group>"; };
+		5EE3721E2A50BD0C00859278 /* GraphqlClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphqlClient.swift; sourceTree = "<group>"; };
+		5EE372202A50BE7400859278 /* NetworkInterceptorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptorProvider.swift; sourceTree = "<group>"; };
+		5EE372222A50BEC600859278 /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
+		5EE372252A50C1A500859278 /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
+		5EE372282A520B5E00859278 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		5EE3722B2A5212A900859278 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5E41B13D2A497F51001E90AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E797CDF2A4B1CD9003FCD06 /* SwiftDate in Frameworks */,
+				5EE3721C2A50B91100859278 /* DirectusGraphql in Frameworks */,
+				5EE372122A50483B00859278 /* Apollo in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5E41B1372A497F51001E90AC = {
+			isa = PBXGroup;
+			children = (
+				5EE13CE92A5757AE004BF3DA /* .gitignore */,
+				5EE372182A50B89700859278 /* Packages */,
+				5E41B1422A497F51001E90AC /* HappyPathTimeTracker */,
+				5E41B1412A497F51001E90AC /* Products */,
+				5EE3721A2A50B91100859278 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		5E41B1412A497F51001E90AC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5E41B1402A497F51001E90AC /* HappyPathTimeTracker.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5E41B1422A497F51001E90AC /* HappyPathTimeTracker */ = {
+			isa = PBXGroup;
+			children = (
+				5EE372272A520B5300859278 /* Store */,
+				5EE3721D2A50BCFE00859278 /* Apollo */,
+				5EE372132A50522B00859278 /* Graphql */,
+				5EE372062A50309A00859278 /* Screen */,
+				5EE371FD2A4EDEFF00859278 /* Components */,
+				5E797CE02A4B1ED0003FCD06 /* Model */,
+				5E41B1432A497F51001E90AC /* HappyPathTimeTrackerApp.swift */,
+				5E41B1472A497F52001E90AC /* Assets.xcassets */,
+				5E41B14C2A497F52001E90AC /* HappyPathTimeTracker.entitlements */,
+				5E41B1492A497F52001E90AC /* Preview Content */,
+			);
+			path = HappyPathTimeTracker;
+			sourceTree = "<group>";
+		};
+		5E41B1492A497F52001E90AC /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				5E41B14A2A497F52001E90AC /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5E797CE02A4B1ED0003FCD06 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5E797CE12A4B1EE4003FCD06 /* CircleDay.swift */,
+				5EE372022A4FFBA400859278 /* TimeEntry.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5EE371FA2A4EDEB500859278 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5EE371FB2A4EDEDF00859278 /* NewTimeEntryView.swift */,
+				5EE372002A4FFB1900859278 /* TimeEntryListView.swift */,
+				5EE372082A5030D800859278 /* BottomView.swift */,
+				5EE3720A2A50311C00859278 /* HeaderView.swift */,
+				5EE3720C2A50317900859278 /* CircleDayListView.swift */,
+				5EE3720E2A50322E00859278 /* CircleDayView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5EE371FD2A4EDEFF00859278 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				5EE371FE2A4EDF0C00859278 /* TimeDividier.swift */,
+				5EE372042A4FFCD900859278 /* TimeEntryView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		5EE372062A50309A00859278 /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				5EE3722A2A5212A000859278 /* Login */,
+				5EE372072A5030B200859278 /* Main */,
+			);
+			path = Screen;
+			sourceTree = "<group>";
+		};
+		5EE372072A5030B200859278 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				5EE372242A50C19800859278 /* ViewModels */,
+				5EE371FA2A4EDEB500859278 /* Views */,
+				5E41B1452A497F51001E90AC /* MainScreen.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		5EE372132A50522B00859278 /* Graphql */ = {
+			isa = PBXGroup;
+			children = (
+				5EE372142A50523D00859278 /* Tasks.graphql */,
+				5EE372162A50B82B00859278 /* Timers.graphql */,
+			);
+			path = Graphql;
+			sourceTree = "<group>";
+		};
+		5EE372182A50B89700859278 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				5EE372192A50B89700859278 /* DirectusGraphql */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		5EE3721A2A50B91100859278 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5EE3721D2A50BCFE00859278 /* Apollo */ = {
+			isa = PBXGroup;
+			children = (
+				5EE3721E2A50BD0C00859278 /* GraphqlClient.swift */,
+				5EE372202A50BE7400859278 /* NetworkInterceptorProvider.swift */,
+				5EE372222A50BEC600859278 /* TokenInterceptor.swift */,
+			);
+			path = Apollo;
+			sourceTree = "<group>";
+		};
+		5EE372242A50C19800859278 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				5EE372252A50C1A500859278 /* MainScreenViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		5EE372272A520B5300859278 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				5EE372282A520B5E00859278 /* AppState.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		5EE3722A2A5212A000859278 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				5EE3722B2A5212A900859278 /* LoginScreen.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5E41B13F2A497F51001E90AC /* HappyPathTimeTracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5E41B14F2A497F52001E90AC /* Build configuration list for PBXNativeTarget "HappyPathTimeTracker" */;
+			buildPhases = (
+				5E41B13C2A497F51001E90AC /* Sources */,
+				5E41B13D2A497F51001E90AC /* Frameworks */,
+				5E41B13E2A497F51001E90AC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HappyPathTimeTracker;
+			packageProductDependencies = (
+				5E797CDE2A4B1CD9003FCD06 /* SwiftDate */,
+				5EE372112A50483B00859278 /* Apollo */,
+				5EE3721B2A50B91100859278 /* DirectusGraphql */,
+			);
+			productName = HappyPathTimeTracker;
+			productReference = 5E41B1402A497F51001E90AC /* HappyPathTimeTracker.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5E41B1382A497F51001E90AC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					5E41B13F2A497F51001E90AC = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 5E41B13B2A497F51001E90AC /* Build configuration list for PBXProject "HappyPathTimeTracker" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5E41B1372A497F51001E90AC;
+			packageReferences = (
+				5E797CDD2A4B1CD9003FCD06 /* XCRemoteSwiftPackageReference "SwiftDate" */,
+				5EE372102A50483B00859278 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+			);
+			productRefGroup = 5E41B1412A497F51001E90AC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5E41B13F2A497F51001E90AC /* HappyPathTimeTracker */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5E41B13E2A497F51001E90AC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5EE13CEA2A5757AE004BF3DA /* .gitignore in Resources */,
+				5E41B14B2A497F52001E90AC /* Preview Assets.xcassets in Resources */,
+				5EE372152A50523D00859278 /* Tasks.graphql in Resources */,
+				5E41B1482A497F52001E90AC /* Assets.xcassets in Resources */,
+				5EE372172A50B82B00859278 /* Timers.graphql in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5E41B13C2A497F51001E90AC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5EE372092A5030D800859278 /* BottomView.swift in Sources */,
+				5E797CE22A4B1EE4003FCD06 /* CircleDay.swift in Sources */,
+				5EE372212A50BE7400859278 /* NetworkInterceptorProvider.swift in Sources */,
+				5E41B1462A497F51001E90AC /* MainScreen.swift in Sources */,
+				5EE372052A4FFCD900859278 /* TimeEntryView.swift in Sources */,
+				5EE372262A50C1A500859278 /* MainScreenViewModel.swift in Sources */,
+				5EE372292A520B5E00859278 /* AppState.swift in Sources */,
+				5E41B1442A497F51001E90AC /* HappyPathTimeTrackerApp.swift in Sources */,
+				5EE3720B2A50311C00859278 /* HeaderView.swift in Sources */,
+				5EE372232A50BEC600859278 /* TokenInterceptor.swift in Sources */,
+				5EE3720D2A50317900859278 /* CircleDayListView.swift in Sources */,
+				5EE3722C2A5212A900859278 /* LoginScreen.swift in Sources */,
+				5EE371FF2A4EDF0C00859278 /* TimeDividier.swift in Sources */,
+				5EE372012A4FFB1900859278 /* TimeEntryListView.swift in Sources */,
+				5EE3721F2A50BD0C00859278 /* GraphqlClient.swift in Sources */,
+				5EE3720F2A50322E00859278 /* CircleDayView.swift in Sources */,
+				5EE372032A4FFBA400859278 /* TimeEntry.swift in Sources */,
+				5EE371FC2A4EDEDF00859278 /* NewTimeEntryView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		5E41B14D2A497F52001E90AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5E41B14E2A497F52001E90AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		5E41B1502A497F52001E90AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = HappyPathTimeTracker/HappyPathTimeTracker.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"HappyPathTimeTracker/Preview Content\"";
+				DEVELOPMENT_TEAM = EQ52YW953B;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gorkemsevim.HappyPathTimeTracker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		5E41B1512A497F52001E90AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = HappyPathTimeTracker/HappyPathTimeTracker.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"HappyPathTimeTracker/Preview Content\"";
+				DEVELOPMENT_TEAM = EQ52YW953B;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gorkemsevim.HappyPathTimeTracker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5E41B13B2A497F51001E90AC /* Build configuration list for PBXProject "HappyPathTimeTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E41B14D2A497F52001E90AC /* Debug */,
+				5E41B14E2A497F52001E90AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5E41B14F2A497F52001E90AC /* Build configuration list for PBXNativeTarget "HappyPathTimeTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E41B1502A497F52001E90AC /* Debug */,
+				5E41B1512A497F52001E90AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5E797CDD2A4B1CD9003FCD06 /* XCRemoteSwiftPackageReference "SwiftDate" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/malcommac/SwiftDate.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		5EE372102A50483B00859278 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5E797CDE2A4B1CD9003FCD06 /* SwiftDate */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5E797CDD2A4B1CD9003FCD06 /* XCRemoteSwiftPackageReference "SwiftDate" */;
+			productName = SwiftDate;
+		};
+		5EE372112A50483B00859278 /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5EE372102A50483B00859278 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
+		5EE3721B2A50B91100859278 /* DirectusGraphql */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DirectusGraphql;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 5E41B1382A497F51001E90AC /* Project object */;
+}

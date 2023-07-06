@@ -1,0 +1,6 @@
+query getTasks {
+    tasks(projectId: 2) {
+        id
+        taskName
+    }
+}

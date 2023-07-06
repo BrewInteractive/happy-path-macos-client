@@ -1,0 +1,59 @@
+"""
+A directive used by the Apollo iOS client to annotate operations or fragments that should be used exclusively for generating local cache mutations instead of as standard operations.
+"""
+directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
+
+type Query {
+  timers(startsAt: String!, endsAt: String!, externalUserId: String!): [Timers]
+  projects: [Projects]
+  tasks(projectId: Int!): [Tasks]
+}
+
+type Timers {
+  id: Int
+  startsAt: String
+  endsAt: String
+  duration: Int
+  totalDuration: Int
+  notes: String
+  project: Project
+  task: Task
+}
+
+type Project {
+  id: Int
+  name: String
+}
+
+type Task {
+  id: Int
+  name: String
+}
+
+type Projects {
+  id: String
+  projectName: String
+}
+
+type Tasks {
+  id: String
+  taskName: String
+}
+
+type Mutation {
+  start(start: String!, end: String!): [Start]
+  stop(start: String!, end: String!): [Stop]
+  log(start: String!, end: String!): [Log]
+}
+
+type Start {
+  id: String
+}
+
+type Stop {
+  id: String
+}
+
+type Log {
+  id: String
+}
