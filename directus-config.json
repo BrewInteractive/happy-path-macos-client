@@ -37,7 +37,7 @@
         }
     },
     "headers": {
-        "Authorization": "Bearer 7a0616c1803c33evOxX20kWUoyMXzlkVIeX9YKPfa1d584453b9da81c4"
+        "Authorization": "paste your token here"
     },
     "outputPath": "./directus-schema.graphqls"
   }

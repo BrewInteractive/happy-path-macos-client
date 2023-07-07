@@ -4,9 +4,15 @@ A directive used by the Apollo iOS client to annotate operations or fragments th
 directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
 
 type Query {
-  timers(startsAt: String!, endsAt: String!, externalUserId: String!): [Timers]
+  me: Me
+  timers(startsAt: String!, endsAt: String!): [Timers]
   projects: [Projects]
   tasks(projectId: Int!): [Tasks]
+}
+
+type Me {
+  did: String
+  email: String
 }
 
 type Timers {
@@ -41,9 +47,11 @@ type Tasks {
 }
 
 type Mutation {
-  start(start: String!, end: String!): [Start]
-  stop(start: String!, end: String!): [Stop]
-  log(start: String!, end: String!): [Log]
+  start(projectTaskId: Int!, duration: Int, notes: String): Start
+  stop(timerId: Int!): Stop
+  log(projectTaskId: Int!, duration: Int, notes: String, startsAt: String, endsAt: String): Log
+  remove(timerId: Int!): Remove
+  update(timerId: Int!, input: Input): Update
 }
 
 type Start {
@@ -51,9 +59,24 @@ type Start {
 }
 
 type Stop {
-  id: String
+  totalDuration: Int
 }
 
 type Log {
   id: String
+}
+
+type Remove {
+  id: Int
+}
+
+type Update {
+  id: Int
+}
+
+input Input {
+  duration: Int
+  startsAt: String
+  endsAt: String
+  notes: String
 }

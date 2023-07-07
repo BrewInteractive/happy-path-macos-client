@@ -1,4 +1,4 @@
-query getTimers($startsAt: String!, $endsAt: String!, $userId: String!) {
+query getTimers($startsAt: String!, $endsAt: String!) {
     timers(
         startsAt: $startsAt,
         endsAt: $endsAt) {

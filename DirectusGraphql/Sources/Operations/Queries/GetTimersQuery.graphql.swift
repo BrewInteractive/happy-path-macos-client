@@ -8,8 +8,8 @@ public class GetTimersQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(
       #"""
-      query getTimers($startsAt: String!, $endsAt: String!, $userId: String!) {
-        timers(startsAt: $startsAt, endsAt: $endsAt, externalUserId: $userId) {
+      query getTimers($startsAt: String!, $endsAt: String!) {
+        timers(startsAt: $startsAt, endsAt: $endsAt) {
           __typename
           id
           endsAt
@@ -34,22 +34,18 @@ public class GetTimersQuery: GraphQLQuery {
 
   public var startsAt: String
   public var endsAt: String
-  public var userId: String
 
   public init(
     startsAt: String,
-    endsAt: String,
-    userId: String
+    endsAt: String
   ) {
     self.startsAt = startsAt
     self.endsAt = endsAt
-    self.userId = userId
   }
 
   public var __variables: Variables? { [
     "startsAt": startsAt,
-    "endsAt": endsAt,
-    "userId": userId
+    "endsAt": endsAt
   ] }
 
   public struct Data: DirectusGraphql.SelectionSet {
@@ -60,8 +56,7 @@ public class GetTimersQuery: GraphQLQuery {
     public static var __selections: [ApolloAPI.Selection] { [
       .field("timers", [Timer?]?.self, arguments: [
         "startsAt": .variable("startsAt"),
-        "endsAt": .variable("endsAt"),
-        "externalUserId": .variable("userId")
+        "endsAt": .variable("endsAt")
       ]),
     ] }
 

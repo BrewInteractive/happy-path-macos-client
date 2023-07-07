@@ -19,11 +19,10 @@ class MainScreenViewModel: ObservableObject {
     func fetch(date: Date) {
         let startsAt = date.dateAtStartOf(.day).date.toISO()
         let endsAt = date.dateAtEndOf(.day).date.toISO()
-        let userId = "U02HJ0V77QU"
         
         isLoading = true
         client.getClient()
-            .fetch(query: GetTimersQuery(startsAt: startsAt, endsAt: endsAt, userId: userId)) { result in
+            .fetch(query: GetTimersQuery(startsAt: startsAt, endsAt: endsAt)) { result in
             switch result {
             case .success(let data):
                 let tmpTimers: [TimeEntry] = data.data?.timers?.compactMap({ timer in
