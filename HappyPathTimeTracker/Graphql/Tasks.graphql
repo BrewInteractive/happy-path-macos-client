@@ -1,5 +1,5 @@
-query getTasks {
-    tasks(projectId: 2) {
+query getTasks($projectId: Int!) {
+    tasks(projectId: $projectId) {
         id
         taskName
     }

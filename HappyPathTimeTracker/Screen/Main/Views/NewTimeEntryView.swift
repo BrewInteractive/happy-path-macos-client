@@ -6,14 +6,27 @@
 //
 
 import SwiftUI
+import Combine
+
+//TODO: secilen proje degistikten sonra beklenen surede kullanici yeni tasklar gelirken bekleyecegi icin bir loading ile process i kullaniciya gostermeliyiz
 
 struct NewTimeEntryView: View {
+    @EnvironmentObject var mainScreenVm: MainScreenViewModel
     @State private var notes: String = ""
-    @State private var timeEntry: String = ""
-    @State private var selectedProject: String = ""
-    @State private var isProjectSelectorShown = false
-    @State private var isTaskSelectorShown = false
-    @State private var selectedTask: String = ""
+    @State private var duration: String = ""
+    @State private var selectedProjectId = -1
+    @State private var selectedTaskId = -1
+    let selectedDate: Date
+    let onCancel: (() -> Void)
+    
+    init(selectedDate: Date, onCancel: @escaping () -> Void) {
+        self.selectedDate = selectedDate
+        self.onCancel = onCancel
+    }
+        
+    var isSaveButtonDisable: Bool {
+        return selectedTaskId == -1 || selectedProjectId == -1
+    }
     
     var body: some View {
         VStack {
@@ -26,64 +39,74 @@ struct NewTimeEntryView: View {
         }
         .frame(width: 240)
         .padding()
+        .onChange(of: selectedProjectId) { newSelectedProjectId in
+            if newSelectedProjectId != -1 {
+                mainScreenVm.getTasks(projectId: newSelectedProjectId)
+            }
+        }
     }
 }
 
 extension NewTimeEntryView {
+    
     @ViewBuilder
     func NewTimeContentEntryView() -> some View {
         VStack {
             // project list will be shown here
-            Text(selectedProject.isEmpty ? "Add Project" : selectedProject)
-                .popover(isPresented: $isProjectSelectorShown) {
-                    VStack {
-                        ForEach(0..<4) { i in
-                            Text("\(i)")
-                                .onTapGesture {
-                                    selectedProject = String(i)
-                                    isProjectSelectorShown = false
-                                }
-                        }
-                    }
+            Picker(selection: $selectedProjectId) {
+                ForEach(mainScreenVm.projects) { project in
+                    Text(project.name)
+                        .tag(project.id)
                 }
-                .onTapGesture {
-                    isTaskSelectorShown = false
-                    isProjectSelectorShown.toggle()
-                }
+            } label: {
+                Text("Project")
+                    .frame(width: 50, alignment: .leading)
+            }
+            .pickerStyle(.menu)
             
             // task list will be shown here
-            Text(selectedTask.isEmpty ? "Add Task" : selectedTask)
-                .popover(isPresented: $isTaskSelectorShown) {
-                    VStack {
-                        ForEach(0..<4) { i in
-                            Text("\(i)")
-                                .onTapGesture {
-                                    selectedTask = String(i)
-                                    isTaskSelectorShown = false
-                                }
-                        }
-                    }
+            Picker(selection: $selectedTaskId) {
+                ForEach(mainScreenVm.tasks) { task in
+                    Text(task.name)
+                        .tag(task.id)
                 }
-                .onTapGesture {
-                    isProjectSelectorShown = false
-                    isTaskSelectorShown.toggle()
-                }
+            } label: {
+                Text("Task")
+                    .frame(width: 50, alignment: .leading)
+            }
+            .pickerStyle(.menu)
             
             HStack {
                 ZStack {
+                    TextEditor(text: $notes)
+                        .padding(.vertical, 6)
+                        .padding(.horizontal, 2)
+                        .border(.gray.opacity(0.2), width: 1)
+                        .cornerRadius(5.0)
                     if notes.isEmpty {
                         Text("Add Notes")
-                            .foregroundColor(Color(.placeholderTextColor))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 4)
+                            .foregroundColor(.white.opacity(0.2))
+                            .frame(maxWidth: .infinity,
+                                   maxHeight: .infinity,
+                                   alignment: .topLeading)
+                            .padding(6)
                     }
-                    TextEditor(text: $notes)
                 }
-                TextField("0:00", text: $timeEntry)
+                TextField("0", text: $duration)
+                    .onReceive(Just(duration)) { newValue in
+                        let filtered = newValue.filter { $0.isNumber }
+                        if filtered != newValue {
+                            self.duration = filtered
+                        }
+                    }
+                    .padding(6)
                     .textFieldStyle(.plain)
                     .frame(maxHeight: .infinity)
                     .frame(width: 60)
+                    .border(.gray.opacity(0.2), width: 1)
+                    .cornerRadius(5.0)
             }
+            .frame(minHeight: 40)
             
         }
     }
@@ -91,34 +114,44 @@ extension NewTimeEntryView {
     @ViewBuilder
     func BottomView() -> some View {
         HStack {
-            Spacer()
+            TimeDividier(color: .gray.opacity(0.2))
             Button {
-                print("Cancel")
+                onCancel()
             } label: {
                 Text("Cancel")
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
+                    .cornerRadius(5)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(.gray, lineWidth: 1)
+                    )
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.borderless)
             Button {
-                print("start timer")
+                mainScreenVm.logTimer(projectTaskId: selectedTaskId,
+                                      duration: Int(duration) ?? 0,
+                                      notes: notes, date: selectedDate)
             } label: {
-                Text("Start")
+                Text("Save")
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
                     .background {
                         Color.green.opacity(0.5)
                     }
+                    .cornerRadius(5)
             }
             .buttonStyle(.plain)
+            .disabled(isSaveButtonDisable)
         }
-        .padding(.trailing, 8)
-        .padding(.vertical, 8)
+        .frame(maxWidth: .infinity, alignment: .trailing)
     }
 }
 
 struct NewTimeEntryView_Previews: PreviewProvider {
     static var previews: some View {
-        NewTimeEntryView()
+        NewTimeEntryView(selectedDate: Date(), onCancel: {
+            print("cancel")
+        })
     }
 }

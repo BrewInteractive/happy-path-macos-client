@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		5E1D43EA2A588D2400B6BEA4 /* RemoveTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E1D43E92A588D2400B6BEA4 /* RemoveTimer.graphql */; };
+		5E1D44072A59ACBE00B6BEA4 /* LogTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E1D44062A59ACBE00B6BEA4 /* LogTimer.graphql */; };
+		5E1D440A2A59AF7C00B6BEA4 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44092A59AF7C00B6BEA4 /* Date.swift */; };
+		5E1D440E2A59B5D700B6BEA4 /* Projects.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E1D440D2A59B5D700B6BEA4 /* Projects.graphql */; };
+		5E1D44102A59B69400B6BEA4 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D440F2A59B69400B6BEA4 /* Project.swift */; };
+		5E1D44122A59B97000B6BEA4 /* ProjectTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44112A59B97000B6BEA4 /* ProjectTask.swift */; };
 		5E41B1442A497F51001E90AC /* HappyPathTimeTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E41B1432A497F51001E90AC /* HappyPathTimeTrackerApp.swift */; };
 		5E41B1462A497F51001E90AC /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E41B1452A497F51001E90AC /* MainScreen.swift */; };
 		5E41B1482A497F52001E90AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E41B1472A497F52001E90AC /* Assets.xcassets */; };
@@ -33,11 +38,15 @@
 		5EE372232A50BEC600859278 /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372222A50BEC600859278 /* TokenInterceptor.swift */; };
 		5EE372262A50C1A500859278 /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372252A50C1A500859278 /* MainScreenViewModel.swift */; };
 		5EE372292A520B5E00859278 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372282A520B5E00859278 /* AppState.swift */; };
-		5EE3722C2A5212A900859278 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE3722B2A5212A900859278 /* LoginScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5E1D43E92A588D2400B6BEA4 /* RemoveTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RemoveTimer.graphql; sourceTree = "<group>"; };
+		5E1D44062A59ACBE00B6BEA4 /* LogTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = LogTimer.graphql; sourceTree = "<group>"; };
+		5E1D44092A59AF7C00B6BEA4 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		5E1D440D2A59B5D700B6BEA4 /* Projects.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Projects.graphql; sourceTree = "<group>"; };
+		5E1D440F2A59B69400B6BEA4 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		5E1D44112A59B97000B6BEA4 /* ProjectTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTask.swift; sourceTree = "<group>"; };
 		5E41B1402A497F51001E90AC /* HappyPathTimeTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HappyPathTimeTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E41B1432A497F51001E90AC /* HappyPathTimeTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HappyPathTimeTrackerApp.swift; sourceTree = "<group>"; };
 		5E41B1452A497F51001E90AC /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
@@ -63,7 +72,6 @@
 		5EE372222A50BEC600859278 /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
 		5EE372252A50C1A500859278 /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
 		5EE372282A520B5E00859278 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		5EE3722B2A5212A900859278 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E1D44082A59AF7300B6BEA4 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				5E1D44092A59AF7C00B6BEA4 /* Date.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		5E41B1372A497F51001E90AC = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +118,7 @@
 		5E41B1422A497F51001E90AC /* HappyPathTimeTracker */ = {
 			isa = PBXGroup;
 			children = (
+				5E1D44082A59AF7300B6BEA4 /* Extension */,
 				5EE372272A520B5300859278 /* Store */,
 				5EE3721D2A50BCFE00859278 /* Apollo */,
 				5EE372132A50522B00859278 /* Graphql */,
@@ -129,6 +146,8 @@
 			children = (
 				5E797CE12A4B1EE4003FCD06 /* CircleDay.swift */,
 				5EE372022A4FFBA400859278 /* TimeEntry.swift */,
+				5E1D440F2A59B69400B6BEA4 /* Project.swift */,
+				5E1D44112A59B97000B6BEA4 /* ProjectTask.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -158,7 +177,6 @@
 		5EE372062A50309A00859278 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
-				5EE3722A2A5212A000859278 /* Login */,
 				5EE372072A5030B200859278 /* Main */,
 			);
 			path = Screen;
@@ -180,6 +198,8 @@
 				5EE372142A50523D00859278 /* Tasks.graphql */,
 				5EE372162A50B82B00859278 /* Timers.graphql */,
 				5E1D43E92A588D2400B6BEA4 /* RemoveTimer.graphql */,
+				5E1D44062A59ACBE00B6BEA4 /* LogTimer.graphql */,
+				5E1D440D2A59B5D700B6BEA4 /* Projects.graphql */,
 			);
 			path = Graphql;
 			sourceTree = "<group>";
@@ -223,14 +243,6 @@
 				5EE372282A520B5E00859278 /* AppState.swift */,
 			);
 			path = Store;
-			sourceTree = "<group>";
-		};
-		5EE3722A2A5212A000859278 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				5EE3722B2A5212A900859278 /* LoginScreen.swift */,
-			);
-			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,7 +317,9 @@
 				5EE372152A50523D00859278 /* Tasks.graphql in Resources */,
 				5E41B1482A497F52001E90AC /* Assets.xcassets in Resources */,
 				5EE372172A50B82B00859278 /* Timers.graphql in Resources */,
+				5E1D44072A59ACBE00B6BEA4 /* LogTimer.graphql in Resources */,
 				5E1D43EA2A588D2400B6BEA4 /* RemoveTimer.graphql in Resources */,
+				5E1D440E2A59B5D700B6BEA4 /* Projects.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,12 +336,14 @@
 				5E41B1462A497F51001E90AC /* MainScreen.swift in Sources */,
 				5EE372052A4FFCD900859278 /* TimeEntryView.swift in Sources */,
 				5EE372262A50C1A500859278 /* MainScreenViewModel.swift in Sources */,
+				5E1D44102A59B69400B6BEA4 /* Project.swift in Sources */,
 				5EE372292A520B5E00859278 /* AppState.swift in Sources */,
+				5E1D440A2A59AF7C00B6BEA4 /* Date.swift in Sources */,
 				5E41B1442A497F51001E90AC /* HappyPathTimeTrackerApp.swift in Sources */,
 				5EE3720B2A50311C00859278 /* HeaderView.swift in Sources */,
 				5EE372232A50BEC600859278 /* TokenInterceptor.swift in Sources */,
+				5E1D44122A59B97000B6BEA4 /* ProjectTask.swift in Sources */,
 				5EE3720D2A50317900859278 /* CircleDayListView.swift in Sources */,
-				5EE3722C2A5212A900859278 /* LoginScreen.swift in Sources */,
 				5EE371FF2A4EDF0C00859278 /* TimeDividier.swift in Sources */,
 				5EE372012A4FFB1900859278 /* TimeEntryListView.swift in Sources */,
 				5EE3721F2A50BD0C00859278 /* GraphqlClient.swift in Sources */,

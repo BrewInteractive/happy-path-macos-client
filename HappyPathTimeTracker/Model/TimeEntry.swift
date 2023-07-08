@@ -14,5 +14,5 @@ struct TimeEntry: Identifiable {
     let taskId: Int
     let taskName: String
     let notes: String
-    let elapsedTime: Int
+    let totalDuration: Int
 }

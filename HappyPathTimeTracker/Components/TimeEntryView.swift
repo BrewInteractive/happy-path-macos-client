@@ -30,7 +30,7 @@ struct TimeEntryView: View {
                     }
                     Spacer()
                     HStack {
-                        Text("\(timeEntry.elapsedTime)")
+                        Text("\(timeEntry.totalDuration)")
                         Image(systemName: "play.circle")
                     }
                 }
@@ -48,6 +48,6 @@ struct TimeEntryView_Previews: PreviewProvider {
                                        taskId: 1,
                                        taskName: "Frontend Development",
                                        notes: "Dummy Notes",
-                                       elapsedTime: 12312312))
+                                       totalDuration: 12312312))
     }
 }

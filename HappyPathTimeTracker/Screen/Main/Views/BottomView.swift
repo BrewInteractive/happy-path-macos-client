@@ -8,31 +8,56 @@
 import SwiftUI
 
 struct BottomView: View {
+    @EnvironmentObject var mainScreenVm: MainScreenViewModel
     @Binding var isNewEntryModalShown: Bool
+    let selectedDate: Date
+    
+    init(isNewEntryModalShown: Binding<Bool>,
+         selectedDate: Date) {
+        self._isNewEntryModalShown = isNewEntryModalShown
+        self.selectedDate = selectedDate
+        print("render bottom view")
+    }
     
     var body: some View {
         HStack {
             Button {
-                isNewEntryModalShown.toggle()
+                if mainScreenVm.projects.count > 0 {
+                    isNewEntryModalShown.toggle()
+                } else {
+                    print("no projects")
+                }
             } label: {
                 Image(systemName: "plus")
                     .resizable()
                     .frame(width: 14, height: 14)
             }
-            .buttonStyle(.borderless)
-            .padding(.horizontal, 12)
-            .padding(.bottom, 12)
-            .padding(.top, 4)
+            .buttonStyle(.plain)
             .popover(isPresented: $isNewEntryModalShown) {
-                NewTimeEntryView()
+                NewTimeEntryView(selectedDate: selectedDate, onCancel: {
+                    isNewEntryModalShown = false
+                })
             }
             Spacer()
+            Button {
+                mainScreenVm.refetch(date: selectedDate)
+            } label: {
+                Image(systemName: "arrow.clockwise")
+                    .rotationEffect(mainScreenVm.isRefetching ? .degrees(360) : .degrees(0))
+                               .animation(.easeIn, value: mainScreenVm.isRefetching)
+            }
+            .buttonStyle(.plain)
+            .padding(.trailing, 8)
         }
+        .padding(.horizontal, 4)
+        .padding(.bottom, 8)
+        .padding(.top, 4)
+        .padding(.leading, 6)
     }
 }
 
 struct BottomView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomView(isNewEntryModalShown: .constant(true))
+        BottomView(isNewEntryModalShown: .constant(true), selectedDate: Date())
     }
 }

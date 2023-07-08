@@ -23,6 +23,8 @@ struct MainScreen: View {
         self.dateList = (0..<7).map({ index in
             firstDayOfWeek.dateByAdding(index, .day).date
         })
+        
+        print("render main screen")
     }
     
     var body: some View {
@@ -35,21 +37,21 @@ struct MainScreen: View {
                 CircleDayListView(selectedDate: $selectedDate,
                                   dateList: dateList) { date in
                     selectedDate = date
-                    mainScreenVm.fetch(date: date)
+                    mainScreenVm.getTimers(date: date)
                 }
                 TimeDividier()
-                TimeEntryListView(timeEntryList: mainScreenVm.timers, isLoading: $mainScreenVm.isLoading, onDelete: { id in
-                    mainScreenVm.removeTimer(id: id, selectedDate: selectedDate)
-                })
+                TimeEntryListView(selectedDate: selectedDate)
                     .frame(maxHeight: .infinity)
+                    .environmentObject(mainScreenVm)
                 TimeDividier()
-                BottomView(isNewEntryModalShown: $isNewEntryModalShown)
+                BottomView(isNewEntryModalShown: $isNewEntryModalShown, selectedDate: selectedDate)
+                .environmentObject(mainScreenVm)
             }
             .clipShape(RoundedRectangle(cornerRadius: 6))
         }
         .frame(width: 360, height: 400)
         .onAppear {
-            mainScreenVm.fetch(date: selectedDate)
+            mainScreenVm.getTimers(date: selectedDate)
         }
         .contextMenu {
             Button {

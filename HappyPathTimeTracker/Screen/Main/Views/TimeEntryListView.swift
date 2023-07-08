@@ -8,26 +8,25 @@
 import SwiftUI
 
 struct TimeEntryListView: View {
-    let timeEntryList: [TimeEntry]
-    @Binding var isLoading: Bool
-    let onDelete: ((_: Int) -> Void)
+    @EnvironmentObject var mainScreenVm: MainScreenViewModel
+    let selectedDate: Date
     
     var body: some View {
         ScrollView(.vertical) {
             VStack(spacing: 0) {
-                if isLoading {
+                if mainScreenVm.isLoading {
                     ProgressView()
                         .padding(.top, 20)
-                } else if timeEntryList.isEmpty {
+                } else if mainScreenVm.timers.isEmpty {
                     Text("No Entry")
                 } else {
-                    ForEach(Array(zip(timeEntryList.indices, timeEntryList)), id: \.0) { index, item in
-                        if index != 0 && index != timeEntryList.count {
+                    ForEach(Array(zip(mainScreenVm.timers.indices, mainScreenVm.timers)), id: \.0) { index, item in
+                        if index != 0 && index != mainScreenVm.timers.count {
                             TimeDividier(color: .gray.opacity(0.1))
                         }
-                        TimeEntryView(timeEntry: timeEntryList[index])
+                        TimeEntryView(timeEntry: mainScreenVm.timers[index])
                             .contextMenu {
-                                TimeEntryContextMenu(id: timeEntryList[index].id)
+                                TimeEntryContextMenu(id: mainScreenVm.timers[index].id)
                             }
                     }
                 }
@@ -52,7 +51,7 @@ extension TimeEntryListView {
                 Text("Start Timer")
             }
             Button {
-                onDelete(id)
+                mainScreenVm.removeTimer(id: id, selectedDate: selectedDate)
             } label: {
                 Text("Delete Entry")
             }
@@ -67,23 +66,7 @@ extension TimeEntryListView {
 
 struct PersistedTimeEntryView_Previews: PreviewProvider {
     static var previews: some View {
-        TimeEntryListView(timeEntryList: [
-            .init(id: 1,
-                  projectId: 1,
-                  projectName: "Example Project",
-                  taskId: 1,
-                  taskName: "Frontend Development",
-                  notes: "Dummy Notes",
-                  elapsedTime: 12312312),
-            .init(id: 2,
-                  projectId: 1,
-                  projectName: "Example Project",
-                  taskId: 1,
-                  taskName: "Frontend Development",
-                  notes: "Dummy Notes",
-                  elapsedTime: 12312312)
-        ], isLoading: .constant(true), onDelete: { id in
-            print("\(id)")
-        })
+        TimeEntryListView(selectedDate: Date())
+            .environmentObject(MainScreenViewModel())
     }
 }
