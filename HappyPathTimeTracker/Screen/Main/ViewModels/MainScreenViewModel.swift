@@ -117,7 +117,7 @@ class MainScreenViewModel: ObservableObject {
         }
     }
     
-    func logTimer(projectTaskId: Int, duration: Int, notes: String, date: Date) {
+    func logTimer(projectTaskId: Int, duration: Int, notes: String, date: Date, onSuccess: @escaping () -> Void) {
         client.getClient()
             .perform(mutation: LogTimerMutation(projectTasktId: projectTaskId,
                                                 duration: duration,
@@ -127,6 +127,7 @@ class MainScreenViewModel: ObservableObject {
             switch result {
             case .success:
                 self.invalidateDateAndRefetch(date: date)
+                onSuccess()
             case .failure(let error):
                 print(error)
             }

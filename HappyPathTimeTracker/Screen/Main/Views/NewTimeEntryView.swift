@@ -18,10 +18,14 @@ struct NewTimeEntryView: View {
     @State private var selectedTaskId = -1
     let selectedDate: Date
     let onCancel: (() -> Void)
+    let onSuccess: (() -> Void)
     
-    init(selectedDate: Date, onCancel: @escaping () -> Void) {
+    init(selectedDate: Date,
+         onCancel: @escaping () -> Void,
+         onSuccess: @escaping () -> Void) {
         self.selectedDate = selectedDate
         self.onCancel = onCancel
+        self.onSuccess = onSuccess
     }
         
     var isSaveButtonDisable: Bool {
@@ -131,7 +135,8 @@ extension NewTimeEntryView {
             Button {
                 mainScreenVm.logTimer(projectTaskId: selectedTaskId,
                                       duration: Int(duration) ?? 0,
-                                      notes: notes, date: selectedDate)
+                                      notes: notes, date: selectedDate,
+                                      onSuccess: onSuccess)
             } label: {
                 Text("Save")
                     .padding(.horizontal, 12)
@@ -152,6 +157,8 @@ struct NewTimeEntryView_Previews: PreviewProvider {
     static var previews: some View {
         NewTimeEntryView(selectedDate: Date(), onCancel: {
             print("cancel")
+        }, onSuccess: {
+            print("success")
         })
     }
 }

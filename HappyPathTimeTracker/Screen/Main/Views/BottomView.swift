@@ -36,6 +36,8 @@ struct BottomView: View {
             .popover(isPresented: $isNewEntryModalShown) {
                 NewTimeEntryView(selectedDate: selectedDate, onCancel: {
                     isNewEntryModalShown = false
+                }, onSuccess: {
+                    isNewEntryModalShown = false
                 })
             }
             Spacer()
