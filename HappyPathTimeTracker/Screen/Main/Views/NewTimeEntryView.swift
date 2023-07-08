@@ -10,7 +10,11 @@ import SwiftUI
 struct NewTimeEntryView: View {
     @State private var notes: String = ""
     @State private var timeEntry: String = ""
-    @State private var selectedProjectType: String = ""
+    @State private var selectedProject: String = ""
+    @State private var isProjectSelectorShown = false
+    @State private var isTaskSelectorShown = false
+    @State private var selectedTask: String = ""
+    
     var body: some View {
         VStack {
             Text("New Time Entry")
@@ -29,17 +33,42 @@ extension NewTimeEntryView {
     @ViewBuilder
     func NewTimeContentEntryView() -> some View {
         VStack {
-            Picker("Add Project", selection: $selectedProjectType) {
-                ForEach(["a", "b"], id: \.self) {
-                    Text($0)
+            // project list will be shown here
+            Text(selectedProject.isEmpty ? "Add Project" : selectedProject)
+                .popover(isPresented: $isProjectSelectorShown) {
+                    VStack {
+                        ForEach(0..<4) { i in
+                            Text("\(i)")
+                                .onTapGesture {
+                                    selectedProject = String(i)
+                                    isProjectSelectorShown = false
+                                }
+                        }
+                    }
                 }
-            }
-            .pickerStyle(.segmented)
+                .onTapGesture {
+                    isTaskSelectorShown = false
+                    isProjectSelectorShown.toggle()
+                }
             
-            Text("Add Project")
-                .frame(maxWidth: .infinity, alignment: .leading)
-            Text("Add Task")
-                .frame(maxWidth: .infinity, alignment: .leading)
+            // task list will be shown here
+            Text(selectedTask.isEmpty ? "Add Task" : selectedTask)
+                .popover(isPresented: $isTaskSelectorShown) {
+                    VStack {
+                        ForEach(0..<4) { i in
+                            Text("\(i)")
+                                .onTapGesture {
+                                    selectedTask = String(i)
+                                    isTaskSelectorShown = false
+                                }
+                        }
+                    }
+                }
+                .onTapGesture {
+                    isProjectSelectorShown = false
+                    isTaskSelectorShown.toggle()
+                }
+            
             HStack {
                 ZStack {
                     if notes.isEmpty {

@@ -10,6 +10,7 @@ import SwiftUI
 struct TimeEntryListView: View {
     let timeEntryList: [TimeEntry]
     @Binding var isLoading: Bool
+    let onDelete: ((_: Int) -> Void)
     
     var body: some View {
         ScrollView(.vertical) {
@@ -20,14 +21,13 @@ struct TimeEntryListView: View {
                 } else if timeEntryList.isEmpty {
                     Text("No Entry")
                 } else {
-                    //TODO: indices yerine remove ve add durumlarindan etkilenmeyecek bir prop kullanilmali
-                    ForEach(timeEntryList.indices) { index in
+                    ForEach(Array(zip(timeEntryList.indices, timeEntryList)), id: \.0) { index, item in
                         if index != 0 && index != timeEntryList.count {
                             TimeDividier(color: .gray.opacity(0.1))
                         }
                         TimeEntryView(timeEntry: timeEntryList[index])
                             .contextMenu {
-                                TimeEntryContextMenu()
+                                TimeEntryContextMenu(id: timeEntryList[index].id)
                             }
                     }
                 }
@@ -39,7 +39,7 @@ struct TimeEntryListView: View {
 
 extension TimeEntryListView {
     @ViewBuilder
-    func TimeEntryContextMenu() -> some View {
+    func TimeEntryContextMenu(id: Int) -> some View {
         VStack {
             Button {
                 print("edit")
@@ -52,7 +52,7 @@ extension TimeEntryListView {
                 Text("Start Timer")
             }
             Button {
-                print("delete")
+                onDelete(id)
             } label: {
                 Text("Delete Entry")
             }
@@ -82,6 +82,8 @@ struct PersistedTimeEntryView_Previews: PreviewProvider {
                   taskName: "Frontend Development",
                   notes: "Dummy Notes",
                   elapsedTime: 12312312)
-        ], isLoading: .constant(true))
+        ], isLoading: .constant(true), onDelete: { id in
+            print("\(id)")
+        })
     }
 }

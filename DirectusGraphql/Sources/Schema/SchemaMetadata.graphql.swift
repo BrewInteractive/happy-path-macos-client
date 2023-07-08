@@ -22,6 +22,8 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
 
   public static func objectType(forTypename typename: String) -> Object? {
     switch typename {
+    case "Mutation": return DirectusGraphql.Objects.Mutation
+    case "Remove": return DirectusGraphql.Objects.Remove
     case "Query": return DirectusGraphql.Objects.Query
     case "Tasks": return DirectusGraphql.Objects.Tasks
     case "Timers": return DirectusGraphql.Objects.Timers

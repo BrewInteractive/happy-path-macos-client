@@ -7,6 +7,7 @@
 
 import Foundation
 import DirectusGraphql
+import Apollo
 
 class MainScreenViewModel: ObservableObject {
     let client = GraphqlClient()
@@ -20,7 +21,10 @@ class MainScreenViewModel: ObservableObject {
         let startsAt = date.dateAtStartOf(.day).date.toISO()
         let endsAt = date.dateAtEndOf(.day).date.toISO()
         
-        isLoading = true
+        DispatchQueue.main.async { [weak self] in
+            self?.isLoading = true
+        }
+        
         client.getClient()
             .fetch(query: GetTimersQuery(startsAt: startsAt, endsAt: endsAt)) { result in
             switch result {
@@ -54,5 +58,42 @@ class MainScreenViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func refetch(date: Date) {
+        let startsAt = date.dateAtStartOf(.day).date.toISO()
+        let endsAt = date.dateAtEndOf(.day).date.toISO()
+        
+        DispatchQueue.global().async {
+            self.client.getClient().store.withinReadWriteTransaction { t in
+                try t.removeObjects(matching: "QUERY_ROOT.timers(endsAt:\(endsAt),startsAt:\(startsAt)")
+            }
+            self.fetch(date: date)
+        }
+    }
+    
+    func removeTimer(id: Int, selectedDate: Date) {
+        let startsAt = selectedDate.dateAtStartOf(.day).date.toISO()
+        let endsAt = selectedDate.dateAtEndOf(.day).date.toISO()
+        
+        isLoading = true
+        client.getClient()
+            .perform(mutation: RemoveTimerMutation(removeId: id)) { [weak self] result in
+                switch result {
+                case .success:
+                    self?.timers = self?.timers.filter{$0.id != id} ?? []
+                    self?.isLoading = false
+                case .failure(let error):
+                    print(error)
+                    self?.isLoading = false
+                }
+            }
+        DispatchQueue.global().async {
+            self.client.getClient().store.withinReadWriteTransaction { t in
+                try t.removeObjects(matching: "QUERY_ROOT.timers(endsAt:\(endsAt),startsAt:\(startsAt)")
+            }
+            self.fetch(date: selectedDate)
+        }
+        
     }
 }

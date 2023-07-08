@@ -38,7 +38,9 @@ struct MainScreen: View {
                     mainScreenVm.fetch(date: date)
                 }
                 TimeDividier()
-                TimeEntryListView(timeEntryList: mainScreenVm.timers, isLoading: $mainScreenVm.isLoading)
+                TimeEntryListView(timeEntryList: mainScreenVm.timers, isLoading: $mainScreenVm.isLoading, onDelete: { id in
+                    mainScreenVm.removeTimer(id: id, selectedDate: selectedDate)
+                })
                     .frame(maxHeight: .infinity)
                 TimeDividier()
                 BottomView(isNewEntryModalShown: $isNewEntryModalShown)
@@ -48,6 +50,14 @@ struct MainScreen: View {
         .frame(width: 360, height: 400)
         .onAppear {
             mainScreenVm.fetch(date: selectedDate)
+        }
+        .contextMenu {
+            Button {
+                mainScreenVm.refetch(date: selectedDate)
+            } label: {
+                Text("Yenile")
+            }
+
         }
     }
 }

@@ -1,0 +1,5 @@
+mutation RemoveTimer($removeId: Int!) {
+    remove(timerId: $removeId) {
+        id
+    }
+}
