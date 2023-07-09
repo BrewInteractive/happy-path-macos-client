@@ -13,9 +13,9 @@ class TokenInterceptor: ApolloInterceptor {
     var id: String
     let token: String?
     
-    init(id: String, token: String?) {
+    init(id: String, token: String) {
         self.id = id
-        self.token = token ?? "paste your token here"
+        self.token = token
     }
     
     func interceptAsync<Operation>(chain: RequestChain, request: HTTPRequest<Operation>, response: HTTPResponse<Operation>?, completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) where Operation : GraphQLOperation {

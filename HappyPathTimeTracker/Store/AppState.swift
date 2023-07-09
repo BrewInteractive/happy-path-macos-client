@@ -6,7 +6,26 @@
 //
 
 import Foundation
+import KeychainSwift
 
 class AppState: ObservableObject {
-    private(set) var isLoggedIn = true
+    @Published private(set) var isLoggedIn = false
+    var graphqlClient: GraphqlClient? = nil
+    
+    init() {
+        let keychain = KeychainSwift()
+        let token = keychain.get(K.token)
+        if token != nil {
+            graphqlClient = GraphqlClient(token: token!)
+        }
+    }
+    
+    func updateIsLoggedIn(newValue: Bool) {
+        self.isLoggedIn = newValue
+    }
+    
+    func updateClientAuthToken(token: String) {
+        // TOOD: burada client i update etmek yerine interceptor guncellenebiliyorsa onu yapmak daha mantikli olabilir
+        graphqlClient = GraphqlClient(token: token)
+    }
 }

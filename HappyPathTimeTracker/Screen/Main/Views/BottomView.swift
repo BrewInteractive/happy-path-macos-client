@@ -12,13 +12,6 @@ struct BottomView: View {
     @Binding var isNewEntryModalShown: Bool
     let selectedDate: Date
     
-    init(isNewEntryModalShown: Binding<Bool>,
-         selectedDate: Date) {
-        self._isNewEntryModalShown = isNewEntryModalShown
-        self.selectedDate = selectedDate
-        print("render bottom view")
-    }
-    
     var body: some View {
         HStack {
             Button {

@@ -11,9 +11,11 @@ import Apollo
 import DirectusGraphql
 
 struct MainScreen: View {
+    @EnvironmentObject var appState: AppState
     @StateObject private var mainScreenVm = MainScreenViewModel()
     @State private var selectedDate = Date()
     @State private var isNewEntryModalShown = false
+    @Environment(\.openURL) var openURL
     
     var dateList: [Date]
     
@@ -23,8 +25,6 @@ struct MainScreen: View {
         self.dateList = (0..<7).map({ index in
             firstDayOfWeek.dateByAdding(index, .day).date
         })
-        
-        print("render main screen")
     }
     
     var body: some View {
@@ -32,27 +32,37 @@ struct MainScreen: View {
             Color("Background")
             RoundedRectangle(cornerRadius: 6)
                 .stroke(.gray, lineWidth: 1)
-            VStack(spacing: 4) {
-                HeaderView(selectedDate: selectedDate)
-                CircleDayListView(selectedDate: $selectedDate,
-                                  dateList: dateList) { date in
-                    selectedDate = date
-                    mainScreenVm.getTimers(date: date)
+            if appState.isLoggedIn {
+                VStack(spacing: 4) {
+                    HeaderView(selectedDate: selectedDate)
+                    CircleDayListView(selectedDate: $selectedDate,
+                                      dateList: dateList) { date in
+                        selectedDate = date
+                        mainScreenVm.getTimers(date: date)
+                    }
+                    TimeDividier()
+                    TimeEntryListView(selectedDate: selectedDate)
+                        .frame(maxHeight: .infinity)
+                        .environmentObject(mainScreenVm)
+                    TimeDividier()
+                    BottomView(isNewEntryModalShown: $isNewEntryModalShown, selectedDate: selectedDate)
+                        .environmentObject(mainScreenVm)
                 }
-                TimeDividier()
-                TimeEntryListView(selectedDate: selectedDate)
-                    .frame(maxHeight: .infinity)
-                    .environmentObject(mainScreenVm)
-                TimeDividier()
-                BottomView(isNewEntryModalShown: $isNewEntryModalShown, selectedDate: selectedDate)
-                .environmentObject(mainScreenVm)
+                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .onAppear {
+                    mainScreenVm.updateViewModel(appState: appState)
+                    mainScreenVm.getTimers(date: selectedDate)
+                }
+            } else {
+                Button {
+                    openURL(URL(string: "http://localhost:8080/login?callback=happytime://action-name")!)
+                } label: {
+                    Text("Please Login")
+                }
+
             }
-            .clipShape(RoundedRectangle(cornerRadius: 6))
         }
         .frame(width: 360, height: 400)
-        .onAppear {
-            mainScreenVm.getTimers(date: selectedDate)
-        }
         .contextMenu {
             Button {
                 mainScreenVm.refetch(date: selectedDate)

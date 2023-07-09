@@ -10,7 +10,7 @@ import DirectusGraphql
 import Apollo
 
 class MainScreenViewModel: ObservableObject {
-    let client = GraphqlClient()
+    var appState: AppState? = nil
     @Published var timers: [TimeEntry] = []
     @Published var projects: [Project] = []
     @Published var tasks: [ProjectTask] = []
@@ -18,11 +18,15 @@ class MainScreenViewModel: ObservableObject {
     @Published var isRefetching: Bool = false
     
     init() {
-        getProjects()
+    }
+    
+    func updateViewModel(appState: AppState) {
+        self.appState = appState
+        self.getProjects()
     }
     
     func getProjects() {
-        client.getClient()
+        appState?.graphqlClient?.client?
             .fetch(query: GetProjectsQuery()) { result in
                 switch result {
                 case .success(let res):
@@ -38,7 +42,14 @@ class MainScreenViewModel: ObservableObject {
                         self?.projects = tmpProjects
                     }
                 case .failure(let error):
-                    print(error)
+                    if let error = error as? Apollo.ResponseCodeInterceptor.ResponseCodeError {
+                        switch error {
+                        case .invalidResponseCode(let response, _):
+                            if response?.statusCode == 403 {
+                                self.appState?.updateIsLoggedIn(newValue: false)
+                            }
+                        }
+                    }
                 }
             }
     }
@@ -49,7 +60,7 @@ class MainScreenViewModel: ObservableObject {
             self?.isLoading = true
         }
         
-        client.getClient()
+        appState?.graphqlClient?.client?
             .fetch(query: GetTimersQuery(startsAt: date.startOfDayISO, endsAt: date.endOfDayISO)) { result in
             switch result {
             case .success(let data):
@@ -87,7 +98,7 @@ class MainScreenViewModel: ObservableObject {
     }
     
     func getTasks(projectId: Int) {
-        client.getClient()
+        appState?.graphqlClient?.client?
             .fetch(query: GetTasksQuery(projectId: projectId)) { result in
                 switch result {
                 case .success(let res):
@@ -118,7 +129,7 @@ class MainScreenViewModel: ObservableObject {
     }
     
     func logTimer(projectTaskId: Int, duration: Int, notes: String, date: Date, onSuccess: @escaping () -> Void) {
-        client.getClient()
+        appState?.graphqlClient?.client?
             .perform(mutation: LogTimerMutation(projectTasktId: projectTaskId,
                                                 duration: duration,
                                                 notes: notes,
@@ -136,7 +147,7 @@ class MainScreenViewModel: ObservableObject {
     
     func removeTimer(id: Int, selectedDate: Date) {
         isLoading = true
-        client.getClient()
+        appState?.graphqlClient?.client?
             .perform(mutation: RemoveTimerMutation(removeId: id)) { [weak self] result in
                 switch result {
                 case .success:
@@ -153,7 +164,7 @@ class MainScreenViewModel: ObservableObject {
     private func invalidateDateAndRefetch(date: Date) {
         
         DispatchQueue.global().async {
-            self.client.getClient().store.withinReadWriteTransaction { t in
+            self.appState?.graphqlClient?.client?.store.withinReadWriteTransaction { t in
                 try t.removeObjects(matching: "QUERY_ROOT.timers(endsAt:\(date.endOfDayISO),startsAt:\(date.startOfDayISO)")
             }
             self.getTimers(date: date)

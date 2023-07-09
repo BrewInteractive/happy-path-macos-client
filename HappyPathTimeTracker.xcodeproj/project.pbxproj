@@ -13,6 +13,10 @@
 		5E1D440E2A59B5D700B6BEA4 /* Projects.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E1D440D2A59B5D700B6BEA4 /* Projects.graphql */; };
 		5E1D44102A59B69400B6BEA4 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D440F2A59B69400B6BEA4 /* Project.swift */; };
 		5E1D44122A59B97000B6BEA4 /* ProjectTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44112A59B97000B6BEA4 /* ProjectTask.swift */; };
+		5E1D44172A5A8A5D00B6BEA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44162A5A8A5D00B6BEA4 /* AppDelegate.swift */; };
+		5E3DAF202A5AF3C4005BB83A /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5E3DAF1F2A5AF3C4005BB83A /* KeychainSwift */; };
+		5E3DAF222A5B1F5F005BB83A /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3DAF212A5B1F5F005BB83A /* NotificationName.swift */; };
+		5E3DAF252A5B3718005BB83A /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3DAF242A5B3718005BB83A /* K.swift */; };
 		5E41B1442A497F51001E90AC /* HappyPathTimeTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E41B1432A497F51001E90AC /* HappyPathTimeTrackerApp.swift */; };
 		5E41B1462A497F51001E90AC /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E41B1452A497F51001E90AC /* MainScreen.swift */; };
 		5E41B1482A497F52001E90AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E41B1472A497F52001E90AC /* Assets.xcassets */; };
@@ -47,6 +51,10 @@
 		5E1D440D2A59B5D700B6BEA4 /* Projects.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Projects.graphql; sourceTree = "<group>"; };
 		5E1D440F2A59B69400B6BEA4 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		5E1D44112A59B97000B6BEA4 /* ProjectTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTask.swift; sourceTree = "<group>"; };
+		5E1D44162A5A8A5D00B6BEA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5E3DAF1A2A5AAC71005BB83A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5E3DAF212A5B1F5F005BB83A /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
+		5E3DAF242A5B3718005BB83A /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		5E41B1402A497F51001E90AC /* HappyPathTimeTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HappyPathTimeTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E41B1432A497F51001E90AC /* HappyPathTimeTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HappyPathTimeTrackerApp.swift; sourceTree = "<group>"; };
 		5E41B1452A497F51001E90AC /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
@@ -81,6 +89,7 @@
 			files = (
 				5E797CDF2A4B1CD9003FCD06 /* SwiftDate in Frameworks */,
 				5EE3721C2A50B91100859278 /* DirectusGraphql in Frameworks */,
+				5E3DAF202A5AF3C4005BB83A /* KeychainSwift in Frameworks */,
 				5EE372122A50483B00859278 /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -92,8 +101,17 @@
 			isa = PBXGroup;
 			children = (
 				5E1D44092A59AF7C00B6BEA4 /* Date.swift */,
+				5E3DAF212A5B1F5F005BB83A /* NotificationName.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		5E3DAF232A5B370F005BB83A /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				5E3DAF242A5B3718005BB83A /* K.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		5E41B1372A497F51001E90AC = {
@@ -118,6 +136,8 @@
 		5E41B1422A497F51001E90AC /* HappyPathTimeTracker */ = {
 			isa = PBXGroup;
 			children = (
+				5E3DAF232A5B370F005BB83A /* Util */,
+				5E3DAF1A2A5AAC71005BB83A /* Info.plist */,
 				5E1D44082A59AF7300B6BEA4 /* Extension */,
 				5EE372272A520B5300859278 /* Store */,
 				5EE3721D2A50BCFE00859278 /* Apollo */,
@@ -126,6 +146,7 @@
 				5EE371FD2A4EDEFF00859278 /* Components */,
 				5E797CE02A4B1ED0003FCD06 /* Model */,
 				5E41B1432A497F51001E90AC /* HappyPathTimeTrackerApp.swift */,
+				5E1D44162A5A8A5D00B6BEA4 /* AppDelegate.swift */,
 				5E41B1472A497F52001E90AC /* Assets.xcassets */,
 				5E41B14C2A497F52001E90AC /* HappyPathTimeTracker.entitlements */,
 				5E41B1492A497F52001E90AC /* Preview Content */,
@@ -265,6 +286,7 @@
 				5E797CDE2A4B1CD9003FCD06 /* SwiftDate */,
 				5EE372112A50483B00859278 /* Apollo */,
 				5EE3721B2A50B91100859278 /* DirectusGraphql */,
+				5E3DAF1F2A5AF3C4005BB83A /* KeychainSwift */,
 			);
 			productName = HappyPathTimeTracker;
 			productReference = 5E41B1402A497F51001E90AC /* HappyPathTimeTracker.app */;
@@ -297,6 +319,7 @@
 			packageReferences = (
 				5E797CDD2A4B1CD9003FCD06 /* XCRemoteSwiftPackageReference "SwiftDate" */,
 				5EE372102A50483B00859278 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				5E3DAF1E2A5AF3C4005BB83A /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
 			productRefGroup = 5E41B1412A497F51001E90AC /* Products */;
 			projectDirPath = "";
@@ -331,6 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EE372092A5030D800859278 /* BottomView.swift in Sources */,
+				5E3DAF222A5B1F5F005BB83A /* NotificationName.swift in Sources */,
 				5E797CE22A4B1EE4003FCD06 /* CircleDay.swift in Sources */,
 				5EE372212A50BE7400859278 /* NetworkInterceptorProvider.swift in Sources */,
 				5E41B1462A497F51001E90AC /* MainScreen.swift in Sources */,
@@ -339,6 +363,7 @@
 				5E1D44102A59B69400B6BEA4 /* Project.swift in Sources */,
 				5EE372292A520B5E00859278 /* AppState.swift in Sources */,
 				5E1D440A2A59AF7C00B6BEA4 /* Date.swift in Sources */,
+				5E3DAF252A5B3718005BB83A /* K.swift in Sources */,
 				5E41B1442A497F51001E90AC /* HappyPathTimeTrackerApp.swift in Sources */,
 				5EE3720B2A50311C00859278 /* HeaderView.swift in Sources */,
 				5EE372232A50BEC600859278 /* TokenInterceptor.swift in Sources */,
@@ -348,6 +373,7 @@
 				5EE372012A4FFB1900859278 /* TimeEntryListView.swift in Sources */,
 				5EE3721F2A50BD0C00859278 /* GraphqlClient.swift in Sources */,
 				5EE3720F2A50322E00859278 /* CircleDayView.swift in Sources */,
+				5E1D44172A5A8A5D00B6BEA4 /* AppDelegate.swift in Sources */,
 				5EE372032A4FFBA400859278 /* TimeEntry.swift in Sources */,
 				5EE371FC2A4EDEDF00859278 /* NewTimeEntryView.swift in Sources */,
 			);
@@ -483,6 +509,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HappyPathTimeTracker/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -510,6 +537,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HappyPathTimeTracker/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -547,6 +575,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5E3DAF1E2A5AF3C4005BB83A /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 20.0.0;
+			};
+		};
 		5E797CDD2A4B1CD9003FCD06 /* XCRemoteSwiftPackageReference "SwiftDate" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/malcommac/SwiftDate.git";
@@ -566,6 +602,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5E3DAF1F2A5AF3C4005BB83A /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5E3DAF1E2A5AF3C4005BB83A /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
 		5E797CDE2A4B1CD9003FCD06 /* SwiftDate */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5E797CDD2A4B1CD9003FCD06 /* XCRemoteSwiftPackageReference "SwiftDate" */;
