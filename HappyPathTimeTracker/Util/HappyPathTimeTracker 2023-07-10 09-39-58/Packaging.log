@@ -1,0 +1,117 @@
+2023-07-10 06:39:49 +0000  Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0x17540f840; archive(resolved)="<IDEArchive: 0x600010f71aa0>", distributionTask(resolved)="2", distributionDestination(resolved)="1", distributionMethod(resolved)="<IDEDistributionMethodDevelopmentSignedMac: 0x60000a934a90>", team(resolved)="<IDEProvisioningDisambiguatableBasicTeam: 0x6000037e8f00; teamID='MEXY5CM4N3', teamName='Brev Bilisim Limited Sirketi', teamType='Company', username='gorkemsevim@gmail.com', isFreeProvisioningTeam='0'>">
+	Chain (11, self inclusive):
+	<IDEDistributionProcessingPipelineContext: 0x17540f840; archive = "<IDEArchive: 0x600010f71aa0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x60000a934a90>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000037e8f00; teamID='MEXY5CM4N3', teamName='Brev Bilisim Limited Sirketi', teamType='Company', username='gorkemsevim@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionProcessingPipelineContext: 0x1731d6de0; archive = "<IDEArchive: 0x600010f71aa0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x60000a934a90>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000037e8f00; teamID='MEXY5CM4N3', teamName='Brev Bilisim Limited Sirketi', teamType='Company', username='gorkemsevim@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x13baf0d60; archive = "<IDEArchive: 0x600010f71aa0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x60000a934a90>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000037e8f00; teamID='MEXY5CM4N3', teamName='Brev Bilisim Limited Sirketi', teamType='Company', username='gorkemsevim@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x13bbbe270; archive = "<IDEArchive: 0x600010f71aa0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x60000a934a90>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000037e8f00; teamID='MEXY5CM4N3', teamName='Brev Bilisim Limited Sirketi', teamType='Company', username='gorkemsevim@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x12aba2de0; archive = "<IDEArchive: 0x600010f71aa0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x60000a934a90>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000037e8f00; teamID='MEXY5CM4N3', teamName='Brev Bilisim Limited Sirketi', teamType='Company', username='gorkemsevim@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x12aba2bc0; archive = "<IDEArchive: 0x600010f71aa0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x60000a934a90>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000037e8f00; teamID='MEXY5CM4N3', teamName='Brev Bilisim Limited Sirketi', teamType='Company', username='gorkemsevim@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x12ab9e5b0; archive = "<IDEArchive: 0x600010f71aa0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x60000a934a90>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000037e8f00; teamID='MEXY5CM4N3', teamName='Brev Bilisim Limited Sirketi', teamType='Company', username='gorkemsevim@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x12ab9e390; archive = "<IDEArchive: 0x600010f71aa0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x60000a934a90>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000037e8f00; teamID='MEXY5CM4N3', teamName='Brev Bilisim Limited Sirketi', teamType='Company', username='gorkemsevim@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x12ab9dd70; archive = "<IDEArchive: 0x600010f71aa0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x60000a934a90>", team="(null)">
+	<IDEDistributionContext: 0x173ebe530; archive = "<IDEArchive: 0x600010f71aa0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x60000a934a90>", team="(null)">
+	<IDEDistributionContext: 0x13bbbeb30; archive = "<IDEArchive: 0x600010f71aa0>", distributionMethod="(null)", team="(null)">
+</IDEDistributionProcessingPipelineContext: 0x17540f840>
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionCreateDestRootStep
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionCopyItemStep
+2023-07-10 06:39:49 +0000  Running /usr/bin/ditto '-V' '/Users/gorkemsevim/Library/Developer/Xcode/Archives/2023-07-10/HappyPathTimeTracker 10.07.2023 09.38.xcarchive/Products/Applications/HappyPathTimeTracker.app' '/var/folders/28/mxyphyvx6qgf_2wmhhkz09mh0000gn/T/XcodeDistPipeline.~~~pjwDbz/Root/Applications/HappyPathTimeTracker.app'
+2023-07-10 06:39:49 +0000  >>> Copying /Users/gorkemsevim/Library/Developer/Xcode/Archives/2023-07-10/HappyPathTimeTracker 10.07.2023 09.38.xcarchive/Products/Applications/HappyPathTimeTracker.app 
+2023-07-10 06:39:49 +0000  copying file ./Contents/_CodeSignature/CodeResources ... 
+2023-07-10 06:39:49 +0000  3854 bytes for ./Contents/_CodeSignature/CodeResources
+2023-07-10 06:39:49 +0000  copying file ./Contents/MacOS/HappyPathTimeTracker ... 
+2023-07-10 06:39:49 +0000  3326928 bytes for ./Contents/MacOS/HappyPathTimeTracker
+2023-07-10 06:39:49 +0000  copying file ./Contents/Resources/Projects.graphql ... 
+2023-07-10 06:39:49 +0000  74 bytes for ./Contents/Resources/Projects.graphql
+2023-07-10 06:39:49 +0000  copying file ./Contents/Resources/RemoveTimer.graphql ... 
+2023-07-10 06:39:49 +0000  92 bytes for ./Contents/Resources/RemoveTimer.graphql
+2023-07-10 06:39:49 +0000  copying file ./Contents/Resources/LogTimer.graphql ... 
+2023-07-10 06:39:49 +0000  292 bytes for ./Contents/Resources/LogTimer.graphql
+2023-07-10 06:39:49 +0000  copying file ./Contents/Resources/Assets.car ... 
+2023-07-10 06:39:49 +0000  22656 bytes for ./Contents/Resources/Assets.car
+2023-07-10 06:39:49 +0000  copying file ./Contents/Resources/.gitignore ... 
+2023-07-10 06:39:49 +0000  1476 bytes for ./Contents/Resources/.gitignore
+2023-07-10 06:39:49 +0000  copying file ./Contents/Resources/Tasks.graphql ... 
+2023-07-10 06:39:49 +0000  106 bytes for ./Contents/Resources/Tasks.graphql
+2023-07-10 06:39:49 +0000  copying file ./Contents/Resources/Timers.graphql ... 
+2023-07-10 06:39:49 +0000  355 bytes for ./Contents/Resources/Timers.graphql
+2023-07-10 06:39:49 +0000  copying file ./Contents/Info.plist ... 
+2023-07-10 06:39:49 +0000  1714 bytes for ./Contents/Info.plist
+2023-07-10 06:39:49 +0000  copying file ./Contents/PkgInfo ... 
+2023-07-10 06:39:49 +0000  8 bytes for ./Contents/PkgInfo
+2023-07-10 06:39:49 +0000  /usr/bin/ditto exited with 0
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionEmbedProfileStep
+2023-07-10 06:39:49 +0000  Skipping profile for item: <IDEDistributionItem: 0x600010f4b120; bundleID='com.gorkemsevim.HappyPathTimeTracker', path='<DVTFilePath:0x60000857dc80:'/Users/gorkemsevim/Library/Developer/Xcode/Archives/2023-07-10/HappyPathTimeTracker 10.07.2023 09.38.xcarchive/Products/Applications/HappyPathTimeTracker.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x600020b40690; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x600001fd5b80; name='Apple Development: Orhan Gorkem Sevim (39K29YC63M)', hash='208509040F96240239816D4EDAFC0F2E49EB1C1C', serialNumber='549D8D05BF1EB0A24FA3B945B9B40284', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2023-07-10 05:05:57 +0000''>', entitlements='{
+    "com.apple.security.app-sandbox" = 1;
+    "com.apple.security.files.user-selected.read-only" = 1;
+    "com.apple.security.network.client" = 1;
+}', teamID='MEXY5CM4N3', identifier='com.gorkemsevim.HappyPathTimeTracker', executablePath='<DVTFilePath:0x60000804c460:'/Users/gorkemsevim/Library/Developer/Xcode/Archives/2023-07-10/HappyPathTimeTracker 10.07.2023 09.38.xcarchive/Products/Applications/HappyPathTimeTracker.app/Contents/MacOS/HappyPathTimeTracker'>', hardenedRuntime='1'>'>
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionInfoPlistStep
+2023-07-10 06:39:49 +0000  Skipping step: IDEDistributionInfoPlistStep because it said so
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionAppThinningPlistStep
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionCompileBitcodeStep
+2023-07-10 06:39:49 +0000  Skipping step: IDEDistributionCompileBitcodeStep because it said so
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionCodeSlimmingStep
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionCopyBCSymbolMapsStep
+2023-07-10 06:39:49 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionSymbolsStep
+2023-07-10 06:39:49 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionAppThinningStep
+2023-07-10 06:39:49 +0000  Skipping step: IDEDistributionAppThinningStep because it said so
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionArchThinningStep
+2023-07-10 06:39:49 +0000  Running /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo '/var/folders/28/mxyphyvx6qgf_2wmhhkz09mh0000gn/T/XcodeDistPipeline.~~~pjwDbz/Root/Applications/HappyPathTimeTracker.app/Contents/MacOS/HappyPathTimeTracker' '-verify_arch' 'arm64e'
+2023-07-10 06:39:49 +0000  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo exited with 1
+2023-07-10 06:39:49 +0000  Skipping architecture thinning for item "HappyPathTimeTracker" because arch "arm64e" wasn't found
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionODRStep
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionStripXattrsStep
+2023-07-10 06:39:49 +0000  Running /usr/bin/xattr '-crs' '/var/folders/28/mxyphyvx6qgf_2wmhhkz09mh0000gn/T/XcodeDistPipeline.~~~pjwDbz/Root/Applications/HappyPathTimeTracker.app'
+2023-07-10 06:39:49 +0000  /usr/bin/xattr exited with 0
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionCodesignStep
+2023-07-10 06:39:49 +0000  Entitlements for <IDEDistributionItem: 0x600010f4b120; bundleID='com.gorkemsevim.HappyPathTimeTracker', path='<DVTFilePath:0x60000857dc80:'/Users/gorkemsevim/Library/Developer/Xcode/Archives/2023-07-10/HappyPathTimeTracker 10.07.2023 09.38.xcarchive/Products/Applications/HappyPathTimeTracker.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x600020b40690; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x600001fd5b80; name='Apple Development: Orhan Gorkem Sevim (39K29YC63M)', hash='208509040F96240239816D4EDAFC0F2E49EB1C1C', serialNumber='549D8D05BF1EB0A24FA3B945B9B40284', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2023-07-10 05:05:57 +0000''>', entitlements='{
+    "com.apple.security.app-sandbox" = 1;
+    "com.apple.security.files.user-selected.read-only" = 1;
+    "com.apple.security.network.client" = 1;
+}', teamID='MEXY5CM4N3', identifier='com.gorkemsevim.HappyPathTimeTracker', executablePath='<DVTFilePath:0x60000804c460:'/Users/gorkemsevim/Library/Developer/Xcode/Archives/2023-07-10/HappyPathTimeTracker 10.07.2023 09.38.xcarchive/Products/Applications/HappyPathTimeTracker.app/Contents/MacOS/HappyPathTimeTracker'>', hardenedRuntime='1'>'>: {
+    "com.apple.security.app-sandbox" = 1;
+    "com.apple.security.files.user-selected.read-only" = 1;
+    "com.apple.security.network.client" = 1;
+}
+2023-07-10 06:39:49 +0000  Entitlements for <IDEDistributionItem: 0x600010f4b120; bundleID='com.gorkemsevim.HappyPathTimeTracker', path='<DVTFilePath:0x60000857dc80:'/Users/gorkemsevim/Library/Developer/Xcode/Archives/2023-07-10/HappyPathTimeTracker 10.07.2023 09.38.xcarchive/Products/Applications/HappyPathTimeTracker.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x600020b40690; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x600001fd6050; name='Apple Development: Orhan Gorkem Sevim (39K29YC63M)', hash='208509040F96240239816D4EDAFC0F2E49EB1C1C', serialNumber='549D8D05BF1EB0A24FA3B945B9B40284', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2023-07-10 05:05:57 +0000''>', entitlements='{
+    "com.apple.security.app-sandbox" = 1;
+    "com.apple.security.files.user-selected.read-only" = 1;
+    "com.apple.security.network.client" = 1;
+}', teamID='MEXY5CM4N3', identifier='com.gorkemsevim.HappyPathTimeTracker', executablePath='<DVTFilePath:0x60000804c460:'/Users/gorkemsevim/Library/Developer/Xcode/Archives/2023-07-10/HappyPathTimeTracker 10.07.2023 09.38.xcarchive/Products/Applications/HappyPathTimeTracker.app/Contents/MacOS/HappyPathTimeTracker'>', hardenedRuntime='1'>'> are: {
+    "com.apple.security.app-sandbox" = 1;
+    "com.apple.security.files.user-selected.read-only" = 1;
+    "com.apple.security.network.client" = 1;
+}
+2023-07-10 06:39:49 +0000  Writing entitlements for <IDEDistributionItem: 0x600010f4b120; bundleID='com.gorkemsevim.HappyPathTimeTracker', path='<DVTFilePath:0x60000857dc80:'/Users/gorkemsevim/Library/Developer/Xcode/Archives/2023-07-10/HappyPathTimeTracker 10.07.2023 09.38.xcarchive/Products/Applications/HappyPathTimeTracker.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x600020b40690; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x600001fd61b0; name='Apple Development: Orhan Gorkem Sevim (39K29YC63M)', hash='208509040F96240239816D4EDAFC0F2E49EB1C1C', serialNumber='549D8D05BF1EB0A24FA3B945B9B40284', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2023-07-10 05:05:57 +0000''>', entitlements='{
+    "com.apple.security.app-sandbox" = 1;
+    "com.apple.security.files.user-selected.read-only" = 1;
+    "com.apple.security.network.client" = 1;
+}', teamID='MEXY5CM4N3', identifier='com.gorkemsevim.HappyPathTimeTracker', executablePath='<DVTFilePath:0x60000804c460:'/Users/gorkemsevim/Library/Developer/Xcode/Archives/2023-07-10/HappyPathTimeTracker 10.07.2023 09.38.xcarchive/Products/Applications/HappyPathTimeTracker.app/Contents/MacOS/HappyPathTimeTracker'>', hardenedRuntime='1'>'> to: /var/folders/28/mxyphyvx6qgf_2wmhhkz09mh0000gn/T/XcodeDistPipeline.~~~pjwDbz/entitlements~~~0iBRWh
+2023-07-10 06:39:49 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '208509040F96240239816D4EDAFC0F2E49EB1C1C' '--entitlements' '/var/folders/28/mxyphyvx6qgf_2wmhhkz09mh0000gn/T/XcodeDistPipeline.~~~pjwDbz/entitlements~~~0iBRWh' '--generate-entitlement-der' '--preserve-metadata=identifier,flags,runtime' '/var/folders/28/mxyphyvx6qgf_2wmhhkz09mh0000gn/T/XcodeDistPipeline.~~~pjwDbz/Root/Applications/HappyPathTimeTracker.app'
+2023-07-10 06:39:49 +0000  /var/folders/28/mxyphyvx6qgf_2wmhhkz09mh0000gn/T/XcodeDistPipeline.~~~pjwDbz/Root/Applications/HappyPathTimeTracker.app: replacing existing signature
+2023-07-10 06:39:49 +0000  /var/folders/28/mxyphyvx6qgf_2wmhhkz09mh0000gn/T/XcodeDistPipeline.~~~pjwDbz/Root/Applications/HappyPathTimeTracker.app: signed app bundle with Mach-O universal (x86_64 arm64) [com.gorkemsevim.HappyPathTimeTracker]
+2023-07-10 06:39:49 +0000  /usr/bin/codesign exited with 0
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionZipODRItemStep
+2023-07-10 06:39:49 +0000  Skipping step: IDEDistributionZipODRItemStep because it said so
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionSkipPackagingStep
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionAppStoreInformationStep
+2023-07-10 06:39:49 +0000  Skipping step: IDEDistributionAppStoreInformationStep because it said so
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionGenerateProcessedDistributionItems
+2023-07-10 06:39:49 +0000  IDEDistributionItem init <DVTFilePath:0x600008522680:'/var/folders/28/mxyphyvx6qgf_2wmhhkz09mh0000gn/T/XcodeDistPipeline.~~~pjwDbz/Root/Applications/HappyPathTimeTracker.app'>
+2023-07-10 06:39:49 +0000  [OPTIONAL] Didn't find embedded provisioning profile for <DVTFilePath:0x600008522680:'/var/folders/28/mxyphyvx6qgf_2wmhhkz09mh0000gn/T/XcodeDistPipeline.~~~pjwDbz/Root/Applications/HappyPathTimeTracker.app'>: Error Domain=NSCocoaErrorDomain Code=4 "No file at <DVTFilePath:0x600008523500:'/var/folders/28/mxyphyvx6qgf_2wmhhkz09mh0000gn/T/XcodeDistPipeline.~~~pjwDbz/Root/Applications/HappyPathTimeTracker.app/Contents/embedded.provisionprofile'>" UserInfo={NSLocalizedDescription=No file at <DVTFilePath:0x600008523500:'/var/folders/28/mxyphyvx6qgf_2wmhhkz09mh0000gn/T/XcodeDistPipeline.~~~pjwDbz/Root/Applications/HappyPathTimeTracker.app/Contents/embedded.provisionprofile'>}
+2023-07-10 06:39:49 +0000  Processing step: IDEDistributionCreateManifestStep
+2023-07-10 06:39:49 +0000  Skipping step: IDEDistributionCreateManifestStep because it said so

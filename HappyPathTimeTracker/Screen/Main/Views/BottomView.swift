@@ -43,6 +43,15 @@ struct BottomView: View {
             }
             .buttonStyle(.plain)
             .padding(.trailing, 8)
+            Button {
+                NSApplication.shared.terminate(nil)
+            } label: {
+                Image(systemName: "xmark.circle.fill")
+                    .resizable()
+                    .frame(width: 14, height: 14)
+            }
+            .buttonStyle(.plain)
+            .padding(.trailing, 8)
         }
         .padding(.horizontal, 4)
         .padding(.bottom, 8)

@@ -1,0 +1,20 @@
+query getTimers($startsAt: String!, $endsAt: String!) {
+    timers(
+        startsAt: $startsAt,
+        endsAt: $endsAt) {
+        id,
+        endsAt,
+        startsAt,
+        duration,
+        totalDuration,
+        task {
+            id,
+            name
+        },
+        project {
+            id,
+            name
+        },
+        notes,
+    }
+}
