@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TimeEntryListView: View {
     @EnvironmentObject var mainScreenVm: MainScreenViewModel
+    @State private var hoveredTimeEntryId: Int? = nil
     let selectedDate: Date
     
     var body: some View {
@@ -25,6 +26,16 @@ struct TimeEntryListView: View {
                             TimeDividier(color: .gray.opacity(0.1))
                         }
                         TimeEntryView(timeEntry: mainScreenVm.timers[index])
+                            .onHover { isHovered in
+                                if isHovered {
+                                    hoveredTimeEntryId = mainScreenVm.timers[index].id
+                                } else {
+                                    hoveredTimeEntryId = nil
+                                }
+                            }
+                            .background(content: {
+                                hoveredTimeEntryId == mainScreenVm.timers[index].id ? Color.gray.opacity(0.2) : Color.clear
+                            })
                             .contextMenu {
                                 TimeEntryContextMenu(id: mainScreenVm.timers[index].id)
                             }

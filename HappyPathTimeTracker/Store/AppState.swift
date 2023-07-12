@@ -10,7 +10,7 @@ import KeychainSwift
 
 class AppState: ObservableObject {
     @Published private(set) var isLoggedIn = false
-    var graphqlClient: GraphqlClient? = nil
+    @Published private(set) var graphqlClient: GraphqlClient? = nil
     
     init() {
         let keychain = KeychainSwift()

@@ -16,7 +16,7 @@ class MainScreenViewModel: ObservableObject {
     @Published var tasks: [ProjectTask] = []
     @Published var isLoading: Bool = false
     @Published var isRefetching: Bool = false
-    
+    @Published var isTasksLoading = false
     init() {
     }
     
@@ -54,14 +54,14 @@ class MainScreenViewModel: ObservableObject {
             }
     }
     
-    func getTimers(date: Date, onFinish: (() -> Void)? = nil) {
+    func getTimers(date: Date, onFinish: (() -> Void)? = nil, cachePolicy: CachePolicy? = nil) {
         
         DispatchQueue.main.async { [weak self] in
             self?.isLoading = true
         }
         
         appState?.graphqlClient?.client?
-            .fetch(query: GetTimersQuery(startsAt: date.startOfDayISO, endsAt: date.endOfDayISO)) { result in
+            .fetch(query: GetTimersQuery(startsAt: date.startOfDayISO, endsAt: date.endOfDayISO), cachePolicy: cachePolicy ?? .default) { result in
             switch result {
             case .success(let data):
                 let tmpTimers: [TimeEntry] = data.data?.timers?.compactMap({ timer in
@@ -71,7 +71,7 @@ class MainScreenViewModel: ObservableObject {
                           let taskId = timer.task?.id else {
                         return nil
                     }
-                    //TODO: total duration ve duration neye denk geliyor. Bu degerleri anlayarak elapsedTime i guncelle
+                    
                     return TimeEntry(id: id,
                                      projectId: projectId,
                                      projectName: timer.project?.name ?? "",
@@ -98,6 +98,9 @@ class MainScreenViewModel: ObservableObject {
     }
     
     func getTasks(projectId: Int) {
+        DispatchQueue.main.async { [weak self] in
+            self?.isTasksLoading = true
+        }
         appState?.graphqlClient?.client?
             .fetch(query: GetTasksQuery(projectId: projectId)) { result in
                 switch result {
@@ -111,9 +114,13 @@ class MainScreenViewModel: ObservableObject {
                     
                     DispatchQueue.main.async { [weak self] in
                         self?.tasks = tmpTasks
+                        self?.isTasksLoading = false
                     }
                 case .failure(let error):
                     print(error)
+                    DispatchQueue.main.async { [weak self] in
+                        self?.isTasksLoading = false
+                    }
                 }
             }
     }
@@ -123,9 +130,6 @@ class MainScreenViewModel: ObservableObject {
             self?.isRefetching = true
         }
         invalidateDateAndRefetch(date: date)
-        self.getTimers(date: date) {
-            self.isRefetching = false
-        }
     }
     
     func logTimer(projectTaskId: Int, duration: Int, notes: String, date: Date, onSuccess: @escaping () -> Void) {
@@ -165,9 +169,9 @@ class MainScreenViewModel: ObservableObject {
         
         DispatchQueue.global().async {
             self.appState?.graphqlClient?.client?.store.withinReadWriteTransaction { t in
-                try t.removeObjects(matching: "QUERY_ROOT.timers(endsAt:\(date.endOfDayISO),startsAt:\(date.startOfDayISO)")
+                try t.removeObjects(matching: "timers(endsAt:\(date.endOfDayISO),startsAt:\(date.startOfDayISO)")
             }
-            self.getTimers(date: date)
+            self.getTimers(date: date, cachePolicy: .fetchIgnoringCacheData)
         }
     }
 }

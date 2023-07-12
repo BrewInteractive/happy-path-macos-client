@@ -11,14 +11,15 @@ import Combine
 //TODO: secilen proje degistikten sonra beklenen surede kullanici yeni tasklar gelirken bekleyecegi icin bir loading ile process i kullaniciya gostermeliyiz
 
 struct NewTimeEntryView: View {
+    let selectedDate: Date
+    let onCancel: (() -> Void)
+    let onSuccess: (() -> Void)
+    
     @EnvironmentObject var mainScreenVm: MainScreenViewModel
     @State private var notes: String = ""
     @State private var duration: String = ""
     @State private var selectedProjectId = -1
     @State private var selectedTaskId = -1
-    let selectedDate: Date
-    let onCancel: (() -> Void)
-    let onSuccess: (() -> Void)
     
     init(selectedDate: Date,
          onCancel: @escaping () -> Void,
@@ -37,7 +38,11 @@ struct NewTimeEntryView: View {
             Text("New Time Entry")
             TimeDividier()
             Spacer()
-            NewTimeContentEntryView()
+            if mainScreenVm.isTasksLoading {
+                ProgressView()
+            } else {
+                NewTimeContentEntryView()
+            }
             Spacer()
             BottomView()
         }
