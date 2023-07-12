@@ -9,6 +9,8 @@ import Foundation
 import DirectusGraphql
 import Apollo
 
+//TODO: need to refactor requests.
+
 class MainScreenViewModel: ObservableObject {
     var appState: AppState? = nil
     @Published var timers: [TimeEntry] = []
@@ -17,8 +19,6 @@ class MainScreenViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var isRefetching: Bool = false
     @Published var isTasksLoading = false
-    init() {
-    }
     
     func updateViewModel(appState: AppState) {
         self.appState = appState
@@ -27,7 +27,7 @@ class MainScreenViewModel: ObservableObject {
     
     func getProjects() {
         appState?.graphqlClient?.client?
-            .fetch(query: GetProjectsQuery()) { result in
+            .fetch(query: GetProjectsQuery()) { [weak self] result in
                 switch result {
                 case .success(let res):
                     let tmpProjects: [Project] = res.data?.projects?.compactMap({ project in
@@ -42,14 +42,7 @@ class MainScreenViewModel: ObservableObject {
                         self?.projects = tmpProjects
                     }
                 case .failure(let error):
-                    if let error = error as? Apollo.ResponseCodeInterceptor.ResponseCodeError {
-                        switch error {
-                        case .invalidResponseCode(let response, _):
-                            if response?.statusCode == 403 {
-                                self.appState?.updateIsLoggedIn(newValue: false)
-                            }
-                        }
-                    }
+                    self?.parseError(for: error)
                 }
             }
     }
@@ -61,7 +54,7 @@ class MainScreenViewModel: ObservableObject {
         }
         
         appState?.graphqlClient?.client?
-            .fetch(query: GetTimersQuery(startsAt: date.startOfDayISO, endsAt: date.endOfDayISO), cachePolicy: cachePolicy ?? .default) { result in
+            .fetch(query: GetTimersQuery(startsAt: date.startOfDayISO, endsAt: date.endOfDayISO), cachePolicy: cachePolicy ?? .default) { [weak self] result in
             switch result {
             case .success(let data):
                 let tmpTimers: [TimeEntry] = data.data?.timers?.compactMap({ timer in
@@ -87,7 +80,7 @@ class MainScreenViewModel: ObservableObject {
                     onFinish?()
                 }
             case .failure(let error):
-                print("error: \(error)")
+                self?.parseError(for: error)
                 DispatchQueue.main.async { [weak self] in
                     self?.timers = []
                     self?.isLoading = false
@@ -102,7 +95,7 @@ class MainScreenViewModel: ObservableObject {
             self?.isTasksLoading = true
         }
         appState?.graphqlClient?.client?
-            .fetch(query: GetTasksQuery(projectId: projectId)) { result in
+            .fetch(query: GetTasksQuery(projectId: projectId)) { [weak self] result in
                 switch result {
                 case .success(let res):
                     let tmpTasks: [ProjectTask] = res.data?.tasks?.compactMap({ task in
@@ -117,7 +110,7 @@ class MainScreenViewModel: ObservableObject {
                         self?.isTasksLoading = false
                     }
                 case .failure(let error):
-                    print(error)
+                    self?.parseError(for: error)
                     DispatchQueue.main.async { [weak self] in
                         self?.isTasksLoading = false
                     }
@@ -138,13 +131,13 @@ class MainScreenViewModel: ObservableObject {
                                                 duration: duration,
                                                 notes: notes,
                                                 startsAt: date.startOfDayISO,
-                                                endsAt: date.endOfDayISO)) { result in
+                                                endsAt: date.endOfDayISO)) { [weak self] result in
             switch result {
             case .success:
-                self.invalidateDateAndRefetch(date: date)
+                self?.invalidateDateAndRefetch(date: date)
                 onSuccess()
             case .failure(let error):
-                print(error)
+                self?.parseError(for: error)
             }
         }
     }
@@ -158,7 +151,7 @@ class MainScreenViewModel: ObservableObject {
                     self?.timers = self?.timers.filter{$0.id != id} ?? []
                     self?.isLoading = false
                 case .failure(let error):
-                    print(error)
+                    self?.parseError(for: error)
                     self?.isLoading = false
                 }
             }
@@ -172,6 +165,18 @@ class MainScreenViewModel: ObservableObject {
                 try t.removeObjects(matching: "timers(endsAt:\(date.endOfDayISO),startsAt:\(date.startOfDayISO)")
             }
             self.getTimers(date: date, cachePolicy: .fetchIgnoringCacheData)
+        }
+    }
+    
+    private func parseError(for error: Error) {
+        print(error)
+        if let error = error as? Apollo.ResponseCodeInterceptor.ResponseCodeError {
+            switch error {
+            case .invalidResponseCode(let response, _):
+                if response?.statusCode == 403 {
+                    self.appState?.updateIsLoggedIn(newValue: false)
+                }
+            }
         }
     }
 }
