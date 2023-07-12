@@ -52,7 +52,7 @@ extension TimeEntryListView {
     func TimeEntryContextMenu(id: Int) -> some View {
         VStack {
             Button {
-                print("edit")
+                mainScreenVm.showEditTimerModal(editedTimerId: id)
             } label: {
                 Text("Edit Entry")
             }
@@ -67,7 +67,7 @@ extension TimeEntryListView {
                 Text("Delete Entry")
             }
             Button {
-                print("view in beforesunset")
+                print("view in site")
             } label: {
                 Text("View in Beforesunset")
             }

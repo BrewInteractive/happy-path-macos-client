@@ -48,6 +48,8 @@ struct TimeEntryView_Previews: PreviewProvider {
                                        taskId: 1,
                                        taskName: "Frontend Development",
                                        notes: "Dummy Notes",
+                                       startsAt: "",
+                                       endsAt: "",
                                        totalDuration: 12312312))
     }
 }

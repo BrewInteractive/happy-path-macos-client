@@ -9,4 +9,5 @@ import Foundation
 
 struct K {
     static let token = "TOKEN"
+    static let openURLText = "http://localhost:8080/login?callback=happytime://action-name"
 }

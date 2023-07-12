@@ -9,14 +9,13 @@ import SwiftUI
 
 struct BottomView: View {
     @EnvironmentObject var mainScreenVm: MainScreenViewModel
-    @Binding var isNewEntryModalShown: Bool
     let selectedDate: Date
     
     var body: some View {
         HStack {
             Button {
                 if mainScreenVm.projects.count > 0 {
-                    isNewEntryModalShown.toggle()
+                    mainScreenVm.showNewEntryTimerModal()
                 } else {
                     print("no projects")
                 }
@@ -26,11 +25,11 @@ struct BottomView: View {
                     .frame(width: 14, height: 14)
             }
             .buttonStyle(.plain)
-            .popover(isPresented: $isNewEntryModalShown) {
+            .popover(isPresented: $mainScreenVm.isNewEntryModalShown) {
                 NewTimeEntryView(selectedDate: selectedDate, onCancel: {
-                    isNewEntryModalShown = false
+                    mainScreenVm.isNewEntryModalShown = false
                 }, onSuccess: {
-                    isNewEntryModalShown = false
+                    mainScreenVm.isNewEntryModalShown = false
                 })
             }
             Spacer()
@@ -62,6 +61,6 @@ struct BottomView: View {
 
 struct BottomView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomView(isNewEntryModalShown: .constant(true), selectedDate: Date())
+        BottomView(selectedDate: Date())
     }
 }

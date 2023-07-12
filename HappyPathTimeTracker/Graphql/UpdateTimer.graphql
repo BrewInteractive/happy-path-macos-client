@@ -1,0 +1,8 @@
+mutation UpdateTimer($timerId: Int!, $duration: Int, $startsAt: String, $endsAt: String, $notes: String) {
+    update(
+        timerId: $timerId
+        input: {duration: $duration, startsAt: $startsAt, endsAt: $endsAt, notes: $notes}
+    ) {
+        id
+    }
+}

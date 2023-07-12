@@ -8,8 +8,6 @@
 import SwiftUI
 import Combine
 
-//TODO: secilen proje degistikten sonra beklenen surede kullanici yeni tasklar gelirken bekleyecegi icin bir loading ile process i kullaniciya gostermeliyiz
-
 struct NewTimeEntryView: View {
     let selectedDate: Date
     let onCancel: (() -> Void)
@@ -30,12 +28,20 @@ struct NewTimeEntryView: View {
     }
         
     var isSaveButtonDisable: Bool {
-        return selectedTaskId == -1 || selectedProjectId == -1
+        return selectedTaskId == -1 || selectedProjectId == -1 || mainScreenVm.isLoading
+    }
+    
+    var title: String {
+        return mainScreenVm.editedTimerItemId != nil ? "Edit Time Entry" : "New Time Entry"
+    }
+    
+    var isEditMode: Bool {
+        return mainScreenVm.editedTimerItemId != nil
     }
     
     var body: some View {
         VStack {
-            Text("New Time Entry")
+            Text(title)
             TimeDividier()
             Spacer()
             if mainScreenVm.isTasksLoading {
@@ -51,6 +57,18 @@ struct NewTimeEntryView: View {
         .onChange(of: selectedProjectId) { newSelectedProjectId in
             if newSelectedProjectId != -1 {
                 mainScreenVm.getTasks(projectId: newSelectedProjectId)
+            }
+        }
+        .onAppear {
+            if isEditMode {
+                let editedTimer = mainScreenVm.getEditedTimer()
+                guard let editedTimer = editedTimer else {
+                    return
+                }
+                selectedProjectId = editedTimer.projectId
+                selectedTaskId = editedTimer.taskId
+                notes = editedTimer.notes
+                duration = String(editedTimer.totalDuration)
             }
         }
     }
@@ -72,6 +90,7 @@ extension NewTimeEntryView {
                     .frame(width: 50, alignment: .leading)
             }
             .pickerStyle(.menu)
+            .disabled(isEditMode)
             
             // task list will be shown here
             Picker(selection: $selectedTaskId) {
@@ -84,6 +103,7 @@ extension NewTimeEntryView {
                     .frame(width: 50, alignment: .leading)
             }
             .pickerStyle(.menu)
+            .disabled(isEditMode)
             
             HStack {
                 ZStack {
@@ -138,10 +158,25 @@ extension NewTimeEntryView {
             }
             .buttonStyle(.borderless)
             Button {
-                mainScreenVm.logTimer(projectTaskId: selectedTaskId,
-                                      duration: Int(duration) ?? 0,
-                                      notes: notes, date: selectedDate,
-                                      onSuccess: onSuccess)
+                if mainScreenVm.editedTimerItemId != nil {
+                    if let editedTimer = mainScreenVm.getEditedTimer(),
+                    let duration = Int(duration) {
+                        mainScreenVm.updateTimer(projectTaskId: editedTimer.taskId,
+                                                 duration: duration,
+                                                 notes: notes,
+                                                 startsAt: editedTimer.startsAt,
+                                                 endsAt: editedTimer.endsAt,
+                                                 onSuccess: onSuccess)
+                    } else {
+                        print("error")
+                    }
+                } else {
+                    mainScreenVm.logTimer(projectTaskId: selectedTaskId,
+                                          duration: Int(duration) ?? 0,
+                                          notes: notes,
+                                          date: selectedDate,
+                                          onSuccess: onSuccess)
+                }
             } label: {
                 Text("Save")
                     .padding(.horizontal, 12)

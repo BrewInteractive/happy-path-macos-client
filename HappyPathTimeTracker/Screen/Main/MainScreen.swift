@@ -14,7 +14,6 @@ struct MainScreen: View {
     @EnvironmentObject var appState: AppState
     @StateObject private var mainScreenVm = MainScreenViewModel()
     @State private var selectedDate = Date()
-    @State private var isNewEntryModalShown = false
     @Environment(\.openURL) var openURL
     
     var dateList: [Date]
@@ -45,7 +44,7 @@ struct MainScreen: View {
                         .frame(maxHeight: .infinity)
                         .environmentObject(mainScreenVm)
                     TimeDividier()
-                    BottomView(isNewEntryModalShown: $isNewEntryModalShown, selectedDate: selectedDate)
+                    BottomView(selectedDate: selectedDate)
                         .environmentObject(mainScreenVm)
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 6))
@@ -55,7 +54,7 @@ struct MainScreen: View {
                 }
             } else {
                 Button {
-                    openURL(URL(string: "http://localhost:8080/login?callback=happytime://action-name")!)
+                    openURL(URL(string: K.openURLText)!)
                 } label: {
                     Text("Please Login")
                 }
