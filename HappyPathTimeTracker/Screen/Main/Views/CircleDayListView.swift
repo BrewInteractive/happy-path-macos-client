@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CircleDayListView: View {
+    @EnvironmentObject var mainScreenVm: MainScreenViewModel
     @Binding var selectedDate: Date
     let dateList: [Date]
     let onDateSelect: ((_ date: Date) -> Void)
@@ -27,7 +28,7 @@ struct CircleDayListView: View {
             Spacer()
             ForEach(dateList, id: \.self) { date in
                 CircleDayView(date: .init(date: date,
-                                          isSelected: date.compare(toDate: selectedDate, granularity: .day).rawValue == 0, totalSeconds: 0))
+                                          isSelected: date.compare(toDate: selectedDate, granularity: .day).rawValue == 0, totalSeconds: 0), dailyTotalDuration: mainScreenVm.totalDurationMap[date.startOfDayISO])
                 .contentShape(Rectangle())
                 .onTapGesture {
                     onDateSelect(date)

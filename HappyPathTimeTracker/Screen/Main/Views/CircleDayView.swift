@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CircleDayView: View {
     var date: CircleDay
+    var dailyTotalDuration: Int? = 0
     
     var body: some View {
         VStack {
@@ -20,7 +21,7 @@ struct CircleDayView: View {
                     Text("\(date.date.weekdayName(.veryShort))")
                         .fontWeight(date.isSelected ? .bold : .regular)
                 }
-            Text("0:00")
+            Text("\(dailyTotalDuration.minuteToHours)")
                 .font(.caption)
         }
     }
@@ -30,6 +31,6 @@ struct CircleDayView_Previews: PreviewProvider {
     static var previews: some View {
         CircleDayView(date: .init(date: Date(),
                                   isSelected: true,
-                                  totalSeconds: 123))
+                                  totalSeconds: 123), dailyTotalDuration: 123)
     }
 }

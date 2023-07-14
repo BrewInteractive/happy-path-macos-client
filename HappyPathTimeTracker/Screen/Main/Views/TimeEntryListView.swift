@@ -25,7 +25,11 @@ struct TimeEntryListView: View {
                         if index != 0 && index != mainScreenVm.timers.count {
                             TimeDividier(color: .gray.opacity(0.1))
                         }
-                        TimeEntryView(timeEntry: mainScreenVm.timers[index])
+                        TimeEntryView(timeEntry: mainScreenVm.timers[index], activeTime: mainScreenVm.activeTimerSeconds, onStop: { id in
+                            mainScreenVm.stopTimer(for: id)
+                        }, onEdit: { id in
+                            mainScreenVm.showEditTimerModal(editedTimerId: id)
+                        })
                             .onHover { isHovered in
                                 if isHovered {
                                     hoveredTimeEntryId = mainScreenVm.timers[index].id
@@ -55,11 +59,6 @@ extension TimeEntryListView {
                 mainScreenVm.showEditTimerModal(editedTimerId: id)
             } label: {
                 Text("Edit Entry")
-            }
-            Button {
-                print("start")
-            } label: {
-                Text("Start Timer")
             }
             Button {
                 mainScreenVm.removeTimer(id: id, selectedDate: selectedDate)

@@ -15,7 +15,7 @@ struct NewTimeEntryView: View {
     
     @EnvironmentObject var mainScreenVm: MainScreenViewModel
     @State private var notes: String = ""
-    @State private var duration: String = ""
+    @State private var duration: String = "" // hour
     @State private var selectedProjectId = -1
     @State private var selectedTaskId = -1
     
@@ -39,6 +39,16 @@ struct NewTimeEntryView: View {
         return mainScreenVm.editedTimerItemId != nil
     }
     
+    var saveButtonTitle: String {
+        if isEditMode {
+            return "Update"
+        } else if duration.isEmpty {
+            return "Start"
+        } else {
+            return "Save"
+        }
+    }
+    
     var body: some View {
         VStack {
             Text(title)
@@ -59,6 +69,11 @@ struct NewTimeEntryView: View {
                 mainScreenVm.getTasks(projectId: newSelectedProjectId)
             }
         }
+        .onChange(of: duration, perform: { newDuration in
+            if newDuration.count > 5 {
+                duration = String(newDuration.prefix(5))
+            }
+        })
         .onAppear {
             if isEditMode {
                 let editedTimer = mainScreenVm.getEditedTimer()
@@ -68,7 +83,7 @@ struct NewTimeEntryView: View {
                 selectedProjectId = editedTimer.projectId
                 selectedTaskId = editedTimer.taskId
                 notes = editedTimer.notes
-                duration = String(editedTimer.totalDuration)
+                duration = editedTimer.totalDuration.toHours
             }
         }
     }
@@ -121,9 +136,9 @@ extension NewTimeEntryView {
                             .padding(6)
                     }
                 }
-                TextField("0", text: $duration)
+                TextField("0:00", text: $duration)
                     .onReceive(Just(duration)) { newValue in
-                        let filtered = newValue.filter { $0.isNumber }
+                        let filtered = newValue.filter { $0.isNumber || $0 == ":" }
                         if filtered != newValue {
                             self.duration = filtered
                         }
@@ -158,27 +173,32 @@ extension NewTimeEntryView {
             }
             .buttonStyle(.borderless)
             Button {
-                if mainScreenVm.editedTimerItemId != nil {
-                    if let editedTimer = mainScreenVm.getEditedTimer(),
-                    let duration = Int(duration) {
+                if isEditMode {
+                    if let editedTimer = mainScreenVm.getEditedTimer() {
                         mainScreenVm.updateTimer(projectTaskId: editedTimer.taskId,
                                                  duration: duration,
                                                  notes: notes,
                                                  startsAt: editedTimer.startsAt,
-                                                 endsAt: editedTimer.endsAt,
+                                                 endsAt: editedTimer.endsAt ?? editedTimer.startsAt,
                                                  onSuccess: onSuccess)
                     } else {
                         print("error")
                     }
                 } else {
-                    mainScreenVm.logTimer(projectTaskId: selectedTaskId,
-                                          duration: Int(duration) ?? 0,
-                                          notes: notes,
-                                          date: selectedDate,
-                                          onSuccess: onSuccess)
+                    if duration.isEmpty {
+                        mainScreenVm.startTimer(projectTaskId: selectedTaskId,
+                                                duration: "0",
+                                                notes: notes)
+                    } else {
+                        mainScreenVm.logTimer(projectTaskId: selectedTaskId,
+                                              duration: duration,
+                                              notes: notes,
+                                              date: selectedDate,
+                                              onSuccess: onSuccess)
+                    }
                 }
             } label: {
-                Text("Save")
+                Text(saveButtonTitle)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
                     .background {

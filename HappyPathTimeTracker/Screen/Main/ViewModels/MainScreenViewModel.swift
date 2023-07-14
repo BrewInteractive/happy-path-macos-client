@@ -8,6 +8,7 @@
 import Foundation
 import DirectusGraphql
 import Apollo
+import Combine
 
 class MainScreenViewModel: ObservableObject {
     var appState: AppState? = nil
@@ -17,8 +18,12 @@ class MainScreenViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var isRefetching: Bool = false
     @Published var isTasksLoading = false
+    @Published var selectedDate = Date()
     @Published var isNewEntryModalShown = false
     @Published var editedTimerItemId: Int? = nil
+    @Published var activeTimerSeconds: Double = 0.0
+    private var timer: AnyCancellable? = nil
+    @Published var totalDurationMap: [String: Int] = [:]
     
     func updateViewModel(appState: AppState) {
         self.appState = appState
@@ -49,11 +54,25 @@ class MainScreenViewModel: ObservableObject {
             switch result {
             case .success(let res):
                 let tmpTimers = self?.parseTimers(from: res) ?? []
-                
+                self?.totalDurationMap[date.startOfDayISO] = tmpTimers.reduce(0, { partialResult, timeEntry in
+                    return partialResult + timeEntry.totalDuration
+                })
                 DispatchQueue.main.async { [weak self] in
                     self?.timers = tmpTimers
                     self?.isLoading = false
                     onFinish?()
+                    guard let self = self else {return}
+                    if let startedTimeEntry = tmpTimers.first(where: {$0.endsAt == nil || ($0.endsAt != nil && $0.endsAt!.isEmpty)}) {
+                        if timer != nil {
+                            timer?.cancel()
+                        }
+                        timer = Timer.publish(every: 1, on: .main, in: .common)
+                            .autoconnect()
+                            .sink { [weak self] timer in
+                                let time = timer.timeIntervalSince1970 - startedTimeEntry.startsAt.toISODate()!.date.timeIntervalSince1970
+                                self?.activeTimerSeconds = time
+                            }
+                    }
                 }
             case .failure(let error):
                 self?.parseError(for: error)
@@ -91,11 +110,11 @@ class MainScreenViewModel: ObservableObject {
         self.getTimers(date: date, cachePolicy: .fetchIgnoringCacheData)
     }
     
-    func logTimer(projectTaskId: Int, duration: Int, notes: String, date: Date, onSuccess: @escaping () -> Void) {
+    func logTimer(projectTaskId: Int, duration: String, notes: String, date: Date, onSuccess: @escaping () -> Void) {
         self.isLoading = true
         appState?.graphqlClient?.client?
             .perform(mutation: LogTimerMutation(projectTasktId: projectTaskId,
-                                                duration: duration,
+                                                duration: duration.toMinute,
                                                 notes: notes,
                                                 startsAt: date.startOfDayISO,
                                                 endsAt: date.startOfDayISO)) { [weak self] result in
@@ -113,7 +132,7 @@ class MainScreenViewModel: ObservableObject {
     }
     
     func updateTimer(projectTaskId: Int,
-                     duration: Int,
+                     duration: String,
                      notes: String,
                      startsAt: String,
                      endsAt: String,
@@ -125,7 +144,7 @@ class MainScreenViewModel: ObservableObject {
         self.isLoading = true
         appState?.graphqlClient?.client?
             .perform(mutation: UpdateTimerMutation(timerId: editedTimeItemId,
-                                                   duration: GraphQLNullable<Int>(integerLiteral: duration),
+                                                   duration: .some(duration.toMinute),
                                                    startsAt: .some(startsAt),
                                                    endsAt: .some(endsAt),
                                                    notes: .some(notes))) { [weak self] result in
@@ -160,6 +179,45 @@ class MainScreenViewModel: ObservableObject {
                 }
             }
         self.getTimers(date: selectedDate, cachePolicy: .fetchIgnoringCacheData)
+    }
+    
+    func startTimer(projectTaskId: Int, duration: String, notes: String) {
+        self.isLoading = true
+        appState?
+            .graphqlClient?
+            .client?
+            .perform(mutation: StartTimerMutation(projectTaskId: projectTaskId,
+                                                  duration: .some(duration.toMinute),
+                                                  notes: .some(notes)), resultHandler: { [weak self] result in
+                switch result {
+                case .success:
+                    if let selectedDate = self?.selectedDate {
+                        self?.getTimers(date: selectedDate, cachePolicy: .fetchIgnoringCacheData)
+                    }
+                case .failure(let error):
+                    self?.parseError(for: error)
+                }
+                DispatchQueue.main.async { [weak self] in
+                    self?.isNewEntryModalShown = false
+                }
+            })
+    }
+    
+    func stopTimer(for id: Int) {
+        appState?
+            .graphqlClient?
+            .client?
+            .perform(mutation: StopTimerMutation(timerId: id), resultHandler: { [weak self] result in
+                switch result {
+                case .success(let res):
+                    print("successfuly stopped")
+                    if let selectedDate = self?.selectedDate {
+                        self?.getTimers(date: selectedDate, cachePolicy: .fetchIgnoringCacheData)
+                    }
+                case .failure(let error):
+                    self?.parseError(for: error)
+                }
+            })
     }
     
     func showEditTimerModal(editedTimerId: Int) {
@@ -213,8 +271,7 @@ class MainScreenViewModel: ObservableObject {
                   let id = timer.id,
                   let projectId = timer.project?.id,
                   let taskId = timer.task?.id,
-                  let startsAt = timer.startsAt,
-                  let endsAt = timer.endsAt else {
+                  let startsAt = timer.startsAt else {
                 return nil
             }
             
@@ -225,7 +282,7 @@ class MainScreenViewModel: ObservableObject {
                              taskName: timer.task?.name ?? "",
                              notes: timer.notes ?? "",
                              startsAt: startsAt,
-                             endsAt: endsAt,
+                             endsAt: timer.endsAt,
                              totalDuration: timer.totalDuration ?? 0)
         }) ?? []
     }

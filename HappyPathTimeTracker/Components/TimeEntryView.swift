@@ -10,12 +10,20 @@ import SwiftUI
 
 struct TimeEntryView: View {
     let timeEntry: TimeEntry
+    let activeTime: Double
+    let onStop: ((Int) -> Void)
+    let onEdit: ((Int) -> Void)
+    
+    var isActive: Bool {
+        return timeEntry.endsAt == nil ||
+        (timeEntry.endsAt != nil && timeEntry.endsAt!.isEmpty)
+    }
     
     var body: some View {
         ZStack {
             Rectangle()
                 .fill(Color.clear)
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 6) {
                 HStack {
                     VStack(alignment: .leading) {
                         Text(timeEntry.projectName)
@@ -30,11 +38,31 @@ struct TimeEntryView: View {
                     }
                     Spacer()
                     HStack {
-                        Text("\(timeEntry.totalDuration)")
-                        Image(systemName: "play.circle")
+                        if isActive {
+                            Button {
+                                onStop(timeEntry.id)
+                            } label: {
+                                Image(systemName: "stop")
+                                    .resizable()
+                                    .frame(width: 12, height: 12)
+                                    .foregroundColor(.red)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                        Button {
+                            onEdit(timeEntry.id)
+                        } label: {
+                            Image(systemName: "pencil")
+                                .resizable()
+                                .frame(width: 12, height: 12)
+                                .fontWeight(.bold)
+                        }
+                        .buttonStyle(.plain)
+                        Text(isActive ? "\(Int(activeTime).toHours)" : "\(timeEntry.totalDuration.minuteToHours)")
                     }
                 }
-                .padding(8)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
             }
         }
     }
@@ -43,13 +71,17 @@ struct TimeEntryView: View {
 struct TimeEntryView_Previews: PreviewProvider {
     static var previews: some View {
         TimeEntryView(timeEntry: .init(id: 1,
-                                       projectId: 1,
-                                       projectName: "Example Project",
-                                       taskId: 1,
-                                       taskName: "Frontend Development",
-                                       notes: "Dummy Notes",
+                                       projectId: 2,
+                                       projectName: "name",
+                                       taskId: 3,
+                                       taskName: "name",
+                                       notes: "notes",
                                        startsAt: "",
                                        endsAt: "",
-                                       totalDuration: 12312312))
+                                       totalDuration: 123), activeTime: 1) { id in
+            print("start")
+        } onEdit: { id in
+            print("edit")
+        }
     }
 }

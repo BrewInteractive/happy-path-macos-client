@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HeaderView: View {
+    @EnvironmentObject var mainScreenVm: MainScreenViewModel
     let selectedDate: Date
     @State private var isInfoShown: Bool = false
     

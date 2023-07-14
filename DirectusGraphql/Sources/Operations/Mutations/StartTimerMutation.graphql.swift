@@ -1,0 +1,71 @@
+// @generated
+// This file was automatically generated and should not be edited.
+
+@_exported import ApolloAPI
+
+public class StartTimerMutation: GraphQLMutation {
+  public static let operationName: String = "StartTimer"
+  public static let document: ApolloAPI.DocumentType = .notPersisted(
+    definition: .init(
+      #"""
+      mutation StartTimer($projectTaskId: Int!, $duration: Int, $notes: String) {
+        start(projectTaskId: $projectTaskId, duration: $duration, notes: $notes) {
+          __typename
+          id
+        }
+      }
+      """#
+    ))
+
+  public var projectTaskId: Int
+  public var duration: GraphQLNullable<Int>
+  public var notes: GraphQLNullable<String>
+
+  public init(
+    projectTaskId: Int,
+    duration: GraphQLNullable<Int>,
+    notes: GraphQLNullable<String>
+  ) {
+    self.projectTaskId = projectTaskId
+    self.duration = duration
+    self.notes = notes
+  }
+
+  public var __variables: Variables? { [
+    "projectTaskId": projectTaskId,
+    "duration": duration,
+    "notes": notes
+  ] }
+
+  public struct Data: DirectusGraphql.SelectionSet {
+    public let __data: DataDict
+    public init(_dataDict: DataDict) { __data = _dataDict }
+
+    public static var __parentType: ApolloAPI.ParentType { DirectusGraphql.Objects.Mutation }
+    public static var __selections: [ApolloAPI.Selection] { [
+      .field("start", Start?.self, arguments: [
+        "projectTaskId": .variable("projectTaskId"),
+        "duration": .variable("duration"),
+        "notes": .variable("notes")
+      ]),
+    ] }
+
+    public var start: Start? { __data["start"] }
+
+    /// Start
+    ///
+    /// Parent Type: `Start`
+    public struct Start: DirectusGraphql.SelectionSet {
+      public let __data: DataDict
+      public init(_dataDict: DataDict) { __data = _dataDict }
+
+      public static var __parentType: ApolloAPI.ParentType { DirectusGraphql.Objects.Start }
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .field("id", String?.self),
+      ] }
+
+      public var id: String? { __data["id"] }
+    }
+  }
+}

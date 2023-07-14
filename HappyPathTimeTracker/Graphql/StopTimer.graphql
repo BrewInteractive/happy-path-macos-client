@@ -1,0 +1,5 @@
+mutation StopTimer($timerId: Int!) {
+    stop(timerId: $timerId) {
+        totalDuration
+    }
+}
