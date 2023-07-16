@@ -41,10 +41,9 @@ struct TimeEntryView: View {
                             Button {
                                 onStop(timeEntry.id)
                             } label: {
-                                Image(systemName: "stop")
+                                Image("stop")
                                     .resizable()
                                     .frame(width: 12, height: 12)
-                                    .foregroundColor(.red)
                             }
                             .buttonStyle(.plain)
                         }
