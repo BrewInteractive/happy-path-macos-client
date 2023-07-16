@@ -209,8 +209,7 @@ class MainScreenViewModel: ObservableObject {
             .client?
             .perform(mutation: StopTimerMutation(timerId: id), resultHandler: { [weak self] result in
                 switch result {
-                case .success(let res):
-                    print("successfuly stopped")
+                case .success:
                     if let selectedDate = self?.selectedDate {
                         self?.getTimers(date: selectedDate, cachePolicy: .fetchIgnoringCacheData)
                     }
@@ -283,6 +282,7 @@ class MainScreenViewModel: ObservableObject {
                              notes: timer.notes ?? "",
                              startsAt: startsAt,
                              endsAt: timer.endsAt,
+                             duration: timer.duration,
                              totalDuration: timer.totalDuration ?? 0)
         }) ?? []
     }
