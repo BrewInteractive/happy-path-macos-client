@@ -16,5 +16,6 @@ struct TimeEntry: Identifiable {
     let notes: String
     let startsAt: String
     let endsAt: String?
+    let duration: Int?
     let totalDuration: Int
 }

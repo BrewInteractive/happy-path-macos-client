@@ -5,7 +5,6 @@
 //  Created by Gorkem Sevim on 1.07.2023.
 //
 
-import Foundation
 import SwiftUI
 
 struct TimeEntryView: View {
@@ -78,6 +77,7 @@ struct TimeEntryView_Previews: PreviewProvider {
                                        notes: "notes",
                                        startsAt: "",
                                        endsAt: "",
+                                       duration: 0,
                                        totalDuration: 123), activeTime: 1) { id in
             print("start")
         } onEdit: { id in
