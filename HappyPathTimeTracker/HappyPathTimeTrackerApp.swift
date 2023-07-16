@@ -14,7 +14,7 @@ struct HappyPathTimeTrackerApp: App {
     @StateObject private var appState = AppState()
     
     var body: some Scene {
-        MenuBarExtra("extra title", systemImage: "hammer") {
+        MenuBarExtra {
             MainScreen()
                 .environmentObject(appState)
                 .onAppear {
@@ -30,8 +30,16 @@ struct HappyPathTimeTrackerApp: App {
                     appState.updateIsLoggedIn(newValue: true)
                     appState.updateClientAuthToken(token: token.object as! String)
                 }
-        }.menuBarExtraStyle(.window)
+        } label: {
+            let image: NSImage = {
+                    let ratio = $0.size.height / $0.size.width
+                $0.isTemplate = true
+                    $0.size.height = 16
+                    $0.size.width = 16 / ratio
+                    return $0
+                }(NSImage(named: "brew")!)
+                Image(nsImage: image)
+        }
+        .menuBarExtraStyle(.window)
     }
 }
-
-//TODO: herhango bir istekten 403 gelirse appState isLoggedIn false olmali, combine ile kontrol edilebilir
