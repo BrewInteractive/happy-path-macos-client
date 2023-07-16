@@ -83,7 +83,7 @@ struct NewTimeEntryView: View {
                 selectedProjectId = editedTimer.projectId
                 selectedTaskId = editedTimer.taskId
                 notes = editedTimer.notes
-                duration = editedTimer.totalDuration.toHours
+                duration = editedTimer.totalDuration.minuteToHours
             }
         }
     }
@@ -174,12 +174,13 @@ extension NewTimeEntryView {
             .buttonStyle(.borderless)
             Button {
                 if isEditMode {
+                    // because we can't update started timer, send startsAt with endsAt param
                     if let editedTimer = mainScreenVm.getEditedTimer() {
                         mainScreenVm.updateTimer(projectTaskId: editedTimer.taskId,
                                                  duration: duration,
                                                  notes: notes,
                                                  startsAt: editedTimer.startsAt,
-                                                 endsAt: editedTimer.endsAt ?? editedTimer.startsAt,
+                                                 endsAt: editedTimer.startsAt,
                                                  onSuccess: onSuccess)
                     } else {
                         print("error")
