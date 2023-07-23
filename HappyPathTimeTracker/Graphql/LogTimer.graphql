@@ -1,6 +1,6 @@
-mutation LogTimer($projectTasktId: Int!, $duration: Int!, $notes: String!, $startsAt: String!, $endsAt: String!) {
+mutation LogTimer($projectTaskId: Int!, $duration: Int!, $notes: String!, $startsAt: String!, $endsAt: String!) {
     log(
-        projectTaskId: $projectTasktId
+        projectTaskId: $projectTaskId
         duration: $duration
         notes: $notes
         startsAt: $startsAt
