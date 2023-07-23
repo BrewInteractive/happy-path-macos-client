@@ -14,14 +14,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // will run with deeplink
     func application(_ application: NSApplication, open urls: [URL]) {
         let components = URLComponents(url: urls[0], resolvingAgainstBaseURL: false)
-        let token = components?.queryItems?.first(where: {$0.name == "token"})?.value
+        let magicToken = components?.queryItems?.first(where: {$0.name == "token"})?.value
         
-        if token != nil {
-            DispatchQueue.global().async {
-                let keychain = KeychainSwift()
-                keychain.set(token!, forKey: K.token)
+        if magicToken != nil {
+            Task {
+                if let auth = await NetworkManager.getJwtTokenWithMagicToken(magicToken: magicToken!), let jwtToken = auth.token {
+                    DispatchQueue.global().async {
+                        let keychain = KeychainSwift()
+                        keychain.set(jwtToken, forKey: K.token)
+                    }
+                    NotificationCenter.default.post(name: Notification.Name.loginByMagicLinkNotification, object: jwtToken)
+                } else {
+                    print("no auth found")
+                }
             }
-            NotificationCenter.default.post(name: Notification.Name.loginByMagicLinkNotification, object: token!)
         } else {
             print("no token in url")
         }
