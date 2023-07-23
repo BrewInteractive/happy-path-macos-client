@@ -1,0 +1,14 @@
+query Stats($date: String!) {
+    stats(date: $date) {
+        byDate {
+            date
+            totalDuration
+        }
+        byInterval {
+            type
+            startsAt
+            endsAt
+            totalDuration
+        }
+    }
+}
