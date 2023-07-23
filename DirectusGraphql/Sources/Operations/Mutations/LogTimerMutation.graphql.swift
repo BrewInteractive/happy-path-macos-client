@@ -8,9 +8,9 @@ public class LogTimerMutation: GraphQLMutation {
   public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(
       #"""
-      mutation LogTimer($projectTasktId: Int!, $duration: Int!, $notes: String!, $startsAt: String!, $endsAt: String!) {
+      mutation LogTimer($projectTaskId: Int!, $duration: Int!, $notes: String!, $startsAt: String!, $endsAt: String!) {
         log(
-          projectTaskId: $projectTasktId
+          projectTaskId: $projectTaskId
           duration: $duration
           notes: $notes
           startsAt: $startsAt
@@ -23,20 +23,20 @@ public class LogTimerMutation: GraphQLMutation {
       """#
     ))
 
-  public var projectTasktId: Int
+  public var projectTaskId: Int
   public var duration: Int
   public var notes: String
   public var startsAt: String
   public var endsAt: String
 
   public init(
-    projectTasktId: Int,
+    projectTaskId: Int,
     duration: Int,
     notes: String,
     startsAt: String,
     endsAt: String
   ) {
-    self.projectTasktId = projectTasktId
+    self.projectTaskId = projectTaskId
     self.duration = duration
     self.notes = notes
     self.startsAt = startsAt
@@ -44,7 +44,7 @@ public class LogTimerMutation: GraphQLMutation {
   }
 
   public var __variables: Variables? { [
-    "projectTasktId": projectTasktId,
+    "projectTaskId": projectTaskId,
     "duration": duration,
     "notes": notes,
     "startsAt": startsAt,
@@ -58,7 +58,7 @@ public class LogTimerMutation: GraphQLMutation {
     public static var __parentType: ApolloAPI.ParentType { DirectusGraphql.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("log", Log?.self, arguments: [
-        "projectTaskId": .variable("projectTasktId"),
+        "projectTaskId": .variable("projectTaskId"),
         "duration": .variable("duration"),
         "notes": .variable("notes"),
         "startsAt": .variable("startsAt"),

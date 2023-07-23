@@ -8,6 +8,7 @@ type Query {
   timers(startsAt: String!, endsAt: String!): [Timers]
   projects: [Projects]
   tasks(projectId: Int!): [Tasks]
+  stats(date: String!): Stats
 }
 
 type Me {
@@ -44,6 +45,23 @@ type Projects {
 type Tasks {
   id: String
   taskName: String
+}
+
+type Stats {
+  byDate: [ByDate]
+  byInterval: [ByInterval]
+}
+
+type ByDate {
+  date: String
+  totalDuration: Int
+}
+
+type ByInterval {
+  type: String
+  startsAt: String
+  endsAt: String
+  totalDuration: Int
 }
 
 type Mutation {

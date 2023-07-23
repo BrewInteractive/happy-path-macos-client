@@ -34,6 +34,9 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "Timers": return DirectusGraphql.Objects.Timers
     case "Task": return DirectusGraphql.Objects.Task
     case "Project": return DirectusGraphql.Objects.Project
+    case "Stats": return DirectusGraphql.Objects.Stats
+    case "ByDate": return DirectusGraphql.Objects.ByDate
+    case "ByInterval": return DirectusGraphql.Objects.ByInterval
     default: return nil
     }
   }
