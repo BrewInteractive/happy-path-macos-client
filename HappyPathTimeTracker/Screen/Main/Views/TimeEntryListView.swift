@@ -26,7 +26,9 @@ struct TimeEntryListView: View {
                             TimeDividier(color: .gray.opacity(0.1))
                         }
                         TimeEntryView(timeEntry: mainScreenVm.timers[index], activeTime: mainScreenVm.activeTimerSeconds, onStop: { id in
-                            mainScreenVm.stopTimer(for: id)
+                            Task {
+                                await mainScreenVm.stopTimer(for: id)
+                            }
                         }, onEdit: { id in
                             mainScreenVm.showEditTimerModal(editedTimerId: id)
                         })
@@ -61,7 +63,9 @@ extension TimeEntryListView {
                 Text("Edit Entry")
             }
             Button {
-                mainScreenVm.removeTimer(id: id, selectedDate: selectedDate)
+                Task {
+                    await mainScreenVm.removeTimer(id: id, selectedDate: selectedDate)
+                }
             } label: {
                 Text("Delete Entry")
             }

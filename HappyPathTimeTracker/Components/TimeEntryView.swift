@@ -10,8 +10,8 @@ import SwiftUI
 struct TimeEntryView: View {
     let timeEntry: TimeEntry
     let activeTime: Double
-    let onStop: ((Int) -> Void)
-    let onEdit: ((Int) -> Void)
+    let onStop: ((Int) async -> Void)
+    let onEdit: ((Int) async -> Void)
     
     var isActive: Bool {
         return timeEntry.endsAt == nil ||
@@ -39,7 +39,9 @@ struct TimeEntryView: View {
                     HStack {
                         if isActive {
                             Button {
-                                onStop(timeEntry.id)
+                                Task {
+                                    await onStop(timeEntry.id)
+                                }
                             } label: {
                                 Image("stop")
                                     .resizable()
@@ -48,7 +50,9 @@ struct TimeEntryView: View {
                             .buttonStyle(.plain)
                         }
                         Button {
-                            onEdit(timeEntry.id)
+                            Task {
+                                await onEdit(timeEntry.id)
+                            }
                         } label: {
                             Image(systemName: "pencil")
                                 .resizable()

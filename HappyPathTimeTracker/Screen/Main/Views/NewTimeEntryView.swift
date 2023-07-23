@@ -9,22 +9,15 @@ import SwiftUI
 import Combine
 
 struct NewTimeEntryView: View {
-    let selectedDate: Date
-    let onCancel: (() -> Void)
-    let onSuccess: (() -> Void)
-    
     @EnvironmentObject var mainScreenVm: MainScreenViewModel
+    let selectedDate: Date
     @State private var notes: String = ""
     @State private var duration: String = "" // hour
     @State private var selectedProjectId = -1
     @State private var selectedTaskId = -1
     
-    init(selectedDate: Date,
-         onCancel: @escaping () -> Void,
-         onSuccess: @escaping () -> Void) {
+    init(selectedDate: Date) {
         self.selectedDate = selectedDate
-        self.onCancel = onCancel
-        self.onSuccess = onSuccess
     }
         
     var isSaveButtonDisable: Bool {
@@ -66,7 +59,9 @@ struct NewTimeEntryView: View {
         .padding()
         .onChange(of: selectedProjectId) { newSelectedProjectId in
             if newSelectedProjectId != -1 {
-                mainScreenVm.getTasks(projectId: newSelectedProjectId)
+                Task {
+                    await mainScreenVm.getTasks(projectId: newSelectedProjectId)
+                }
             }
         }
         .onChange(of: duration, perform: { newDuration in
@@ -160,7 +155,7 @@ extension NewTimeEntryView {
         HStack {
             TimeDividier(color: .gray.opacity(0.2))
             Button {
-                onCancel()
+                self.mainScreenVm.updateMainScreenVmProp(for: \.isNewEntryModalShown, newValue: false)
             } label: {
                 Text("Cancel")
                     .padding(.horizontal, 12)
@@ -176,26 +171,32 @@ extension NewTimeEntryView {
                 if isEditMode {
                     // because we can't update started timer, send startsAt with endsAt param
                     if let editedTimer = mainScreenVm.getEditedTimer() {
-                        mainScreenVm.updateTimer(projectTaskId: editedTimer.taskId,
-                                                 duration: duration,
-                                                 notes: notes,
-                                                 startsAt: editedTimer.startsAt,
-                                                 endsAt: editedTimer.startsAt,
-                                                 onSuccess: onSuccess)
+                        Task {
+                            await mainScreenVm.updateTimer(projectTaskId: editedTimer.taskId,
+                                                     duration: duration,
+                                                     notes: notes,
+                                                     startsAt: editedTimer.startsAt,
+                                                     endsAt: editedTimer.startsAt)
+                        }
                     } else {
                         print("error")
                     }
                 } else {
                     if duration.isEmpty {
-                        mainScreenVm.startTimer(projectTaskId: selectedTaskId,
-                                                duration: "0",
-                                                notes: notes)
+                        Task {
+                            await mainScreenVm.startTimer(projectId: selectedProjectId,
+                                                          projectTaskId: selectedTaskId,
+                                                          duration: "0",
+                                                          notes: notes)
+                        }
                     } else {
-                        mainScreenVm.logTimer(projectTaskId: selectedTaskId,
-                                              duration: duration,
-                                              notes: notes,
-                                              date: selectedDate,
-                                              onSuccess: onSuccess)
+                        Task {
+                            await mainScreenVm.logTimer(projectId: selectedProjectId,
+                                                        projectTaskId: selectedTaskId,
+                                                        duration: duration,
+                                                        notes: notes,
+                                                        date: selectedDate)
+                        }
                     }
                 }
             } label: {
@@ -216,10 +217,6 @@ extension NewTimeEntryView {
 
 struct NewTimeEntryView_Previews: PreviewProvider {
     static var previews: some View {
-        NewTimeEntryView(selectedDate: Date(), onCancel: {
-            print("cancel")
-        }, onSuccess: {
-            print("success")
-        })
+        NewTimeEntryView(selectedDate: Date())
     }
 }

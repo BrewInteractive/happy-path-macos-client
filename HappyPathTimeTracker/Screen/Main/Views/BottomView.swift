@@ -26,15 +26,14 @@ struct BottomView: View {
             }
             .buttonStyle(.plain)
             .popover(isPresented: $mainScreenVm.isNewEntryModalShown) {
-                NewTimeEntryView(selectedDate: selectedDate, onCancel: {
-                    mainScreenVm.isNewEntryModalShown = false
-                }, onSuccess: {
-                    mainScreenVm.isNewEntryModalShown = false
-                })
+                NewTimeEntryView(selectedDate: selectedDate)
+                    .environmentObject(mainScreenVm)
             }
             Spacer()
             Button {
-                mainScreenVm.refetch(date: selectedDate)
+                Task {
+                    await mainScreenVm.refetch(date: selectedDate)
+                }
             } label: {
                 Image(systemName: "arrow.clockwise")
                     .rotationEffect(mainScreenVm.isRefetching ? .degrees(360) : .degrees(0))

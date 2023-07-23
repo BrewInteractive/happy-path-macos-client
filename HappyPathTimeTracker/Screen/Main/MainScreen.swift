@@ -33,11 +33,9 @@ struct MainScreen: View {
             if appState.isLoggedIn {
                 VStack(spacing: 4) {
                     HeaderView(selectedDate: mainScreenVm.selectedDate)
+                        .environmentObject(mainScreenVm)
                     CircleDayListView(selectedDate: $mainScreenVm.selectedDate,
-                                      dateList: dateList) { date in
-                        mainScreenVm.selectedDate = date
-                        mainScreenVm.getTimers(date: date)
-                    }
+                                      dateList: dateList)
                         .environmentObject(mainScreenVm)
                     TimeDividier()
                     TimeEntryListView(selectedDate: mainScreenVm.selectedDate)
@@ -49,8 +47,9 @@ struct MainScreen: View {
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 6))
                 .onAppear {
-                    mainScreenVm.updateViewModel(appState: appState)
-                    mainScreenVm.getTimers(date: mainScreenVm.selectedDate)
+                    Task {
+                        await mainScreenVm.updateViewModel(appState: appState)
+                    }
                 }
             } else {
                 Button {
@@ -64,7 +63,9 @@ struct MainScreen: View {
         .frame(width: 360, height: 400)
         .contextMenu {
             Button {
-                mainScreenVm.refetch(date: mainScreenVm.selectedDate)
+                Task {
+                    await mainScreenVm.refetch(date: mainScreenVm.selectedDate)
+                }
             } label: {
                 Text("Yenile")
             }

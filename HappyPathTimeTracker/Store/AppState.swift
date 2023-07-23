@@ -21,7 +21,9 @@ class AppState: ObservableObject {
     }
     
     func updateIsLoggedIn(newValue: Bool) {
-        self.isLoggedIn = newValue
+        DispatchQueue.main.async {
+            self.isLoggedIn = newValue
+        }
     }
     
     func updateClientAuthToken(token: String) {

@@ -16,8 +16,7 @@ struct HeaderView: View {
         ZStack {
             Rectangle()
                 .fill(
-                    LinearGradient(colors: [
-                        Color("Header2"), Color("Header1")],
+                    LinearGradient(colors: [Color("Header2"), Color("Header1")],
                                    startPoint: .leading, endPoint: .trailing))
                 .frame(height:36)
             HStack {
@@ -37,7 +36,7 @@ struct HeaderView: View {
                                 GridRow {
                                     VStack {
                                         Text("Hours Today")
-                                        Text("0:00")
+                                        Text(mainScreenVm.todayTotalDurationWithActiveTimer)
                                     }
                                     Rectangle()
                                         .fill(.secondary.opacity(0.5))
@@ -45,7 +44,7 @@ struct HeaderView: View {
                                         .frame(maxHeight: .infinity)
                                     VStack {
                                         Text("Hours Yesterday")
-                                        Text("0:00")
+                                        Text("\(mainScreenVm.stats?.byInterval[3].totalDuration.minuteToHours ?? "00:00")")
                                     }
                                 }
                                 Rectangle()
@@ -55,7 +54,7 @@ struct HeaderView: View {
                                 GridRow {
                                     VStack {
                                         Text("Hours This Week")
-                                        Text("0:00")
+                                        Text(mainScreenVm.thisWeekDurationWithActiveTimer)
                                     }
                                     Rectangle()
                                         .fill(.secondary.opacity(0.5))
@@ -63,7 +62,7 @@ struct HeaderView: View {
                                         .frame(maxHeight: .infinity)
                                     VStack {
                                         Text("Hours This Month")
-                                        Text("0:00")
+                                        Text(mainScreenVm.thisMonthDurationWithActiveTimer)
                                     }
                                 }
                             }

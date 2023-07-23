@@ -21,9 +21,7 @@ struct HappyPathTimeTrackerApp: App {
                     let keychain = KeychainSwift()
                     let token = keychain.get(K.token)
                     if token != nil {
-                        DispatchQueue.main.async {
-                            appState.updateIsLoggedIn(newValue: true)
-                        }
+                        appState.updateIsLoggedIn(newValue: true)
                     }
                 }
                 .onReceive(NotificationCenter.default.publisher(for: Notification.Name.loginByMagicLinkNotification)) { token in
