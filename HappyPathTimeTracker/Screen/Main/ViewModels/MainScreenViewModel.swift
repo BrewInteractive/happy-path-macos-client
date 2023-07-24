@@ -277,8 +277,37 @@ final class MainScreenViewModel: ObservableObject {
         self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
         self.updateMainScreenVmProp(for: \.activeTimerSeconds, newValue: 0.0)
         do {
-            try await networkManager.stopTimer(graphqlClient: appState?.graphqlClient, for: id)
             timer?.cancel()
+            let stoppedTimerTotalDuration = try await networkManager.stopTimer(graphqlClient: appState?.graphqlClient, for: id)
+            guard let stoppedTimerTotalDuration = stoppedTimerTotalDuration,
+                  let stoppedTimerIndex = self.timers.firstIndex(where: {$0.id == id}) else {
+                return
+            }
+            DispatchQueue.main.async {
+                self.timers[stoppedTimerIndex].endsAt = Date().toISO()
+                self.timers[stoppedTimerIndex].totalDuration = stoppedTimerTotalDuration
+            }
+            
+        } catch {
+            self.parseError(for: error)
+        }
+        self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
+    }
+    
+    func restartTimer(for id: Int) async {
+        self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
+        do {
+            timer?.cancel()
+            let restartedTimerId = try await networkManager.restartTimer(graphqlClient: appState?.graphqlClient, for: id)
+            guard let restartedTimerId = restartedTimerId,
+                  let tmpRestartedTimeEntryIndex = self.timers.firstIndex(where: {$0.id == restartedTimerId}) else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.timers[tmpRestartedTimeEntryIndex].endsAt = nil
+                self.startLocalTimerForEntry(timerEntry: self.timers[tmpRestartedTimeEntryIndex])
+            }
         } catch {
             self.parseError(for: error)
         }
