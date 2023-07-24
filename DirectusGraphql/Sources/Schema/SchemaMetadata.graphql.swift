@@ -24,6 +24,7 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     switch typename {
     case "Mutation": return DirectusGraphql.Objects.Mutation
     case "Start": return DirectusGraphql.Objects.Start
+    case "Restart": return DirectusGraphql.Objects.Restart
     case "Update": return DirectusGraphql.Objects.Update
     case "Query": return DirectusGraphql.Objects.Query
     case "Projects": return DirectusGraphql.Objects.Projects

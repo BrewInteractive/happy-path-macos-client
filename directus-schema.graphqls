@@ -12,7 +12,6 @@ type Query {
 }
 
 type Me {
-  did: String
   email: String
 }
 
@@ -70,6 +69,7 @@ type Mutation {
   log(projectTaskId: Int!, duration: Int, notes: String, startsAt: String, endsAt: String): Log
   remove(timerId: Int!): Remove
   update(timerId: Int!, input: Input): Update
+  restart(timerId: Int!): Restart
 }
 
 type Start {
@@ -97,4 +97,8 @@ input Input {
   startsAt: String
   endsAt: String
   notes: String
+}
+
+type Restart {
+  id: Int
 }

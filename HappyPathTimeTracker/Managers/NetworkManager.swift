@@ -16,28 +16,28 @@ final class NetworkManager {
         }
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?.fetch(query: StatsQuery(date: startOfDate), cachePolicy: cachePolicy) { [weak self] result in
-                    switch result {
-                    case .success(let res):
-                        let stats = self?.parseStats(from: res)
-                        continuation.resume(returning: stats)
-                    case .failure(let error):
-                        continuation.resume(throwing: error)
-                    }
+                switch result {
+                case .success(let res):
+                    let stats = self?.parseStats(from: res)
+                    continuation.resume(returning: stats)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
                 }
+            }
         })
     }
     
     func fetchProjects(graphqlClient: GraphqlClient?) async throws -> [Project]? {
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?.fetch(query: GetProjectsQuery()) { [weak self] result in
-                    switch result {
-                    case .success(let res):
-                        let tmpProjects = self?.parseProjects(from: res) ?? []
-                        continuation.resume(returning: tmpProjects)
-                    case .failure(let error):
-                        continuation.resume(throwing: error)
-                    }
+                switch result {
+                case .success(let res):
+                    let tmpProjects = self?.parseProjects(from: res) ?? []
+                    continuation.resume(returning: tmpProjects)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
                 }
+            }
         })
     }
     
@@ -45,14 +45,14 @@ final class NetworkManager {
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?
                 .fetch(query: GetTimersQuery(startsAt: date.startOfDayISO, endsAt: date.endOfDayISO), cachePolicy: cachePolicy) { [weak self] result in
-                switch result {
-                case .success(let res):
-                    let tmpTimers = self?.parseTimers(from: res) ?? []
-                    continuation.resume(returning: tmpTimers)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
+                    switch result {
+                    case .success(let res):
+                        let tmpTimers = self?.parseTimers(from: res) ?? []
+                        continuation.resume(returning: tmpTimers)
+                    case .failure(let error):
+                        continuation.resume(throwing: error)
+                    }
                 }
-            }
         })
     }
     
@@ -107,13 +107,13 @@ final class NetworkManager {
                                                        startsAt: .some(startsAt),
                                                        endsAt: .some(endsAt),
                                                        notes: .some(notes))) { result in
-                switch result {
-                case .success(let res):
-                    continuation.resume(returning: res.data?.update?.id)
-                case .failure(let error):
-                    continuation.resume(throwing: error)
+                    switch result {
+                    case .success(let res):
+                        continuation.resume(returning: res.data?.update?.id)
+                    case .failure(let error):
+                        continuation.resume(throwing: error)
+                    }
                 }
-            }
         })
     }
     
@@ -175,6 +175,21 @@ final class NetworkManager {
                     switch result {
                     case .success(let res):
                         continuation.resume(returning: res.data?.stop?.totalDuration)
+                    case .failure(let error):
+                        continuation.resume(throwing: error)
+                    }
+                })
+        })
+    }
+    
+    func restartTimer(graphqlClient: GraphqlClient?, for id: Int) async throws -> Int? {
+        return try await withCheckedThrowingContinuation({ continuation in
+            graphqlClient?
+                .client?
+                .perform(mutation: RestartTimerMutation(timerId: id), resultHandler: { result in
+                    switch result {
+                    case .success(let res):
+                        continuation.resume(returning: res.data?.restart?.id)
                     case .failure(let error):
                         continuation.resume(throwing: error)
                     }

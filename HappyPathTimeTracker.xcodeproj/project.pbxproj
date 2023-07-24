@@ -31,6 +31,7 @@
 		5E7B54972A6120EE0097EC94 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7B54962A6120EE0097EC94 /* Int.swift */; };
 		5E8FAEF12A6910850016EE08 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8FAEF02A6910850016EE08 /* Auth.swift */; };
 		5E916F352A5ED555001FAF02 /* UpdateTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E916F342A5ED555001FAF02 /* UpdateTimer.graphql */; };
+		5ED8E43B2A6E342000F871E0 /* RestartTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5ED8E43A2A6E342000F871E0 /* RestartTimer.graphql */; };
 		5EE13CEA2A5757AE004BF3DA /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5EE13CE92A5757AE004BF3DA /* .gitignore */; };
 		5EE371FC2A4EDEDF00859278 /* NewTimeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE371FB2A4EDEDF00859278 /* NewTimeEntryView.swift */; };
 		5EE371FF2A4EDF0C00859278 /* TimeDividier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE371FE2A4EDF0C00859278 /* TimeDividier.swift */; };
@@ -91,6 +92,7 @@
 		5E7B54962A6120EE0097EC94 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		5E8FAEF02A6910850016EE08 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		5E916F342A5ED555001FAF02 /* UpdateTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UpdateTimer.graphql; sourceTree = "<group>"; };
+		5ED8E43A2A6E342000F871E0 /* RestartTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RestartTimer.graphql; sourceTree = "<group>"; };
 		5EE13CE92A5757AE004BF3DA /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		5EE371FB2A4EDEDF00859278 /* NewTimeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTimeEntryView.swift; sourceTree = "<group>"; };
 		5EE371FE2A4EDF0C00859278 /* TimeDividier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDividier.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				5E5FC02B2A5F45AD00A19330 /* StartTimer.graphql */,
 				5E7B54902A609E2D0097EC94 /* StopTimer.graphql */,
 				5E646F132A671AB800B92B96 /* Stats.graphql */,
+				5ED8E43A2A6E342000F871E0 /* RestartTimer.graphql */,
 			);
 			path = Graphql;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				5E646F142A671AB800B92B96 /* Stats.graphql in Resources */,
 				5E41B14B2A497F52001E90AC /* Preview Assets.xcassets in Resources */,
 				5EE372152A50523D00859278 /* Tasks.graphql in Resources */,
+				5ED8E43B2A6E342000F871E0 /* RestartTimer.graphql in Resources */,
 				5E41B1482A497F52001E90AC /* Assets.xcassets in Resources */,
 				5E7B54912A609E2D0097EC94 /* StopTimer.graphql in Resources */,
 				5EE372172A50B82B00859278 /* Timers.graphql in Resources */,

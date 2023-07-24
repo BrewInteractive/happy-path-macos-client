@@ -1,0 +1,5 @@
+mutation RestartTimer($timerId: Int!) {
+    restart(timerId: $timerId) {
+        id
+    }
+}
