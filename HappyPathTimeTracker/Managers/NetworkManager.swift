@@ -83,7 +83,6 @@ final class NetworkManager {
                     case .success(let res):
                         continuation.resume(returning: res.data?.log)
                     case .failure(let error):
-                        print("error on log: ", error.localizedDescription)
                         continuation.resume(throwing: error)
                     }
                 }
@@ -183,10 +182,8 @@ final class NetworkManager {
                 .perform(mutation: RestartTimerMutation(timerId: id), resultHandler: { result in
                     switch result {
                     case .success(let res):
-                        print("return success: ", res)
                         continuation.resume(returning: res.data?.restart)
                     case .failure(let error):
-                        print("return error: ", error)
                         continuation.resume(throwing: error)
                     }
                 })
