@@ -25,7 +25,10 @@ struct TimeEntryListView: View {
                         if index != 0 && index != mainScreenVm.timers.count {
                             TimeDividier(color: .gray.opacity(0.1))
                         }
-                        TimeEntryView(timeEntry: mainScreenVm.timers[index], activeTime: mainScreenVm.activeTimerSeconds, onStop: { id in
+                        TimeEntryView(timeEntry: mainScreenVm.timers[index],
+                                      activeTime: mainScreenVm.activeTimerSeconds,
+                                      activeTimerId: mainScreenVm.activeTimerId,
+                                      onStop: { id in
                             Task {
                                 await mainScreenVm.stopTimer(for: id)
                             }

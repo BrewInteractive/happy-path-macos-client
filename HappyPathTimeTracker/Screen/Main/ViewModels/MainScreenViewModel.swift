@@ -35,6 +35,10 @@ final class MainScreenViewModel: ObservableObject {
     @Published var totalDurationMap: [String: Int] = [:]
     @Published var stats: Stats? = nil
     
+    var activeTimerId: Int? {
+        return timers.first(where: {$0.endsAt == nil})?.id
+    }
+    
     func updateViewModel(appState: AppState) async {
         self.updateMainScreenVmProp(for: \.appState, newValue: appState)
         self.updateMainScreenVmProp(for: \.isLoading, newValue: true)

@@ -10,6 +10,7 @@ import SwiftUI
 struct TimeEntryView: View {
     let timeEntry: TimeEntry
     let activeTime: Double
+    let activeTimerId: Int?
     let onStop: ((Int) async -> Void)
     let onEdit: ((Int) async -> Void)
     let onRestart: ((Int) async -> Void)
@@ -49,7 +50,7 @@ struct TimeEntryView: View {
                                     .frame(width: 12, height: 12)
                             }
                             .buttonStyle(.plain)
-                        } else {
+                        } else if(activeTimerId == nil) {
                             Button {
                                 Task {
                                     await onRestart(timeEntry.id)
@@ -101,7 +102,7 @@ struct TimeEntryView_Previews: PreviewProvider {
                                        startsAt: "",
                                        endsAt: "",
                                        duration: 0,
-                                       totalDuration: 123), activeTime: 1) { id in
+                                       totalDuration: 123), activeTime: 1, activeTimerId: nil) { id in
             print("start")
         } onEdit: { id in
             print("edit")
