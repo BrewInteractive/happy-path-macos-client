@@ -20,6 +20,10 @@ struct TimeEntryView: View {
         (timeEntry.endsAt != nil && timeEntry.endsAt!.isEmpty)
     }
     
+    var showRestartButton: Bool {
+        return activeTimerId == nil && (timeEntry.startsAt.toISODate()?.date.isToday ?? false)
+    }
+    
     var body: some View {
         ZStack {
             Rectangle()
@@ -50,7 +54,7 @@ struct TimeEntryView: View {
                                     .frame(width: 12, height: 12)
                             }
                             .buttonStyle(.plain)
-                        } else if(activeTimerId == nil) {
+                        } else if(showRestartButton) {
                             Button {
                                 Task {
                                     await onRestart(timeEntry.id)
