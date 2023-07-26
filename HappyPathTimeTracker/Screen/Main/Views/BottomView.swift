@@ -20,9 +20,13 @@ struct BottomView: View {
                     print("no projects")
                 }
             } label: {
-                Image(systemName: "plus")
-                    .resizable()
-                    .frame(width: 14, height: 14)
+                ZStack {
+                    Color.white.opacity(0.00001)
+                        .frame(width: 24, height: 24)
+                    Image(systemName: "plus")
+                        .resizable()
+                        .frame(width: 14, height: 14)
+                }
             }
             .buttonStyle(.plain)
             .popover(isPresented: $mainScreenVm.isNewEntryModalShown) {
@@ -35,18 +39,24 @@ struct BottomView: View {
                     await mainScreenVm.refetch(date: selectedDate)
                 }
             } label: {
-                Image(systemName: "arrow.clockwise")
-                    .rotationEffect(mainScreenVm.isRefetching ? .degrees(360) : .degrees(0))
-                               .animation(.easeIn, value: mainScreenVm.isRefetching)
+                ZStack {
+                    Color.white.opacity(0.00001)
+                        .frame(width: 24, height: 24)
+                    Image(systemName: "arrow.clockwise")
+                }
             }
             .buttonStyle(.plain)
             .padding(.trailing, 8)
             Button {
                 NSApplication.shared.terminate(nil)
             } label: {
-                Image(systemName: "xmark.circle.fill")
-                    .resizable()
-                    .frame(width: 14, height: 14)
+                ZStack {
+                    Color.white.opacity(0.00001)
+                        .frame(width: 24, height: 24)
+                    Image(systemName: "xmark.circle.fill")
+                        .resizable()
+                        .frame(width: 14, height: 14)
+                }
             }
             .buttonStyle(.plain)
             .padding(.trailing, 8)
