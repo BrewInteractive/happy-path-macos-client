@@ -22,7 +22,6 @@ class TokenInterceptor: ApolloInterceptor {
         if let token, !token.isEmpty {
             request.addHeader(name: "Authorization", value: "Bearer \(token)")
         }
-        print(token)
         chain.proceedAsync(request: request, response: response, interceptor: self , completion: completion)
     }
 }

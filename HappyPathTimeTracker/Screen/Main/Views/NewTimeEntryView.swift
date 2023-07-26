@@ -186,7 +186,6 @@ extension NewTimeEntryView {
                         Task {
                             await mainScreenVm.startTimer(projectId: selectedProjectId,
                                                           projectTaskId: selectedTaskId,
-                                                          duration: "0",
                                                           notes: notes)
                         }
                     } else {

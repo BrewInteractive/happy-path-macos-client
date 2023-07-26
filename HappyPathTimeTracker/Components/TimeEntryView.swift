@@ -12,6 +12,7 @@ struct TimeEntryView: View {
     let activeTime: Double
     let onStop: ((Int) async -> Void)
     let onEdit: ((Int) async -> Void)
+    let onRestart: ((Int) async -> Void)
     
     var isActive: Bool {
         return timeEntry.endsAt == nil ||
@@ -48,16 +49,35 @@ struct TimeEntryView: View {
                                     .frame(width: 12, height: 12)
                             }
                             .buttonStyle(.plain)
+                        } else {
+                            Button {
+                                Task {
+                                    await onRestart(timeEntry.id)
+                                }
+                            } label: {
+                                ZStack {
+                                    Color.white.opacity(0.00001)
+                                        .frame(width: 16, height: 16)
+                                    Image(systemName: "play.fill")
+                                        .resizable()
+                                        .frame(width: 12, height: 12)
+                                }
+                            }
+                            .buttonStyle(.plain)
                         }
                         Button {
                             Task {
                                 await onEdit(timeEntry.id)
                             }
                         } label: {
-                            Image(systemName: "pencil")
-                                .resizable()
-                                .frame(width: 12, height: 12)
-                                .fontWeight(.bold)
+                            ZStack {
+                                Color.white.opacity(0.00001)
+                                    .frame(width: 16, height: 16)
+                                Image(systemName: "pencil")
+                                    .resizable()
+                                    .frame(width: 12, height: 12)
+                                    .fontWeight(.bold)
+                            }
                         }
                         .buttonStyle(.plain)
                         Text(isActive ? "\(Int(activeTime).toHours)" : "\(timeEntry.totalDuration.minuteToHours)")
@@ -85,6 +105,8 @@ struct TimeEntryView_Previews: PreviewProvider {
             print("start")
         } onEdit: { id in
             print("edit")
+        } onRestart: { id in
+            print("restart")
         }
     }
 }

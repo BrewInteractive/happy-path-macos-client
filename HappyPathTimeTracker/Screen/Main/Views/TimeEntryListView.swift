@@ -31,20 +31,24 @@ struct TimeEntryListView: View {
                             }
                         }, onEdit: { id in
                             mainScreenVm.showEditTimerModal(editedTimerId: id)
+                        }, onRestart: { id in
+                            Task {
+                                await mainScreenVm.restartTimer(for: id)
+                            }
                         })
-                            .onHover { isHovered in
-                                if isHovered {
-                                    hoveredTimeEntryId = mainScreenVm.timers[index].id
-                                } else {
-                                    hoveredTimeEntryId = nil
-                                }
+                        .onHover { isHovered in
+                            if isHovered {
+                                hoveredTimeEntryId = mainScreenVm.timers[index].id
+                            } else {
+                                hoveredTimeEntryId = nil
                             }
-                            .background(content: {
-                                hoveredTimeEntryId == mainScreenVm.timers[index].id ? Color.gray.opacity(0.2) : Color.clear
-                            })
-                            .contextMenu {
-                                TimeEntryContextMenu(id: mainScreenVm.timers[index].id)
-                            }
+                        }
+                        .background(content: {
+                            hoveredTimeEntryId == mainScreenVm.timers[index].id ? Color.gray.opacity(0.2) : Color.clear
+                        })
+                        .contextMenu {
+                            TimeEntryContextMenu(id: mainScreenVm.timers[index].id)
+                        }
                     }
                 }
             }

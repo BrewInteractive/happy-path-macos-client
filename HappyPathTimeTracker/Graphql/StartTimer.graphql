@@ -1,5 +1,8 @@
 mutation StartTimer($projectTaskId: Int!, $duration: Int, $notes: String) {
     start(projectTaskId: $projectTaskId, duration: $duration, notes: $notes) {
         id
+        startsAt
+        endsAt
+        totalDuration
     }
 }

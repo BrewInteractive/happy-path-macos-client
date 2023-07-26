@@ -15,6 +15,9 @@ public class UpdateTimerMutation: GraphQLMutation {
         ) {
           __typename
           id
+          startsAt
+          endsAt
+          totalDuration
         }
       }
       """#
@@ -78,9 +81,15 @@ public class UpdateTimerMutation: GraphQLMutation {
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", Int?.self),
+        .field("startsAt", String?.self),
+        .field("endsAt", String?.self),
+        .field("totalDuration", Int?.self),
       ] }
 
       public var id: Int? { __data["id"] }
+      public var startsAt: String? { __data["startsAt"] }
+      public var endsAt: String? { __data["endsAt"] }
+      public var totalDuration: Int? { __data["totalDuration"] }
     }
   }
 }

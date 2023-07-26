@@ -1,5 +1,8 @@
 mutation RestartTimer($timerId: Int!) {
     restart(timerId: $timerId) {
         id
+        startsAt
+        endsAt
+        totalDuration
     }
 }

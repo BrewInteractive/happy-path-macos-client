@@ -71,19 +71,17 @@ final class NetworkManager {
         })
     }
     
-    @discardableResult
-    func logTimer(graphqlClient: GraphqlClient?, projectTaskId: Int, duration: String, notes: String, date: Date) async throws -> String? {
+    func logTimer(graphqlClient: GraphqlClient?, projectTaskId: Int, duration: String, notes: String, date: Date) async throws -> LogTimerMutation.Data.Log? {
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?
                 .perform(mutation: LogTimerMutation(projectTaskId: projectTaskId,
                                                     duration: duration.toMinute,
                                                     notes: notes,
-                                                    startsAt: date.startOfDayISO,
-                                                    endsAt: date.startOfDayISO)) { result in
+                                                    startsAt: date.toISO(),
+                                                    endsAt: date.toISO())) { result in
                     switch result {
                     case .success(let res):
-                        print("logged: ", res.data?.log?.id ?? "")
-                        continuation.resume(returning: res.data?.log?.id)
+                        continuation.resume(returning: res.data?.log)
                     case .failure(let error):
                         print("error on log: ", error.localizedDescription)
                         continuation.resume(throwing: error)
@@ -92,14 +90,13 @@ final class NetworkManager {
         })
     }
     
-    @discardableResult
     func updateTimer(graphqlClient: GraphqlClient?,
                      editedTimeItemId: Int,
                      projectTaskId: Int,
                      duration: String,
                      notes: String,
                      startsAt: String,
-                     endsAt: String) async throws -> Int? {
+                     endsAt: String) async throws -> UpdateTimerMutation.Data.Update? {
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?
                 .perform(mutation: UpdateTimerMutation(timerId: editedTimeItemId,
@@ -109,7 +106,7 @@ final class NetworkManager {
                                                        notes: .some(notes))) { result in
                     switch result {
                     case .success(let res):
-                        continuation.resume(returning: res.data?.update?.id)
+                        continuation.resume(returning: res.data?.update)
                     case .failure(let error):
                         continuation.resume(throwing: error)
                     }
@@ -117,7 +114,6 @@ final class NetworkManager {
         })
     }
     
-    @discardableResult
     func removeTimer(graphqlClient: GraphqlClient?, id: Int, selectedDate: Date) async throws -> Int? {
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?
@@ -132,17 +128,16 @@ final class NetworkManager {
         })
     }
     
-    @discardableResult
-    func startTimer(graphqlClient: GraphqlClient?, projectTaskId: Int, duration: String, notes: String) async throws -> String? {
+    func startTimer(graphqlClient: GraphqlClient?, projectTaskId: Int, notes: String) async throws -> StartTimerMutation.Data.Start? {
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?
                 .client?
                 .perform(mutation: StartTimerMutation(projectTaskId: projectTaskId,
-                                                      duration: .some(duration.toMinute),
+                                                      duration: .some(0),
                                                       notes: .some(notes)), resultHandler: { result in
                     switch result {
                     case .success(let res):
-                        continuation.resume(returning: res.data?.start?.id)
+                        continuation.resume(returning: res.data?.start)
                     case .failure(let error):
                         continuation.resume(throwing: error)
                     }
@@ -166,15 +161,14 @@ final class NetworkManager {
         }
     }
     
-    @discardableResult
-    func stopTimer(graphqlClient: GraphqlClient?, for id: Int) async throws -> Int? {
+    func stopTimer(graphqlClient: GraphqlClient?, for id: Int) async throws -> StopTimerMutation.Data.Stop? {
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?
                 .client?
                 .perform(mutation: StopTimerMutation(timerId: id), resultHandler: { result in
                     switch result {
                     case .success(let res):
-                        continuation.resume(returning: res.data?.stop?.totalDuration)
+                        continuation.resume(returning: res.data?.stop)
                     case .failure(let error):
                         continuation.resume(throwing: error)
                     }
@@ -182,15 +176,17 @@ final class NetworkManager {
         })
     }
     
-    func restartTimer(graphqlClient: GraphqlClient?, for id: Int) async throws -> Int? {
+    func restartTimer(graphqlClient: GraphqlClient?, for id: Int) async throws -> RestartTimerMutation.Data.Restart? {
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?
                 .client?
                 .perform(mutation: RestartTimerMutation(timerId: id), resultHandler: { result in
                     switch result {
                     case .success(let res):
-                        continuation.resume(returning: res.data?.restart?.id)
+                        print("return success: ", res)
+                        continuation.resume(returning: res.data?.restart)
                     case .failure(let error):
+                        print("return error: ", error)
                         continuation.resume(throwing: error)
                     }
                 })
@@ -200,7 +196,6 @@ final class NetworkManager {
     // MARK: Object Parsers
     
     private func parseStats(from res: GraphQLResult<StatsQuery.Data>) -> Stats? {
-        
         let tmpStatByDate = res.data?.stats?.byDate?.compactMap({ byDate -> StatsByDate? in
             guard let date = byDate?.date,
                   let startOfDate = date.toDate()?.date.startOfDayISO,

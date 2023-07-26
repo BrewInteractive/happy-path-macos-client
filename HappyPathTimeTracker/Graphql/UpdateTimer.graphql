@@ -4,5 +4,8 @@ mutation UpdateTimer($timerId: Int!, $duration: Int, $startsAt: String, $endsAt:
         input: {duration: $duration, startsAt: $startsAt, endsAt: $endsAt, notes: $notes}
     ) {
         id
+        startsAt
+        endsAt
+        totalDuration
     }
 }

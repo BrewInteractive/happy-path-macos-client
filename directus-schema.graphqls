@@ -74,14 +74,23 @@ type Mutation {
 
 type Start {
   id: String
+  startsAt: String
+  endsAt: String
+  totalDuration: Int
 }
 
 type Stop {
+  id: String
+  startsAt: String
+  endsAt: String
   totalDuration: Int
 }
 
 type Log {
   id: String
+  startsAt: String
+  endsAt: String
+  totalDuration: Int
 }
 
 type Remove {
@@ -90,6 +99,9 @@ type Remove {
 
 type Update {
   id: Int
+  startsAt: String
+  endsAt: String
+  totalDuration: Int
 }
 
 input Input {
@@ -101,4 +113,7 @@ input Input {
 
 type Restart {
   id: Int
+  startsAt: String
+  endsAt: String
+  totalDuration: Int
 }
