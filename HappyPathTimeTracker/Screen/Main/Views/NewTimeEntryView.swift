@@ -35,7 +35,7 @@ struct NewTimeEntryView: View {
     var saveButtonTitle: String {
         if isEditMode {
             return "Update"
-        } else if duration.isEmpty {
+        } else if duration.isEmpty && selectedDate.isToday {
             return "Start"
         } else {
             return "Save"
@@ -182,7 +182,7 @@ extension NewTimeEntryView {
                         print("error")
                     }
                 } else {
-                    if duration.isEmpty {
+                    if duration.isEmpty && selectedDate.isToday {
                         Task {
                             await mainScreenVm.startTimer(projectId: selectedProjectId,
                                                           projectTaskId: selectedTaskId,
