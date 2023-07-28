@@ -18,6 +18,7 @@ struct TimeEntryListView: View {
                 if mainScreenVm.timers.isEmpty {
                     NoEntryView()
                         .environmentObject(mainScreenVm)
+                        .frame(maxHeight: .infinity)
                 } else {
                     ForEach(Array(zip(mainScreenVm.timers.indices, mainScreenVm.timers)), id: \.0) { index, item in
                         if index != 0 && index != mainScreenVm.timers.count {
@@ -54,6 +55,7 @@ struct TimeEntryListView: View {
                 }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

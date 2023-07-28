@@ -51,6 +51,7 @@ struct MainScreen: View {
                         await mainScreenVm.updateViewModel(appState: appState)
                     }
                 }
+                
                 if mainScreenVm.isLoading {
                     ZStack {
                         Color.Primary.DarkNight.opacity(0.2)

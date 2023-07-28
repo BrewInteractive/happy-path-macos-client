@@ -15,15 +15,13 @@ struct NoEntryView: View {
         VStack(alignment: .leading) {
             Spacer()
             Image("Log-Alert")
-                .resizable()
-                .frame(width: 120, height: 120)
             Text(mainScreenVm.email)
                 .foregroundColor(.Primary.DarkNight)
             Text("Click the + button below to add your first time entry.")
                 .foregroundColor(.ShadesofCadetGray.CadetGray600)
+            Spacer()
         }
-        .frame(maxWidth: .infinity)
-        .frame(maxHeight: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
