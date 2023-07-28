@@ -14,16 +14,14 @@ struct TimeEntryListView: View {
     
     var body: some View {
         ScrollView(.vertical) {
-            VStack(spacing: 0) {
-                if mainScreenVm.isLoading {
-                    ProgressView()
-                        .padding(.top, 20)
-                } else if mainScreenVm.timers.isEmpty {
-                    Text("No Entry")
+            VStack(spacing: 3) {
+                if mainScreenVm.timers.isEmpty {
+                    NoEntryView()
+                        .environmentObject(mainScreenVm)
                 } else {
                     ForEach(Array(zip(mainScreenVm.timers.indices, mainScreenVm.timers)), id: \.0) { index, item in
                         if index != 0 && index != mainScreenVm.timers.count {
-                            TimeDividier(color: .gray.opacity(0.1))
+                            HappyDividier(color: .gray.opacity(0.1))
                         }
                         TimeEntryView(timeEntry: mainScreenVm.timers[index],
                                       activeTime: mainScreenVm.activeTimerSeconds,
@@ -47,7 +45,7 @@ struct TimeEntryListView: View {
                             }
                         }
                         .background(content: {
-                            hoveredTimeEntryId == mainScreenVm.timers[index].id ? Color.gray.opacity(0.2) : Color.clear
+                            hoveredTimeEntryId == mainScreenVm.timers[index].id ? Color.ShadesOfTeal.Teal_100 : Color.ShadesofCadetGray.CadetGray50
                         })
                         .contextMenu {
                             TimeEntryContextMenu(id: mainScreenVm.timers[index].id)
@@ -56,7 +54,6 @@ struct TimeEntryListView: View {
                 }
             }
         }
-        .padding(.vertical, 8)
     }
 }
 
