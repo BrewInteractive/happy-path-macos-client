@@ -1,0 +1,25 @@
+name: Sign and Distribute macOS App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Xcode
+        uses: actions/setup-xcode@v2
+        with:
+          xcode-version: 14.2.0
+
+      - name: Build and Sign macOS App
+        run: |
+          echo -n "${{ secrets.APPLE_CERTIFICATE }}" | base64 --decode > certificate.p12
+          security create-keychain -p "${{ secrets.APPLE_CERTIFICATE_PASSWORD }}" build.keychain
+          security import certificate.p12 -t agg -k ~/Library/Keychains/build.keychain -P "${{ secrets.APPLE_CERTIFICATE_PASSWORD }}" -A
+          xcodebuild -scheme HappyPathTimeTracker -configuration Release build CODE_SIGN_IDENTITY="${{ secrets.CODE_SIGN_IDENTITY }}"
