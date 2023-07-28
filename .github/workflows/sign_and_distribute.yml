@@ -33,3 +33,4 @@ jobs:
           security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
           xcodebuild -scheme HappyPathTimeTracker -configuration Release build
+          xcodebuild -scheme HappyPathTimeTracker -configuration Release archive -archivePath ~/Desktop/Happy/HappyPathTimeTracker.xcarchive
