@@ -21,10 +21,12 @@ struct BottomView: View {
                 }
             } label: {
                 ZStack {
-                    Color.white.opacity(0.00001)
-                        .frame(width: 24, height: 24)
+                    RoundedRectangle(cornerRadius:100)
+                        .fill(Color.ShadesOfDark.D_04)
+                        .frame(width: 32, height: 32)
                     Image(systemName: "plus")
                         .resizable()
+                        .foregroundColor(.ShadesOfTeal.Teal_400)
                         .frame(width: 14, height: 14)
                 }
             }
@@ -32,6 +34,11 @@ struct BottomView: View {
             .popover(isPresented: $mainScreenVm.isNewEntryModalShown) {
                 NewTimeEntryView(selectedDate: selectedDate)
                     .environmentObject(mainScreenVm)
+                    .background {
+                        Color.Primary.RealWhite
+                            .padding(-80)
+                    }
+                    .border(Color.ShadesofCadetGray.CadetGray200)
             }
             Spacer()
             Button {
@@ -40,9 +47,15 @@ struct BottomView: View {
                 }
             } label: {
                 ZStack {
-                    Color.white.opacity(0.00001)
-                        .frame(width: 24, height: 24)
-                    Image(systemName: "arrow.clockwise")
+                    ZStack {
+                        RoundedRectangle(cornerRadius:100)
+                            .fill(Color.ShadesOfDark.D_04)
+                            .frame(width: 32, height: 32)
+                        Image(systemName: "arrow.clockwise")
+                            .resizable()
+                            .foregroundColor(.ShadesOfTeal.Teal_400)
+                            .frame(width: 12, height: 14)
+                    }
                 }
             }
             .buttonStyle(.plain)
@@ -51,10 +64,12 @@ struct BottomView: View {
                 NSApplication.shared.terminate(nil)
             } label: {
                 ZStack {
-                    Color.white.opacity(0.00001)
-                        .frame(width: 24, height: 24)
+                    RoundedRectangle(cornerRadius:100)
+                        .fill(Color.ShadesOfDark.D_04)
+                        .frame(width: 32, height: 32)
                     Image(systemName: "xmark.circle.fill")
                         .resizable()
+                        .foregroundColor(.ShadesOfTeal.Teal_400)
                         .frame(width: 14, height: 14)
                 }
             }

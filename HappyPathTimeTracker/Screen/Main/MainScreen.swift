@@ -27,21 +27,21 @@ struct MainScreen: View {
     
     var body: some View {
         ZStack {
-            Color("Background")
+            Color.Primary.RealWhite
             RoundedRectangle(cornerRadius: 6)
                 .stroke(.gray, lineWidth: 1)
             if appState.isLoggedIn {
-                VStack(spacing: 4) {
+                VStack(spacing: 0) {
                     HeaderView(selectedDate: mainScreenVm.selectedDate)
                         .environmentObject(mainScreenVm)
                     CircleDayListView(selectedDate: $mainScreenVm.selectedDate,
                                       dateList: dateList)
-                        .environmentObject(mainScreenVm)
-                    TimeDividier()
+                    .environmentObject(mainScreenVm)
+                    HappyDividier()
                     TimeEntryListView(selectedDate: mainScreenVm.selectedDate)
                         .frame(maxHeight: .infinity)
                         .environmentObject(mainScreenVm)
-                    TimeDividier()
+                    HappyDividier()
                     BottomView(selectedDate: mainScreenVm.selectedDate)
                         .environmentObject(mainScreenVm)
                 }
@@ -51,16 +51,25 @@ struct MainScreen: View {
                         await mainScreenVm.updateViewModel(appState: appState)
                     }
                 }
+                if mainScreenVm.isLoading {
+                    ZStack {
+                        Color.Primary.DarkNight.opacity(0.2)
+                        ProgressView()
+                            .background {
+                                Color.ShadesOfDark.D_04.opacity(0.3)
+                            }
+                    }
+                }
             } else {
                 Button {
                     openURL(URL(string: K.openURLText)!)
                 } label: {
                     Text("Please Login")
                 }
-
+                
             }
         }
-        .frame(width: 360, height: 400)
+        .frame(width: 400, height: 400)
         .contextMenu {
             Button {
                 Task {
@@ -69,7 +78,7 @@ struct MainScreen: View {
             } label: {
                 Text("Yenile")
             }
-
+            
         }
     }
 }
@@ -77,6 +86,7 @@ struct MainScreen: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         MainScreen()
+            .environmentObject(AppState())
     }
 }
 

@@ -43,42 +43,51 @@ struct NewTimeEntryView: View {
     }
     
     var body: some View {
-        VStack {
-            Text(title)
-            TimeDividier()
-            Spacer()
-            if mainScreenVm.isTasksLoading {
-                ProgressView()
-            } else {
+        ZStack {
+            VStack {
+                Text(title)
+                    .foregroundColor(.Primary.DarkNight)
+                HappyDividier()
+                Spacer()
                 NewTimeContentEntryView()
+                Spacer()
+                BottomView()
             }
-            Spacer()
-            BottomView()
-        }
-        .frame(width: 240)
-        .padding()
-        .onChange(of: selectedProjectId) { newSelectedProjectId in
-            if newSelectedProjectId != -1 {
-                Task {
-                    await mainScreenVm.getTasks(projectId: newSelectedProjectId)
+            .frame(width: 240)
+            .padding()
+            .onChange(of: selectedProjectId) { newSelectedProjectId in
+                if newSelectedProjectId != -1 {
+                    Task {
+                        await mainScreenVm.getTasks(projectId: newSelectedProjectId)
+                    }
                 }
             }
-        }
-        .onChange(of: duration, perform: { newDuration in
-            if newDuration.count > 5 {
-                duration = String(newDuration.prefix(5))
-            }
-        })
-        .onAppear {
-            if isEditMode {
-                let editedTimer = mainScreenVm.getEditedTimer()
-                guard let editedTimer = editedTimer else {
-                    return
+            .onChange(of: duration, perform: { newDuration in
+                if newDuration.count > 5 {
+                    duration = String(newDuration.prefix(5))
                 }
-                selectedProjectId = editedTimer.projectId
-                selectedTaskId = editedTimer.taskId
-                notes = editedTimer.notes
-                duration = editedTimer.totalDuration.minuteToHours
+            })
+            .onAppear {
+                if isEditMode {
+                    let editedTimer = mainScreenVm.getEditedTimer()
+                    guard let editedTimer = editedTimer else {
+                        return
+                    }
+                    selectedProjectId = editedTimer.projectId
+                    selectedTaskId = editedTimer.taskId
+                    notes = editedTimer.notes
+                    duration = editedTimer.totalDuration.minuteToHours
+                }
+            }
+            
+            if mainScreenVm.isTasksLoading {
+                ZStack {
+                    Color.Primary.DarkNight.opacity(0.2)
+                    ProgressView()
+                        .background {
+                            Color.ShadesOfDark.D_04.opacity(0.3)
+                        }
+                }
             }
         }
     }
@@ -93,23 +102,29 @@ extension NewTimeEntryView {
             Picker(selection: $selectedProjectId) {
                 ForEach(mainScreenVm.projects) { project in
                     Text(project.name)
+                        .foregroundColor(project.id == selectedProjectId ? .Primary.DarkNight : .black)
                         .tag(project.id)
                 }
             } label: {
                 Text("Project")
+                    .foregroundColor(.Primary.DarkNight)
                     .frame(width: 50, alignment: .leading)
             }
             .pickerStyle(.menu)
             .disabled(isEditMode)
+            .preferredColorScheme(.light)
+            
             
             // task list will be shown here
             Picker(selection: $selectedTaskId) {
                 ForEach(mainScreenVm.tasks) { task in
                     Text(task.name)
+                        .foregroundColor(task.id == selectedTaskId ? .Primary.DarkNight : .black)
                         .tag(task.id)
                 }
             } label: {
                 Text("Task")
+                    .foregroundColor(.Primary.DarkNight)
                     .frame(width: 50, alignment: .leading)
             }
             .pickerStyle(.menu)
@@ -118,13 +133,19 @@ extension NewTimeEntryView {
             HStack {
                 ZStack {
                     TextEditor(text: $notes)
+                        .foregroundColor(.Primary.DarkNight)
                         .padding(.vertical, 6)
                         .padding(.horizontal, 2)
-                        .border(.gray.opacity(0.2), width: 1)
-                        .cornerRadius(5.0)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5.0)
+                                .strokeBorder(Color.ShadesofCadetGray.CadetGray200,
+                                              style: StrokeStyle(lineWidth: 1.0))
+                        )
+                        .scrollContentBackground(.hidden)
+                        .background(Color.ShadesofCadetGray.CadetGray50)
                     if notes.isEmpty {
                         Text("Add Notes")
-                            .foregroundColor(.white.opacity(0.2))
+                            .foregroundColor(.Primary.DarkNight)
                             .frame(maxWidth: .infinity,
                                    maxHeight: .infinity,
                                    alignment: .topLeading)
@@ -132,18 +153,24 @@ extension NewTimeEntryView {
                     }
                 }
                 TextField("0:00", text: $duration)
+                    .textFieldStyle(.plain)
+                    .padding(.leading, 4)
+                    .frame(maxHeight: .infinity)
+                    .frame(width: 60, height: 40)
+                    .foregroundColor(.Primary.DarkNight)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5.0)
+                            .strokeBorder(Color.ShadesofCadetGray.CadetGray200,
+                                          style: StrokeStyle(lineWidth: 1.0))
+                    )
+                    .scrollContentBackground(.hidden)
+                    .background(Color.ShadesofCadetGray.CadetGray50)
                     .onReceive(Just(duration)) { newValue in
                         let filtered = newValue.filter { $0.isNumber || $0 == ":" }
                         if filtered != newValue {
                             self.duration = filtered
                         }
                     }
-                    .padding(6)
-                    .textFieldStyle(.plain)
-                    .frame(maxHeight: .infinity)
-                    .frame(width: 60)
-                    .border(.gray.opacity(0.2), width: 1)
-                    .cornerRadius(5.0)
             }
             .frame(minHeight: 40)
             
@@ -153,17 +180,18 @@ extension NewTimeEntryView {
     @ViewBuilder
     func BottomView() -> some View {
         HStack {
-            TimeDividier(color: .gray.opacity(0.2))
+            HappyDividier(color: .gray.opacity(0.2))
             Button {
                 self.mainScreenVm.updateMainScreenVmProp(for: \.isNewEntryModalShown, newValue: false)
             } label: {
                 Text("Cancel")
+                    .foregroundColor(.Primary.DarkNight)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
                     .cornerRadius(5)
                     .overlay(
                         RoundedRectangle(cornerRadius: 5)
-                            .stroke(.gray, lineWidth: 1)
+                            .stroke(Color.ShadesofCadetGray.CadetGray200, lineWidth: 2)
                     )
             }
             .buttonStyle(.borderless)
@@ -203,7 +231,7 @@ extension NewTimeEntryView {
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
                     .background {
-                        Color.green.opacity(0.5)
+                        Color.ShadesOfTeal.Teal_400
                     }
                     .cornerRadius(5)
             }
@@ -217,5 +245,9 @@ extension NewTimeEntryView {
 struct NewTimeEntryView_Previews: PreviewProvider {
     static var previews: some View {
         NewTimeEntryView(selectedDate: Date())
+            .environmentObject(MainScreenViewModel())
+            .background {
+                Color.Primary.LightBabyPowder
+            }
     }
 }

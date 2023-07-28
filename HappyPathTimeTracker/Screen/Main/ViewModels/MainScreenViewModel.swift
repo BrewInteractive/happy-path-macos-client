@@ -18,6 +18,7 @@ final class MainScreenViewModel: ObservableObject {
     var networkManager = NetworkManager()
     
     @Published private(set) var appState: AppState? = nil
+    @Published var email: String = ""
     @Published var timers: [TimeEntry] = []
     @Published var projects: [Project] = []
     @Published var tasks: [ProjectTask] = []
@@ -46,10 +47,11 @@ final class MainScreenViewModel: ObservableObject {
             async let tmpProjects = networkManager.fetchProjects(graphqlClient: appState.graphqlClient)
             async let tmpTimers: () = self.getTimers(client: appState.graphqlClient, date: selectedDate)
             async let tmpStats: () = self.getStats(client: appState.graphqlClient)
+            async let tmpMe: () = self.me(client: appState.graphqlClient)
             
-            let responses = try await [tmpTimers, tmpStats, tmpProjects ?? []] as [Any]
+            let responses = try await [tmpProjects ?? [], tmpTimers, tmpStats, tmpMe] as [Any]
             
-            self.updateMainScreenVmProp(for: \.projects, newValue: responses[2] as! [Project])
+            self.updateMainScreenVmProp(for: \.projects, newValue: responses[0] as! [Project])
         } catch {
             self.parseError(for: error)
         }
@@ -78,6 +80,20 @@ final class MainScreenViewModel: ObservableObject {
     }
     
     //MARK: - Network Requests
+    
+    func me(client: GraphqlClient? = nil, cachePolicy: CachePolicy = .default) async {
+        self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
+        
+        do {
+            let res = try await networkManager.me(graphqlClient: client, cachePolicy: cachePolicy)
+            self.updateMainScreenVmProp(for: \.email, newValue: res?.me?.email ?? "")
+        } catch {
+            self.parseError(for: error)
+        }
+        
+        self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
+    }
+    
     func getStats(client: GraphqlClient? = nil, cachePolicy: CachePolicy = .default) async {
         self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
         do {
@@ -107,6 +123,7 @@ final class MainScreenViewModel: ObservableObject {
         self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
         do {
             let tmpTimers = try await networkManager.fetchTimers(graphqlClient: appState?.graphqlClient ?? client, date: date, cachePolicy: cachePolicy) ?? []
+            print("timers: ", tmpTimers)
             self.updateMainScreenVmProp(for: \.timers, newValue: tmpTimers)
             self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
             self.updateMainScreenVmProp(for: \.totalDurationMap[date.startOfDayISO],
@@ -212,7 +229,9 @@ final class MainScreenViewModel: ObservableObject {
                                                  startsAt: startsAt,
                                                  endsAt: endsAt)
             guard let updatedTimerId = updatedTimerInfo?.id,
-                  let totalDuration = updatedTimerInfo?.totalDuration else {
+                  let totalDuration = updatedTimerInfo?.totalDuration, totalDuration != 0 else {
+                await self.getTimers(date: selectedDate, cachePolicy: .fetchIgnoringCacheData)//TODO: gokcen in fixinden sonra kaldirilip totalDuration asagida kullanilacak
+                      self.updateMainScreenVmProp(for: \.isNewEntryModalShown, newValue: false)
                 return
             }
             

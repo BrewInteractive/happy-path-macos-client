@@ -7,6 +7,21 @@
 
 import SwiftUI
 
+let tasksBackground: [Int:Color] = [
+    1: Color.ShadesOfNonPhotoBlue.NonPhotoBlue300,
+    2: Color.ShadesOfNonPhotoBlue.NonPhotoBlue300,
+    3: Color.ShadesOfNonPhotoBlue.NonPhotoBlue300,
+    5: Color.ShadesOfNonPhotoBlue.NonPhotoBlue300,
+    6: Color.ShadesOfNonPhotoBlue.NonPhotoBlue300,
+    9: Color.ShadesOfNonPhotoBlue.NonPhotoBlue300,
+    10: Color.ShadesOfNonPhotoBlue.NonPhotoBlue300,
+    39: Color.ShadesOfNonPhotoBlue.NonPhotoBlue300,
+    40: Color.ShadesOfNonPhotoBlue.NonPhotoBlue300,
+    59: Color.ShadesOfNonPhotoBlue.NonPhotoBlue300,
+    60: Color.ShadesOfNonPhotoBlue.NonPhotoBlue300,
+    135: Color.ShadesOfNonPhotoBlue.NonPhotoBlue300,
+]
+
 struct TimeEntryView: View {
     let timeEntry: TimeEntry
     let activeTime: Double
@@ -25,72 +40,72 @@ struct TimeEntryView: View {
     }
     
     var body: some View {
-        ZStack {
-            Rectangle()
-                .fill(Color.clear)
-            VStack(alignment: .leading, spacing: 6) {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(timeEntry.projectName)
-                            .font(.footnote)
-                            .foregroundColor(.gray.opacity(0.8))
-                        Text(timeEntry.taskName)
-                            .font(.body)
-                            .foregroundColor(.white.opacity(0.8))
-                        Text(timeEntry.notes)
-                            .font(.callout)
-                            .foregroundColor(.white.opacity(0.8))
-                    }
-                    Spacer()
-                    HStack {
-                        if isActive {
-                            Button {
-                                Task {
-                                    await onStop(timeEntry.id)
-                                }
-                            } label: {
-                                Image("stop")
-                                    .resizable()
-                                    .frame(width: 12, height: 12)
-                            }
-                            .buttonStyle(.plain)
-                        } else if(showRestartButton) {
-                            Button {
-                                Task {
-                                    await onRestart(timeEntry.id)
-                                }
-                            } label: {
-                                ZStack {
-                                    Color.white.opacity(0.00001)
-                                        .frame(width: 16, height: 16)
-                                    Image(systemName: "play.fill")
-                                        .resizable()
-                                        .frame(width: 12, height: 12)
-                                }
-                            }
-                            .buttonStyle(.plain)
+        VStack(alignment: .leading) {
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(timeEntry.projectName)
+                        .font(.footnote)
+                        .foregroundColor(.Primary.DarkNight)
+                    Text("\(timeEntry.taskId)")
+                        .foregroundColor(.black)
+                    Text(timeEntry.taskName)
+                        .foregroundColor(.Primary.DarkNight)
+                        .padding(4)
+                        .background {
+                            tasksBackground[timeEntry.taskId] ?? Color.ShadesOfIcterine.Icterine100
                         }
-                        Button {
+                    Text(timeEntry.notes)
+                        .font(.callout)
+                        .foregroundColor(.ShadesofCadetGray.CadetGray900)
+                }
+                Spacer()
+                HStack {
+                    Text(isActive ? "\(Int(activeTime).toHours)" : "\(timeEntry.totalDuration.minuteToHours)")
+                        .foregroundColor(isActive ? .ShadesofCadetGray.CadetGray500 : .ShadesofCadetGray.CadetGray900)
+                        .onTapGesture {
                             Task {
                                 await onEdit(timeEntry.id)
                             }
+                        }
+                    if isActive {
+                        Button {
+                            Task {
+                                await onStop(timeEntry.id)
+                            }
                         } label: {
                             ZStack {
-                                Color.white.opacity(0.00001)
-                                    .frame(width: 16, height: 16)
-                                Image(systemName: "pencil")
+                                RoundedRectangle(cornerRadius:100)
+                                    .fill(Color.Primary.RealWhite)
+                                    .frame(width: 32, height: 32)
+                                Image("Pause Icon")
                                     .resizable()
                                     .frame(width: 12, height: 12)
-                                    .fontWeight(.bold)
+                                    .foregroundColor(.ShadesOfCoral.Coral500)
                             }
                         }
                         .buttonStyle(.plain)
-                        Text(isActive ? "\(Int(activeTime).toHours)" : "\(timeEntry.totalDuration.minuteToHours)")
+                    } else if(showRestartButton) {
+                        Button {
+                            Task {
+                                await onRestart(timeEntry.id)
+                            }
+                        } label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius:100)
+                                    .fill(Color.ShadesOfDark.D_04)
+                                    .frame(width: 32, height: 32)
+                                Image(systemName: "play.fill")
+                                    .resizable()
+                                    .foregroundColor(.ShadesOfTeal.Teal_400)
+                                    .frame(width: 12, height: 12)
+                            }
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
             }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
         }
     }
 }
@@ -100,11 +115,11 @@ struct TimeEntryView_Previews: PreviewProvider {
         TimeEntryView(timeEntry: .init(id: 1,
                                        projectId: 2,
                                        projectName: "name",
-                                       taskId: 3,
-                                       taskName: "name",
+                                       taskId: 39,
+                                       taskName: "task name",
                                        notes: "notes",
-                                       startsAt: "",
-                                       endsAt: "",
+                                       startsAt: Date().toISO(),
+                                       endsAt: nil,
                                        duration: 0,
                                        totalDuration: 123), activeTime: 1, activeTimerId: nil) { id in
             print("start")
@@ -112,6 +127,9 @@ struct TimeEntryView_Previews: PreviewProvider {
             print("edit")
         } onRestart: { id in
             print("restart")
+        }
+        .background {
+            Color.ShadesofCadetGray.CadetGray100
         }
     }
 }

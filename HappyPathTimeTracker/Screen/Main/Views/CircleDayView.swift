@@ -13,25 +13,40 @@ struct CircleDayView: View {
     
     var body: some View {
         VStack {
-            Circle()
-                .frame(width: 32)
-                .foregroundColor(date.isSelected ? Color("SelectedDate") : .gray)
-                .opacity(date.isSelected ? 1.0 : 0.0)
-                .overlay {
+            ZStack {
+                Circle()
+                    .frame(width: 32)
+                    .foregroundColor(date.isSelected ? .ShadesOfTeal.Teal_400 : .ShadesOfLightWhite.W_88)
+                VStack {
                     Text("\(date.date.weekdayName(.veryShort))")
-                        .fontWeight(date.isSelected ? .bold : .regular)
+                        .foregroundColor(date.isSelected ? .ShadesOfLightWhite.W_64 : .Primary.CadetGray)
                 }
+            }
             Text(dailyTotalDuration)
-                .font(.caption)
+                .foregroundColor(dailyTotalDuration == "00:00" ? .ShadesofCadetGray.CadetGray500 : .ShadesofCadetGray.CadetGray900)
         }
     }
 }
 
 struct CircleDayView_Previews: PreviewProvider {
     static var previews: some View {
-        CircleDayView(date: .init(date: Date(),
-                                  isSelected: true,
-                                  totalSeconds: 123),
-                      dailyTotalDuration: "00:12")
+        VStack {
+            CircleDayView(date: .init(date: Date(),
+                                      isSelected: true,
+                                      totalSeconds: 123),
+                          dailyTotalDuration: "00:12")
+            CircleDayView(date: .init(date: Date(),
+                                      isSelected: false,
+                                      totalSeconds: 123),
+                          dailyTotalDuration: "00:12")
+            CircleDayView(date: .init(date: Date(),
+                                      isSelected: false,
+                                      totalSeconds: 123),
+                          dailyTotalDuration: "00:00")
+        }
+        .background {
+            Color.Primary.LightBabyPowder
+        }
     }
+    
 }

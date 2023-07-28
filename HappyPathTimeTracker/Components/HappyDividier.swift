@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TimeDividier: View {
+struct HappyDividier: View {
     var color: Color? = nil
     
     init(color: Color? = nil) {
@@ -17,12 +17,12 @@ struct TimeDividier: View {
     var body: some View {
         Divider()
             .frame(height: 1)
-            .overlay(color ?? .gray.opacity(0.8))
+            .overlay(color ?? .ShadesofCadetGray.CadetGray300)
     }
 }
 
 struct TimeDividier_Previews: PreviewProvider {
     static var previews: some View {
-        TimeDividier()
+        HappyDividier()
     }
 }

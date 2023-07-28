@@ -14,10 +14,10 @@ struct CircleDayListView: View {
     
     var body: some View {
         HStack {
-            Image(systemName: "lessthan")
+            Image("chevron-left")
                 .resizable()
-                .fontWeight(.heavy)
-                .frame(width: 4, height: 8)
+                .foregroundColor(Color.Primary.CadetGray)
+                .frame(width: 20, height: 20)
                 .onTapGesture {
                     let tmpSelectedDate = selectedDate.dateByAdding(-1, .day)
                     if(tmpSelectedDate.date.isAfterDate(dateList[0], orEqual: true, granularity: .day)) {
@@ -32,7 +32,6 @@ struct CircleDayListView: View {
                 CircleDayView(date: .init(date: date,
                                           isSelected: date.compare(toDate: selectedDate, granularity: .day).rawValue == 0, totalSeconds: 0),
                               dailyTotalDuration: mainScreenVm.getTotalDurationMinuteOfDayAsString(date: date.startOfDayISO))
-                .contentShape(Rectangle())
                 .onTapGesture {
                     mainScreenVm.updateMainScreenVmProp(for: \.selectedDate, newValue: date)
                     Task {
@@ -41,10 +40,10 @@ struct CircleDayListView: View {
                 }
                 Spacer()
             }
-            Image(systemName: "greaterthan")
+            Image("chevron-right")
                 .resizable()
-                .fontWeight(.heavy)
-                .frame(width: 4, height: 8)
+                .foregroundColor(Color.Primary.CadetGray)
+                .frame(width: 20, height: 20)
                 .onTapGesture {
                     let tmpSelectedDate = selectedDate.dateByAdding(1, .day)
                     if(tmpSelectedDate.date.isBeforeDate(dateList.last!, orEqual: true, granularity: .day)) {
@@ -57,12 +56,17 @@ struct CircleDayListView: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal, 8)
+        .padding(.vertical, 14)
+        .background {
+            Color.Primary.LightBabyPowder
+        }
     }
 }
 
 struct CircleDayListView_Previews: PreviewProvider {
     static var previews: some View {
         CircleDayListView(selectedDate: .constant(Date()),
-                          dateList: [Date()])
+                          dateList: [Date(), Date(), Date(), Date(), Date(), Date(), Date()])
+        .environmentObject(MainScreenViewModel())
     }
 }
