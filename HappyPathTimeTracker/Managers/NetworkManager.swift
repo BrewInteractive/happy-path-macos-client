@@ -10,6 +10,20 @@ import Apollo
 import DirectusGraphql
 
 final class NetworkManager {
+    
+    func me(graphqlClient: GraphqlClient?, cachePolicy: CachePolicy) async throws -> MeQuery.Data? {
+        return try await withCheckedThrowingContinuation({ continuation in
+            graphqlClient?.client?.fetch(query: MeQuery(), cachePolicy: cachePolicy) { result in
+                switch result {
+                case .success(let res):
+                    continuation.resume(returning: res.data)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        })
+    }
+    
     func fetchStats(graphqlClient: GraphqlClient?, date: String, cachePolicy: CachePolicy) async throws -> Stats? {
         guard let startOfDate = date.toDate()?.date.startOfDayISO else {
             return nil

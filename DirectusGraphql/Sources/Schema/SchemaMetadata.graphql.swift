@@ -28,6 +28,7 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "Update": return DirectusGraphql.Objects.Update
     case "Query": return DirectusGraphql.Objects.Query
     case "Projects": return DirectusGraphql.Objects.Projects
+    case "Me": return DirectusGraphql.Objects.Me
     case "Remove": return DirectusGraphql.Objects.Remove
     case "Stop": return DirectusGraphql.Objects.Stop
     case "Log": return DirectusGraphql.Objects.Log
