@@ -34,10 +34,10 @@ jobs:
           security list-keychain -d user -s $KEYCHAIN_PATH
           xcodebuild -scheme HappyPathTimeTracker -configuration Release build
           xcodebuild -scheme HappyPathTimeTracker -configuration Release archive -archivePath ~/Desktop/Happy/HappyPathTimeTracker.xcarchive
-          xcodebuild -exportArchive -archivePath ~/Desktop/Happy/HappyPathTimeTracker.xcarchive -exportPath ~/Desktop/Happy/HappyPathTimeTracker -exportOptionsPlist ~/Desktop/Happy/ExportOptions.plist
+          xcodebuild -exportArchive -archivePath ~/Desktop/Happy/HappyPathTimeTracker.xcarchive -exportPath ~/Desktop/Happy/HappyPathTimeTracker -exportOptionsPlist ExportOptions.plist
           rm -rf ~/Desktop/Happy/HappyPathTimeTracker/*.plist
           rm -rf ~/Desktop/Happy/HappyPathTimeTracker/*.log
-          pkgbuild --root ./HappyPathTimeTracker/ --identifier com.gorkemsevim.HappyPathTimeTracker --version 1.1.1 --install-location /Applications happy-path-macos-client.pkg
+          pkgbuild --root ~/Desktop/Happy/HappyPathTimeTracker/ --identifier com.gorkemsevim.HappyPathTimeTracker --version 1.1.1 --install-location /Applications happy-path-macos-client.pkg
 
       - name: Release
         uses: softprops/action-gh-release@v1
