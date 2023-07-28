@@ -14,6 +14,7 @@
 		5E1D44102A59B69400B6BEA4 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D440F2A59B69400B6BEA4 /* Project.swift */; };
 		5E1D44122A59B97000B6BEA4 /* ProjectTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44112A59B97000B6BEA4 /* ProjectTask.swift */; };
 		5E1D44172A5A8A5D00B6BEA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44162A5A8A5D00B6BEA4 /* AppDelegate.swift */; };
+		5E1F89942A73F7940052173C /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1F89932A73F7940052173C /* Dropdown.swift */; };
 		5E3DAF202A5AF3C4005BB83A /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5E3DAF1F2A5AF3C4005BB83A /* KeychainSwift */; };
 		5E3DAF222A5B1F5F005BB83A /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3DAF212A5B1F5F005BB83A /* NotificationName.swift */; };
 		5E3DAF252A5B3718005BB83A /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3DAF242A5B3718005BB83A /* K.swift */; };
@@ -31,10 +32,11 @@
 		5E7B54972A6120EE0097EC94 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7B54962A6120EE0097EC94 /* Int.swift */; };
 		5E8FAEF12A6910850016EE08 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8FAEF02A6910850016EE08 /* Auth.swift */; };
 		5E916F352A5ED555001FAF02 /* UpdateTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E916F342A5ED555001FAF02 /* UpdateTimer.graphql */; };
+		5EB384612A70F5B200FDA0E0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB384602A70F5B200FDA0E0 /* Color.swift */; };
 		5ED8E43B2A6E342000F871E0 /* RestartTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5ED8E43A2A6E342000F871E0 /* RestartTimer.graphql */; };
 		5EE13CEA2A5757AE004BF3DA /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5EE13CE92A5757AE004BF3DA /* .gitignore */; };
 		5EE371FC2A4EDEDF00859278 /* NewTimeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE371FB2A4EDEDF00859278 /* NewTimeEntryView.swift */; };
-		5EE371FF2A4EDF0C00859278 /* TimeDividier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE371FE2A4EDF0C00859278 /* TimeDividier.swift */; };
+		5EE371FF2A4EDF0C00859278 /* HappyDividier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE371FE2A4EDF0C00859278 /* HappyDividier.swift */; };
 		5EE372012A4FFB1900859278 /* TimeEntryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372002A4FFB1900859278 /* TimeEntryListView.swift */; };
 		5EE372032A4FFBA400859278 /* TimeEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372022A4FFBA400859278 /* TimeEntry.swift */; };
 		5EE372052A4FFCD900859278 /* TimeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372042A4FFCD900859278 /* TimeEntryView.swift */; };
@@ -54,6 +56,8 @@
 		5EE4F81A2A66440400DD46EA /* HappyPathTimeTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4F8192A66440400DD46EA /* HappyPathTimeTrackerTests.swift */; };
 		5EE4F8212A66448700DD46EA /* MainScreenViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4F8202A66448700DD46EA /* MainScreenViewModelTests.swift */; };
 		5EE4F8242A66451400DD46EA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4F8232A66451400DD46EA /* NetworkManager.swift */; };
+		5EF3DF2C2A726B500070CBCC /* NoEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF3DF2B2A726B500070CBCC /* NoEntryView.swift */; };
+		5EF3DF2E2A726F640070CBCC /* Me.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5EF3DF2D2A726F640070CBCC /* Me.graphql */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +78,7 @@
 		5E1D440F2A59B69400B6BEA4 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		5E1D44112A59B97000B6BEA4 /* ProjectTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTask.swift; sourceTree = "<group>"; };
 		5E1D44162A5A8A5D00B6BEA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5E1F89932A73F7940052173C /* Dropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
 		5E3DAF1A2A5AAC71005BB83A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5E3DAF212A5B1F5F005BB83A /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		5E3DAF242A5B3718005BB83A /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
@@ -92,10 +97,11 @@
 		5E7B54962A6120EE0097EC94 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		5E8FAEF02A6910850016EE08 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		5E916F342A5ED555001FAF02 /* UpdateTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UpdateTimer.graphql; sourceTree = "<group>"; };
+		5EB384602A70F5B200FDA0E0 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		5ED8E43A2A6E342000F871E0 /* RestartTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RestartTimer.graphql; sourceTree = "<group>"; };
 		5EE13CE92A5757AE004BF3DA /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		5EE371FB2A4EDEDF00859278 /* NewTimeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTimeEntryView.swift; sourceTree = "<group>"; };
-		5EE371FE2A4EDF0C00859278 /* TimeDividier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDividier.swift; sourceTree = "<group>"; };
+		5EE371FE2A4EDF0C00859278 /* HappyDividier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HappyDividier.swift; sourceTree = "<group>"; };
 		5EE372002A4FFB1900859278 /* TimeEntryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryListView.swift; sourceTree = "<group>"; };
 		5EE372022A4FFBA400859278 /* TimeEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntry.swift; sourceTree = "<group>"; };
 		5EE372042A4FFCD900859278 /* TimeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryView.swift; sourceTree = "<group>"; };
@@ -115,6 +121,8 @@
 		5EE4F8192A66440400DD46EA /* HappyPathTimeTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HappyPathTimeTrackerTests.swift; sourceTree = "<group>"; };
 		5EE4F8202A66448700DD46EA /* MainScreenViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModelTests.swift; sourceTree = "<group>"; };
 		5EE4F8232A66451400DD46EA /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		5EF3DF2B2A726B500070CBCC /* NoEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoEntryView.swift; sourceTree = "<group>"; };
+		5EF3DF2D2A726F640070CBCC /* Me.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Me.graphql; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +154,7 @@
 				5E3DAF212A5B1F5F005BB83A /* NotificationName.swift */,
 				5E7B54942A611D560097EC94 /* String.swift */,
 				5E7B54962A6120EE0097EC94 /* Int.swift */,
+				5EB384602A70F5B200FDA0E0 /* Color.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -231,6 +240,7 @@
 				5EE3720A2A50311C00859278 /* HeaderView.swift */,
 				5EE3720C2A50317900859278 /* CircleDayListView.swift */,
 				5EE3720E2A50322E00859278 /* CircleDayView.swift */,
+				5EF3DF2B2A726B500070CBCC /* NoEntryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -238,8 +248,9 @@
 		5EE371FD2A4EDEFF00859278 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				5EE371FE2A4EDF0C00859278 /* TimeDividier.swift */,
+				5EE371FE2A4EDF0C00859278 /* HappyDividier.swift */,
 				5EE372042A4FFCD900859278 /* TimeEntryView.swift */,
+				5E1F89932A73F7940052173C /* Dropdown.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -275,6 +286,7 @@
 				5E7B54902A609E2D0097EC94 /* StopTimer.graphql */,
 				5E646F132A671AB800B92B96 /* Stats.graphql */,
 				5ED8E43A2A6E342000F871E0 /* RestartTimer.graphql */,
+				5EF3DF2D2A726F640070CBCC /* Me.graphql */,
 			);
 			path = Graphql;
 			sourceTree = "<group>";
@@ -436,6 +448,7 @@
 				5ED8E43B2A6E342000F871E0 /* RestartTimer.graphql in Resources */,
 				5E41B1482A497F52001E90AC /* Assets.xcassets in Resources */,
 				5E7B54912A609E2D0097EC94 /* StopTimer.graphql in Resources */,
+				5EF3DF2E2A726F640070CBCC /* Me.graphql in Resources */,
 				5EE372172A50B82B00859278 /* Timers.graphql in Resources */,
 				5E1D44072A59ACBE00B6BEA4 /* LogTimer.graphql in Resources */,
 				5E5FC02C2A5F45AD00A19330 /* StartTimer.graphql in Resources */,
@@ -459,6 +472,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EF3DF2C2A726B500070CBCC /* NoEntryView.swift in Sources */,
 				5EE372092A5030D800859278 /* BottomView.swift in Sources */,
 				5E3DAF222A5B1F5F005BB83A /* NotificationName.swift in Sources */,
 				5E797CE22A4B1EE4003FCD06 /* CircleDay.swift in Sources */,
@@ -466,6 +480,7 @@
 				5E41B1462A497F51001E90AC /* MainScreen.swift in Sources */,
 				5EE372052A4FFCD900859278 /* TimeEntryView.swift in Sources */,
 				5E7B54952A611D560097EC94 /* String.swift in Sources */,
+				5E1F89942A73F7940052173C /* Dropdown.swift in Sources */,
 				5EE372262A50C1A500859278 /* MainScreenViewModel.swift in Sources */,
 				5E1D44102A59B69400B6BEA4 /* Project.swift in Sources */,
 				5EE372292A520B5E00859278 /* AppState.swift in Sources */,
@@ -476,9 +491,10 @@
 				5EE372232A50BEC600859278 /* TokenInterceptor.swift in Sources */,
 				5E8FAEF12A6910850016EE08 /* Auth.swift in Sources */,
 				5E1D44122A59B97000B6BEA4 /* ProjectTask.swift in Sources */,
+				5EB384612A70F5B200FDA0E0 /* Color.swift in Sources */,
 				5EE4F8242A66451400DD46EA /* NetworkManager.swift in Sources */,
 				5EE3720D2A50317900859278 /* CircleDayListView.swift in Sources */,
-				5EE371FF2A4EDF0C00859278 /* TimeDividier.swift in Sources */,
+				5EE371FF2A4EDF0C00859278 /* HappyDividier.swift in Sources */,
 				5E646F162A67212A00B92B96 /* Stats.swift in Sources */,
 				5EE372012A4FFB1900859278 /* TimeEntryListView.swift in Sources */,
 				5EE3721F2A50BD0C00859278 /* GraphqlClient.swift in Sources */,
