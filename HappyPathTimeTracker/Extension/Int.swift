@@ -27,6 +27,16 @@ extension Int {
         let minute = (self - hours * 60)
         return "\(String(format: "%02d", hours)):\(String(format: "%02d", minute))"
     }
+    
+    /// use to convert minute to hours coming from db
+    ///
+    /// For example: 123 -> 02:03
+    var secondsToHours: String {
+        let hours = self / 3600
+        let minute = (self - hours * 3600) / 60
+        
+        return "\(String(format: "%02d", hours)):\(String(format: "%02d", minute))"
+    }
 }
 
 extension Optional<Int> {

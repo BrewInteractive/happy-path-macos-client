@@ -76,7 +76,11 @@ struct NewTimeEntryView: View {
                     selectedProjectId = editedTimer.projectId
                     selectedTaskId = editedTimer.taskId
                     notes = editedTimer.notes
-                    duration = editedTimer.totalDuration.minuteToHours
+                    if editedTimer.id == mainScreenVm.activeTimerId {
+                        duration = Int(mainScreenVm.activeTimerSeconds).secondsToHours
+                    } else {
+                        duration = editedTimer.totalDuration.minuteToHours
+                    }
                 }
             }
             
