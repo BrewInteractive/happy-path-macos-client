@@ -17,4 +17,4 @@ jobs:
           echo -n "${{ secrets.APPLE_CERTIFICATE }}" | base64 --decode > certificate.p12
           security create-keychain -p "${{ secrets.APPLE_CERTIFICATE_PASSWORD }}" build.keychain
           security import certificate.p12 -t agg -k ~/Library/Keychains/build.keychain -P "${{ secrets.APPLE_CERTIFICATE_PASSWORD }}" -A
-          xcodebuild -scheme HappyPathTimeTracker -configuration Release build CODE_SIGN_IDENTITY="${{ secrets.CODE_SIGN_IDENTITY }}"
+          xcodebuild -scheme HappyPathTimeTracker -configuration Release build  CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY="${{ secrets.CODE_SIGN_IDENTITY }}"
