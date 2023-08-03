@@ -38,9 +38,20 @@ struct MainScreen: View {
                                       dateList: dateList)
                     .environmentObject(mainScreenVm)
                     HappyDividier()
-                    TimeEntryListView(selectedDate: mainScreenVm.selectedDate)
-                        .frame(maxHeight: .infinity)
-                        .environmentObject(mainScreenVm)
+                    ZStack {
+                        TimeEntryListView(selectedDate: mainScreenVm.selectedDate)
+                            .frame(maxHeight: .infinity)
+                            .environmentObject(mainScreenVm)
+                        if mainScreenVm.isLoading {
+                            ZStack {
+                                Color.Primary.DarkNight.opacity(0.2)
+                                ProgressView()
+                                    .background {
+                                        Color.ShadesOfDark.D_04.opacity(0.3)
+                                    }
+                            }
+                        }
+                    }
                     HappyDividier()
                     BottomView(selectedDate: mainScreenVm.selectedDate)
                         .environmentObject(mainScreenVm)
@@ -49,16 +60,6 @@ struct MainScreen: View {
                 .onAppear {
                     Task {
                         await mainScreenVm.updateViewModel(appState: appState)
-                    }
-                }
-                
-                if mainScreenVm.isLoading {
-                    ZStack {
-                        Color.Primary.DarkNight.opacity(0.2)
-                        ProgressView()
-                            .background {
-                                Color.ShadesOfDark.D_04.opacity(0.3)
-                            }
                     }
                 }
             } else {
