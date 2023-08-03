@@ -46,8 +46,6 @@ struct TimeEntryView: View {
                     Text(timeEntry.projectName)
                         .font(.footnote)
                         .foregroundColor(.Primary.DarkNight)
-                    Text("\(timeEntry.taskId)")
-                        .foregroundColor(.black)
                     Text(timeEntry.taskName)
                         .foregroundColor(.Primary.DarkNight)
                         .padding(4)
