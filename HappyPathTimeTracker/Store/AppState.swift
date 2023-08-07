@@ -9,20 +9,20 @@ import Foundation
 import KeychainSwift
 
 class AppState: ObservableObject {
-    @Published private(set) var isLoggedIn = false
+    @Published var isLoggedIn = false
     @Published private(set) var graphqlClient: GraphqlClient? = nil
+    let keychain = KeychainSwift()
     
     init() {
-        let keychain = KeychainSwift()
         let token = keychain.get(K.token)
         if token != nil {
             graphqlClient = GraphqlClient(token: token!)
         }
     }
     
-    func updateIsLoggedIn(newValue: Bool) {
-        DispatchQueue.main.async {
-            self.isLoggedIn = newValue
+    func updateAppStateProp<T>(for keyPath: ReferenceWritableKeyPath<AppState, T>, newValue: T) {
+        DispatchQueue.main.async { [weak self] in
+            self?[keyPath: keyPath] = newValue
         }
     }
     
@@ -30,4 +30,11 @@ class AppState: ObservableObject {
         // TOOD: burada client i update etmek yerine interceptor guncellenebiliyorsa onu yapmak daha mantikli olabilir
         graphqlClient = GraphqlClient(token: token)
     }
+    
+//    func logout() {
+//        DispatchQueue.global().async {
+//            self.keychain.delete(K.token)
+//        }
+//        updateAppStateProp(for: \.isLoggedIn, newValue: false)
+//    }
 }
