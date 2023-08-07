@@ -13,6 +13,7 @@ extension Color {
         static let RealWhite = Color("Real White")
         static let LightBabyPowder = Color("Light (Baby Powder)")
         static let CadetGray = Color("Cadet Gray")
+        static let Cavendish = Color("Cavendish")
     }
     
     struct ShadesOfDark {
@@ -49,5 +50,9 @@ extension Color {
     struct ShadesOfTeal {
         static let Teal_100 = Color("teal-100")
         static let Teal_400 = Color("teal-400")
+    }
+    
+    struct TagHints {
+        static let Pink = Color("Pink")
     }
 }
