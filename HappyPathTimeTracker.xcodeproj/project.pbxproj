@@ -33,6 +33,7 @@
 		5E8FAEF12A6910850016EE08 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8FAEF02A6910850016EE08 /* Auth.swift */; };
 		5E916F352A5ED555001FAF02 /* UpdateTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E916F342A5ED555001FAF02 /* UpdateTimer.graphql */; };
 		5EB384612A70F5B200FDA0E0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB384602A70F5B200FDA0E0 /* Color.swift */; };
+		5EC73EF22A80DC6F00528303 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 5EC73EF12A80DC6F00528303 /* PopupView */; };
 		5ED8E43B2A6E342000F871E0 /* RestartTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5ED8E43A2A6E342000F871E0 /* RestartTimer.graphql */; };
 		5EE13CEA2A5757AE004BF3DA /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5EE13CE92A5757AE004BF3DA /* .gitignore */; };
 		5EE371FC2A4EDEDF00859278 /* NewTimeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE371FB2A4EDEDF00859278 /* NewTimeEntryView.swift */; };
@@ -132,6 +133,7 @@
 			files = (
 				5E797CDF2A4B1CD9003FCD06 /* SwiftDate in Frameworks */,
 				5EE3721C2A50B91100859278 /* DirectusGraphql in Frameworks */,
+				5EC73EF22A80DC6F00528303 /* PopupView in Frameworks */,
 				5E3DAF202A5AF3C4005BB83A /* KeychainSwift in Frameworks */,
 				5EE372122A50483B00859278 /* Apollo in Frameworks */,
 			);
@@ -370,6 +372,7 @@
 				5EE372112A50483B00859278 /* Apollo */,
 				5EE3721B2A50B91100859278 /* DirectusGraphql */,
 				5E3DAF1F2A5AF3C4005BB83A /* KeychainSwift */,
+				5EC73EF12A80DC6F00528303 /* PopupView */,
 			);
 			productName = HappyPathTimeTracker;
 			productReference = 5E41B1402A497F51001E90AC /* HappyPathTimeTracker.app */;
@@ -425,6 +428,7 @@
 				5E797CDD2A4B1CD9003FCD06 /* XCRemoteSwiftPackageReference "SwiftDate" */,
 				5EE372102A50483B00859278 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 				5E3DAF1E2A5AF3C4005BB83A /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				5EC73EF02A80DC6F00528303 /* XCRemoteSwiftPackageReference "PopupView" */,
 			);
 			productRefGroup = 5E41B1412A497F51001E90AC /* Products */;
 			projectDirPath = "";
@@ -790,6 +794,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		5EC73EF02A80DC6F00528303 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		5EE372102A50483B00859278 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
@@ -810,6 +822,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5E797CDD2A4B1CD9003FCD06 /* XCRemoteSwiftPackageReference "SwiftDate" */;
 			productName = SwiftDate;
+		};
+		5EC73EF12A80DC6F00528303 /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5EC73EF02A80DC6F00528303 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
 		};
 		5EE372112A50483B00859278 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
