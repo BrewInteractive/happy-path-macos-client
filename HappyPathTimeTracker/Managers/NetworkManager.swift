@@ -16,7 +16,11 @@ final class NetworkManager {
             graphqlClient?.client?.fetch(query: MeQuery(), cachePolicy: cachePolicy) { result in
                 switch result {
                 case .success(let res):
-                    continuation.resume(returning: res.data)
+                    if res.errors?.count == 0 {
+                        continuation.resume(returning: res.data)
+                    } else {
+                        continuation.resume(throwing: HappyError.errorFromBackend)
+                    }
                 case .failure(let error):
                     continuation.resume(throwing: error)
                 }
@@ -32,8 +36,12 @@ final class NetworkManager {
             graphqlClient?.client?.fetch(query: StatsQuery(date: startOfDate), cachePolicy: cachePolicy) { [weak self] result in
                 switch result {
                 case .success(let res):
-                    let stats = self?.parseStats(from: res)
-                    continuation.resume(returning: stats)
+                    if res.errors?.count == 0 {
+                        let stats = self?.parseStats(from: res)
+                        continuation.resume(returning: stats)
+                    } else {
+                        continuation.resume(throwing: HappyError.errorFromBackend)
+                    }
                 case .failure(let error):
                     continuation.resume(throwing: error)
                 }
@@ -41,13 +49,17 @@ final class NetworkManager {
         })
     }
     
-    func fetchProjects(graphqlClient: GraphqlClient?) async throws -> [Project]? {
+    func fetchProjects(graphqlClient: GraphqlClient? = nil) async throws -> [Project]? {
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?.fetch(query: GetProjectsQuery()) { [weak self] result in
                 switch result {
                 case .success(let res):
-                    let tmpProjects = self?.parseProjects(from: res) ?? []
-                    continuation.resume(returning: tmpProjects)
+                    if res.errors?.count == 0 {
+                        let tmpProjects = self?.parseProjects(from: res) ?? []
+                        continuation.resume(returning: tmpProjects)
+                    } else {
+                        continuation.resume(throwing: HappyError.errorFromBackend)
+                    }
                 case .failure(let error):
                     continuation.resume(throwing: error)
                 }
@@ -61,8 +73,12 @@ final class NetworkManager {
                 .fetch(query: GetTimersQuery(startsAt: date.startOfDayISO, endsAt: date.endOfDayISO), cachePolicy: cachePolicy) { [weak self] result in
                     switch result {
                     case .success(let res):
-                        let tmpTimers = self?.parseTimers(from: res) ?? []
-                        continuation.resume(returning: tmpTimers)
+                        if res.errors?.count == 0 {
+                            let tmpTimers = self?.parseTimers(from: res) ?? []
+                            continuation.resume(returning: tmpTimers)
+                        } else {
+                            continuation.resume(throwing: HappyError.errorFromBackend)
+                        }
                     case .failure(let error):
                         continuation.resume(throwing: error)
                     }
@@ -76,8 +92,12 @@ final class NetworkManager {
                 .fetch(query: GetTasksQuery(projectId: projectId)) { [weak self] result in
                     switch result {
                     case .success(let res):
-                        let tmpTasks = self?.parseTasks(from: res)
-                        continuation.resume(returning: tmpTasks)
+                        if res.errors?.count == 0 {
+                            let tmpTasks = self?.parseTasks(from: res)
+                            continuation.resume(returning: tmpTasks)
+                        } else {
+                            continuation.resume(throwing: HappyError.errorFromBackend)
+                        }
                     case .failure(let error):
                         continuation.resume(throwing: error)
                     }
@@ -95,7 +115,11 @@ final class NetworkManager {
                                                     endsAt: date.toISO())) { result in
                     switch result {
                     case .success(let res):
-                        continuation.resume(returning: res.data?.log)
+                        if res.errors?.count == 0 {
+                            continuation.resume(returning: res.data?.log)
+                        } else {
+                            continuation.resume(throwing: HappyError.errorFromBackend)
+                        }
                     case .failure(let error):
                         continuation.resume(throwing: error)
                     }
@@ -119,7 +143,11 @@ final class NetworkManager {
                                                        notes: .some(notes))) { result in
                     switch result {
                     case .success(let res):
-                        continuation.resume(returning: res.data?.update)
+                        if res.errors?.count == 0 {
+                            continuation.resume(returning: res.data?.update)
+                        } else {
+                            continuation.resume(throwing: HappyError.errorFromBackend)
+                        }
                     case .failure(let error):
                         continuation.resume(throwing: error)
                     }
@@ -133,7 +161,11 @@ final class NetworkManager {
                 .perform(mutation: RemoveTimerMutation(removeId: id)) { result in
                     switch result {
                     case .success(let res):
-                        continuation.resume(returning: res.data?.remove?.id)
+                        if res.errors?.count == 0 {
+                            continuation.resume(returning: res.data?.remove?.id)
+                        } else {
+                            continuation.resume(throwing: HappyError.errorFromBackend)
+                        }
                     case .failure(let error):
                         continuation.resume(throwing: error)
                     }
@@ -150,7 +182,49 @@ final class NetworkManager {
                                                       notes: .some(notes)), resultHandler: { result in
                     switch result {
                     case .success(let res):
-                        continuation.resume(returning: res.data?.start)
+                        if res.errors?.count == 0 {
+                            continuation.resume(returning: res.data?.start)
+                        } else {
+                            continuation.resume(throwing: HappyError.errorFromBackend)
+                        }
+                    case .failure(let error):
+                        continuation.resume(throwing: error)
+                    }
+                })
+        })
+    }
+    
+    func stopTimer(graphqlClient: GraphqlClient?, for id: Int) async throws -> StopTimerMutation.Data.Stop? {
+        return try await withCheckedThrowingContinuation({ continuation in
+            graphqlClient?
+                .client?
+                .perform(mutation: StopTimerMutation(timerId: id), resultHandler: { result in
+                    switch result {
+                    case .success(let res):
+                        if res.errors?.count == 0 {
+                            continuation.resume(returning: res.data?.stop)
+                        } else {
+                            continuation.resume(throwing: HappyError.errorFromBackend)
+                        }
+                    case .failure(let error):
+                        continuation.resume(throwing: error)
+                    }
+                })
+        })
+    }
+    
+    func restartTimer(graphqlClient: GraphqlClient?, for id: Int) async throws -> RestartTimerMutation.Data.Restart? {
+        return try await withCheckedThrowingContinuation({ continuation in
+            graphqlClient?
+                .client?
+                .perform(mutation: RestartTimerMutation(timerId: id), resultHandler: { result in
+                    switch result {
+                    case .success(let res):
+                        if res.errors?.count == 0 {
+                            continuation.resume(returning: res.data?.restart)
+                        } else {
+                            continuation.resume(throwing: HappyError.errorFromBackend)
+                        }
                     case .failure(let error):
                         continuation.resume(throwing: error)
                     }
@@ -172,36 +246,6 @@ final class NetworkManager {
         } catch {
             return nil
         }
-    }
-    
-    func stopTimer(graphqlClient: GraphqlClient?, for id: Int) async throws -> StopTimerMutation.Data.Stop? {
-        return try await withCheckedThrowingContinuation({ continuation in
-            graphqlClient?
-                .client?
-                .perform(mutation: StopTimerMutation(timerId: id), resultHandler: { result in
-                    switch result {
-                    case .success(let res):
-                        continuation.resume(returning: res.data?.stop)
-                    case .failure(let error):
-                        continuation.resume(throwing: error)
-                    }
-                })
-        })
-    }
-    
-    func restartTimer(graphqlClient: GraphqlClient?, for id: Int) async throws -> RestartTimerMutation.Data.Restart? {
-        return try await withCheckedThrowingContinuation({ continuation in
-            graphqlClient?
-                .client?
-                .perform(mutation: RestartTimerMutation(timerId: id), resultHandler: { result in
-                    switch result {
-                    case .success(let res):
-                        continuation.resume(returning: res.data?.restart)
-                    case .failure(let error):
-                        continuation.resume(throwing: error)
-                    }
-                })
-        })
     }
     
     // MARK: Object Parsers

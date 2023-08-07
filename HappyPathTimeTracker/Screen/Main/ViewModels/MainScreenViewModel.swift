@@ -10,8 +10,9 @@ import DirectusGraphql
 import Apollo
 import Combine
 
-enum ProjectError: Error {
+enum HappyError: Error {
     case notFoundProject
+    case errorFromBackend
 }
 
 final class MainScreenViewModel: ObservableObject {
@@ -23,7 +24,6 @@ final class MainScreenViewModel: ObservableObject {
     @Published var projects: [Project] = []
     @Published var tasks: [ProjectTask] = []
     @Published var isLoading: Bool = false
-    @Published var isRefetching: Bool = false
     @Published var isTasksLoading = false
     @Published var selectedDate = Date()
     @Published var isNewEntryModalShown = false
@@ -32,13 +32,19 @@ final class MainScreenViewModel: ObservableObject {
     @Published var todayTotalDurationWithActiveTimer: String = "00:00"
     @Published var thisWeekDurationWithActiveTimer: String = "00:00"
     @Published var thisMonthDurationWithActiveTimer: String = "00:00"
-    private var timer: AnyCancellable? = nil
     @Published var totalDurationMap: [String: Int] = [:]
     @Published var stats: Stats? = nil
+    @Published var isErrorShown = false
     
+    private var timer: AnyCancellable? = nil
+    var errorTimer: Publishers.Autoconnect<Timer.TimerPublisher>? = nil
     var activeTimerId: Int? {
         return timers.first(where: {$0.endsAt == nil})?.id
     }
+    
+//    func logout() {
+//        appState?.logout()
+//    }
     
     func updateViewModel(appState: AppState) async {
         self.updateMainScreenVmProp(for: \.appState, newValue: appState)
@@ -85,7 +91,7 @@ final class MainScreenViewModel: ObservableObject {
         self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
         
         do {
-            let res = try await networkManager.me(graphqlClient: client, cachePolicy: cachePolicy)
+            let res = try await networkManager.me(graphqlClient: appState?.graphqlClient ?? client, cachePolicy: cachePolicy)
             self.updateMainScreenVmProp(for: \.email, newValue: res?.me?.email ?? "")
         } catch {
             self.parseError(for: error)
@@ -123,7 +129,6 @@ final class MainScreenViewModel: ObservableObject {
         self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
         do {
             let tmpTimers = try await networkManager.fetchTimers(graphqlClient: appState?.graphqlClient ?? client, date: date, cachePolicy: cachePolicy) ?? []
-            print("timers: ", tmpTimers)
             self.updateMainScreenVmProp(for: \.timers, newValue: tmpTimers)
             self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
             self.updateMainScreenVmProp(for: \.totalDurationMap[date.startOfDayISO],
@@ -161,12 +166,19 @@ final class MainScreenViewModel: ObservableObject {
     }
     
     func refetch(date: Date) async {
-        self.updateMainScreenVmProp(for: \.isRefetching, newValue: true)
-        async let tmpTimers: () = self.getTimers(date: date, cachePolicy: .fetchIgnoringCacheData)
-        async let tmpStats: () = self.getStats(cachePolicy: .fetchIgnoringCacheData)
-        
-        let _ = await [tmpTimers, tmpStats]
-        self.updateMainScreenVmProp(for: \.isRefetching, newValue: false)
+        self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
+        do {
+            async let tmpProjects = networkManager.fetchProjects(graphqlClient: appState?.graphqlClient)
+            async let tmpTimers: () = self.getTimers(date: selectedDate, cachePolicy: .fetchIgnoringCacheData)
+            async let tmpStats: () = self.getStats(cachePolicy: .fetchIgnoringCacheData)
+            async let tmpMe: () = self.me(cachePolicy: .fetchIgnoringCacheData)
+            
+            let responses = try await [tmpProjects ?? [], tmpTimers, tmpStats, tmpMe] as [Any]
+            
+            self.updateMainScreenVmProp(for: \.projects, newValue: responses[0] as! [Project])
+        } catch {
+            self.parseError(for: error)
+        }
     }
     
     func logTimer(projectId: Int, projectTaskId: Int, duration: String, notes: String, date: Date) async {
@@ -186,7 +198,7 @@ final class MainScreenViewModel: ObservableObject {
             }
             guard let task = self.tasks.first(where: {$0.id == projectTaskId}),
                let project = self.projects.first(where: {$0.id == projectId}) else {
-                throw ProjectError.notFoundProject
+                throw HappyError.notFoundProject
             }
             let tmpNewTimer = TimeEntry(id: Int(loggedTimerId)!,
                       projectId: projectId,
@@ -236,7 +248,7 @@ final class MainScreenViewModel: ObservableObject {
             }
             
             guard let tmpUpdatedTimerIndex = self.timers.firstIndex(where: {$0.id == updatedTimerId}) else {
-                throw ProjectError.notFoundProject
+                throw HappyError.notFoundProject
             }
             
             DispatchQueue.main.async {
@@ -258,7 +270,7 @@ final class MainScreenViewModel: ObservableObject {
             let removedTimerId = try await networkManager.removeTimer(graphqlClient: appState?.graphqlClient, id: id, selectedDate: selectedDate)
             if removedTimerId != nil {
                 guard let removedTimerIndex = self.timers.firstIndex(where: {$0.id == removedTimerId}) else {
-                    throw ProjectError.notFoundProject
+                    throw HappyError.notFoundProject
                 }
                 DispatchQueue.main.async {
                     self.timers.remove(at: removedTimerIndex)
@@ -361,9 +373,14 @@ final class MainScreenViewModel: ObservableObject {
             switch error {
             case .invalidResponseCode(let response, _):
                 if response?.statusCode == 403 {
-                    self.appState?.updateIsLoggedIn(newValue: false)
+                    self.appState?.updateAppStateProp(for: \.isLoggedIn, newValue: false)
+                } else if response?.statusCode == 504 {
+//                    self.appState?.updateAppStateProp(for: \.isError, newValue: true)
                 }
             }
+        } else {
+            // show error popup
+            updateMainScreenVmProp(for: \.isErrorShown, newValue: true)
         }
     }
     

@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftDate
 import Apollo
 import DirectusGraphql
+import PopupView
 
 struct MainScreen: View {
     @EnvironmentObject var appState: AppState
@@ -62,6 +63,22 @@ struct MainScreen: View {
                         await mainScreenVm.updateViewModel(appState: appState)
                     }
                 }
+                .popup(isPresented: $mainScreenVm.isErrorShown) {
+                    Text("Error occured")
+                        .padding()
+                        .background(Color.red)
+                        .cornerRadius(10)
+                } customize: {
+                    $0
+                        .autohideIn(2)
+                        .type(.floater(verticalPadding: 8, horizontalPadding: 8, useSafeAreaInset: true))
+                        .position(.bottomTrailing)
+                        .appearFrom(.bottom)
+                        .dismissCallback {
+                            mainScreenVm.updateMainScreenVmProp(for: \.isErrorShown, newValue: false)
+                        }
+                        .animation(.spring())
+                }
             } else {
                 Button {
                     openURL(URL(string: K.openURLText)!)
@@ -80,7 +97,6 @@ struct MainScreen: View {
             } label: {
                 Text("Yenile")
             }
-            
         }
     }
 }
