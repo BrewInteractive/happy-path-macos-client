@@ -14,7 +14,7 @@ public class StartTimerMutation: GraphQLMutation {
           id
           startsAt
           endsAt
-          totalDuration
+          duration
         }
       }
       """#
@@ -68,13 +68,13 @@ public class StartTimerMutation: GraphQLMutation {
         .field("id", String?.self),
         .field("startsAt", String?.self),
         .field("endsAt", String?.self),
-        .field("totalDuration", Int?.self),
+        .field("duration", Int?.self),
       ] }
 
       public var id: String? { __data["id"] }
       public var startsAt: String? { __data["startsAt"] }
       public var endsAt: String? { __data["endsAt"] }
-      public var totalDuration: Int? { __data["totalDuration"] }
+      public var duration: Int? { __data["duration"] }
     }
   }
 }

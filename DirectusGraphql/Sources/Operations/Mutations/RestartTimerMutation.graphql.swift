@@ -13,7 +13,6 @@ public class RestartTimerMutation: GraphQLMutation {
           __typename
           id
           startsAt
-          endsAt
           totalDuration
         }
       }
@@ -51,13 +50,11 @@ public class RestartTimerMutation: GraphQLMutation {
         .field("__typename", String.self),
         .field("id", Int?.self),
         .field("startsAt", String?.self),
-        .field("endsAt", String?.self),
         .field("totalDuration", Int?.self),
       ] }
 
       public var id: Int? { __data["id"] }
       public var startsAt: String? { __data["startsAt"] }
-      public var endsAt: String? { __data["endsAt"] }
       public var totalDuration: Int? { __data["totalDuration"] }
     }
   }

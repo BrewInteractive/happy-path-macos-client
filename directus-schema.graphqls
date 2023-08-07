@@ -76,7 +76,7 @@ type Start {
   id: String
   startsAt: String
   endsAt: String
-  totalDuration: Int
+  duration: Int
 }
 
 type Stop {
@@ -90,7 +90,7 @@ type Log {
   id: String
   startsAt: String
   endsAt: String
-  totalDuration: Int
+  duration: Int
 }
 
 type Remove {
@@ -101,6 +101,7 @@ type Update {
   id: Int
   startsAt: String
   endsAt: String
+  duration: Int
   totalDuration: Int
 }
 
@@ -114,6 +115,5 @@ input Input {
 type Restart {
   id: Int
   startsAt: String
-  endsAt: String
   totalDuration: Int
 }

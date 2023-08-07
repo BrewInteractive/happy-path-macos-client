@@ -16,7 +16,7 @@ final class NetworkManager {
             graphqlClient?.client?.fetch(query: MeQuery(), cachePolicy: cachePolicy) { result in
                 switch result {
                 case .success(let res):
-                    if res.errors?.count == 0 {
+                    if res.data != nil {
                         continuation.resume(returning: res.data)
                     } else {
                         continuation.resume(throwing: HappyError.errorFromBackend)
@@ -36,7 +36,7 @@ final class NetworkManager {
             graphqlClient?.client?.fetch(query: StatsQuery(date: startOfDate), cachePolicy: cachePolicy) { [weak self] result in
                 switch result {
                 case .success(let res):
-                    if res.errors?.count == 0 {
+                    if res.data != nil {
                         let stats = self?.parseStats(from: res)
                         continuation.resume(returning: stats)
                     } else {
@@ -54,7 +54,7 @@ final class NetworkManager {
             graphqlClient?.client?.fetch(query: GetProjectsQuery()) { [weak self] result in
                 switch result {
                 case .success(let res):
-                    if res.errors?.count == 0 {
+                    if res.data != nil {
                         let tmpProjects = self?.parseProjects(from: res) ?? []
                         continuation.resume(returning: tmpProjects)
                     } else {
@@ -68,12 +68,13 @@ final class NetworkManager {
     }
     
     func fetchTimers(graphqlClient: GraphqlClient?, date: Date, cachePolicy: CachePolicy = .default) async throws -> [TimeEntry]? {
+        print(date.startOfDayISO)
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?
                 .fetch(query: GetTimersQuery(startsAt: date.startOfDayISO, endsAt: date.endOfDayISO), cachePolicy: cachePolicy) { [weak self] result in
                     switch result {
                     case .success(let res):
-                        if res.errors?.count == 0 {
+                        if res.data != nil {
                             let tmpTimers = self?.parseTimers(from: res) ?? []
                             continuation.resume(returning: tmpTimers)
                         } else {
@@ -92,7 +93,7 @@ final class NetworkManager {
                 .fetch(query: GetTasksQuery(projectId: projectId)) { [weak self] result in
                     switch result {
                     case .success(let res):
-                        if res.errors?.count == 0 {
+                        if res.data != nil {
                             let tmpTasks = self?.parseTasks(from: res)
                             continuation.resume(returning: tmpTasks)
                         } else {
@@ -115,7 +116,7 @@ final class NetworkManager {
                                                     endsAt: date.toISO())) { result in
                     switch result {
                     case .success(let res):
-                        if res.errors?.count == 0 {
+                        if res.data != nil {
                             continuation.resume(returning: res.data?.log)
                         } else {
                             continuation.resume(throwing: HappyError.errorFromBackend)
@@ -143,7 +144,7 @@ final class NetworkManager {
                                                        notes: .some(notes))) { result in
                     switch result {
                     case .success(let res):
-                        if res.errors?.count == 0 {
+                        if res.data != nil {
                             continuation.resume(returning: res.data?.update)
                         } else {
                             continuation.resume(throwing: HappyError.errorFromBackend)
@@ -161,7 +162,7 @@ final class NetworkManager {
                 .perform(mutation: RemoveTimerMutation(removeId: id)) { result in
                     switch result {
                     case .success(let res):
-                        if res.errors?.count == 0 {
+                        if res.data != nil {
                             continuation.resume(returning: res.data?.remove?.id)
                         } else {
                             continuation.resume(throwing: HappyError.errorFromBackend)
@@ -182,7 +183,7 @@ final class NetworkManager {
                                                       notes: .some(notes)), resultHandler: { result in
                     switch result {
                     case .success(let res):
-                        if res.errors?.count == 0 {
+                        if res.data != nil {
                             continuation.resume(returning: res.data?.start)
                         } else {
                             continuation.resume(throwing: HappyError.errorFromBackend)
@@ -201,7 +202,7 @@ final class NetworkManager {
                 .perform(mutation: StopTimerMutation(timerId: id), resultHandler: { result in
                     switch result {
                     case .success(let res):
-                        if res.errors?.count == 0 {
+                        if res.data != nil {
                             continuation.resume(returning: res.data?.stop)
                         } else {
                             continuation.resume(throwing: HappyError.errorFromBackend)
@@ -220,7 +221,7 @@ final class NetworkManager {
                 .perform(mutation: RestartTimerMutation(timerId: id), resultHandler: { result in
                     switch result {
                     case .success(let res):
-                        if res.errors?.count == 0 {
+                        if res.data != nil {
                             continuation.resume(returning: res.data?.restart)
                         } else {
                             continuation.resume(throwing: HappyError.errorFromBackend)

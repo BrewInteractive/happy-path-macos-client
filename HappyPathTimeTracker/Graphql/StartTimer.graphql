@@ -3,6 +3,6 @@ mutation StartTimer($projectTaskId: Int!, $duration: Int, $notes: String) {
         id
         startsAt
         endsAt
-        totalDuration
+        duration
     }
 }

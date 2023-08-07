@@ -9,6 +9,6 @@ mutation LogTimer($projectTaskId: Int!, $duration: Int!, $notes: String!, $start
         id
         startsAt
         endsAt
-        totalDuration
+        duration
     }
 }
