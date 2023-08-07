@@ -21,11 +21,11 @@ struct HappyPathTimeTrackerApp: App {
                     let keychain = KeychainSwift()
                     let token = keychain.get(K.token)
                     if token != nil {
-                        appState.updateIsLoggedIn(newValue: true)
+                        self.appState.updateAppStateProp(for: \.isLoggedIn, newValue: true)
                     }
                 }
                 .onReceive(NotificationCenter.default.publisher(for: Notification.Name.loginByMagicLinkNotification)) { token in
-                    appState.updateIsLoggedIn(newValue: true)
+                    self.appState.updateAppStateProp(for: \.isLoggedIn, newValue: true)
                     appState.updateClientAuthToken(token: token.object as! String)
                 }
         } label: {
