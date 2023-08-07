@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import Combine
 
 struct HeaderView: View {
     @EnvironmentObject var mainScreenVm: MainScreenViewModel
     let selectedDate: Date
-    @State private var isInfoShown: Bool = false
+    @State private var isInfoShown = false
+    @State private var isErrorInfoShown = false
+    @State private var isFlashing = false
     
     var body: some View {
         ZStack {
@@ -18,6 +21,25 @@ struct HeaderView: View {
                 .fill(Color.ShadesOfTeal.Teal_400)
                 .frame(height:36)
             HStack {
+//                if mainScreenVm.appState?.isError == true {
+//                    Image(systemName: "exclamationmark.triangle.fill")
+//                        .foregroundColor(.Primary.Cavendish)
+//                        .opacity(isFlashing ? 1.0 : 0.2)
+//                        .animation(.easeIn(duration: 1).repeatForever(), value: isFlashing)
+//                        .onHover(perform: { isHovered in
+//                            isErrorInfoShown = isHovered
+//                        })
+//                        .onAppear{
+//                            self.isFlashing = true
+//                        }
+//                        .popover(isPresented: $isErrorInfoShown) {
+//                            ZStack {
+//                                Rectangle()
+//                                    .foregroundColor(Color.Primary.CadetGray)
+//                                Text("Sistemde bir hata olustu, kontrol ediliyor...")
+//                            }
+//                        }
+//                }
                 Text(selectedDate.toFormat("EEEE, dd MMM"))
                     .font(.body)
                     .bold()

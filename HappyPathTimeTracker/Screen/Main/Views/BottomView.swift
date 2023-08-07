@@ -17,7 +17,9 @@ struct BottomView: View {
                 if mainScreenVm.projects.count > 0 {
                     mainScreenVm.showNewEntryTimerModal()
                 } else {
-                    print("no projects")
+                    Task {
+                        await mainScreenVm.refetch(date: selectedDate)
+                    }
                 }
             } label: {
                 ZStack {
@@ -75,6 +77,21 @@ struct BottomView: View {
             }
             .buttonStyle(.plain)
             .padding(.trailing, 8)
+//            Button {
+//                mainScreenVm.logout()
+//            } label: {
+//                ZStack {
+//                    RoundedRectangle(cornerRadius:100)
+//                        .fill(Color.ShadesOfDark.D_04)
+//                        .frame(width: 32, height: 32)
+//                    Image("log-out")
+//                        .resizable()
+//                        .foregroundColor(.ShadesOfTeal.Teal_400)
+//                        .frame(width: 14, height: 14)
+//                }
+//            }
+//            .buttonStyle(.plain)
+//            .padding(.trailing, 8)//TODO: add logout button
         }
         .padding(.horizontal, 4)
         .padding(.bottom, 8)
@@ -86,5 +103,6 @@ struct BottomView: View {
 struct BottomView_Previews: PreviewProvider {
     static var previews: some View {
         BottomView(selectedDate: Date())
+            .environmentObject(MainScreenViewModel())
     }
 }
