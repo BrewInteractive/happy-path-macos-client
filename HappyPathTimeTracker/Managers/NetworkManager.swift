@@ -11,9 +11,9 @@ import DirectusGraphql
 
 final class NetworkManager {
     
-    func me(graphqlClient: GraphqlClient?, cachePolicy: CachePolicy) async throws -> MeQuery.Data? {
+    func me(graphqlClient: GraphqlClient?) async throws -> MeQuery.Data? {
         return try await withCheckedThrowingContinuation({ continuation in
-            graphqlClient?.client?.fetch(query: MeQuery(), cachePolicy: cachePolicy) { result in
+            graphqlClient?.client?.fetch(query: MeQuery(), cachePolicy: .fetchIgnoringCacheData) { result in
                 switch result {
                 case .success(let res):
                     if res.data != nil {
@@ -28,12 +28,12 @@ final class NetworkManager {
         })
     }
     
-    func fetchStats(graphqlClient: GraphqlClient?, date: String, cachePolicy: CachePolicy) async throws -> Stats? {
+    func fetchStats(graphqlClient: GraphqlClient?, date: String) async throws -> Stats? {
         guard let startOfDate = date.toDate()?.date.startOfDayISO else {
             return nil
         }
         return try await withCheckedThrowingContinuation({ continuation in
-            graphqlClient?.client?.fetch(query: StatsQuery(date: startOfDate), cachePolicy: cachePolicy) { [weak self] result in
+            graphqlClient?.client?.fetch(query: StatsQuery(date: startOfDate), cachePolicy: .fetchIgnoringCacheData) { [weak self] result in
                 switch result {
                 case .success(let res):
                     if res.data != nil {
@@ -51,7 +51,7 @@ final class NetworkManager {
     
     func fetchProjects(graphqlClient: GraphqlClient? = nil) async throws -> [Project]? {
         return try await withCheckedThrowingContinuation({ continuation in
-            graphqlClient?.client?.fetch(query: GetProjectsQuery()) { [weak self] result in
+            graphqlClient?.client?.fetch(query: GetProjectsQuery(), cachePolicy: .fetchIgnoringCacheData) { [weak self] result in
                 switch result {
                 case .success(let res):
                     if res.data != nil {
@@ -67,11 +67,10 @@ final class NetworkManager {
         })
     }
     
-    func fetchTimers(graphqlClient: GraphqlClient?, date: Date, cachePolicy: CachePolicy = .default) async throws -> [TimeEntry]? {
-        print(date.startOfDayISO)
+    func fetchTimers(graphqlClient: GraphqlClient?, date: Date) async throws -> [TimeEntry]? {
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?
-                .fetch(query: GetTimersQuery(startsAt: date.startOfDayISO, endsAt: date.endOfDayISO), cachePolicy: cachePolicy) { [weak self] result in
+                .fetch(query: GetTimersQuery(startsAt: date.startOfDayISO, endsAt: date.endOfDayISO), cachePolicy: .fetchIgnoringCacheData) { [weak self] result in
                     switch result {
                     case .success(let res):
                         if res.data != nil {
@@ -90,7 +89,7 @@ final class NetworkManager {
     func fetchTasks(graphqlClient: GraphqlClient?, projectId: Int) async throws -> [ProjectTask]? {
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?
-                .fetch(query: GetTasksQuery(projectId: projectId)) { [weak self] result in
+                .fetch(query: GetTasksQuery(projectId: projectId), cachePolicy: .fetchIgnoringCacheData) { [weak self] result in
                     switch result {
                     case .success(let res):
                         if res.data != nil {

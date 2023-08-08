@@ -75,11 +75,6 @@ extension TimeEntryListView {
             } label: {
                 Text("Delete Entry")
             }
-            Button {
-                print("view in site")
-            } label: {
-                Text("View in Beforesunset")
-            }
         }
     }
 }
