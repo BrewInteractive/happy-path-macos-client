@@ -72,7 +72,7 @@ struct HeaderView: View {
                                         .frame(maxHeight: .infinity)
                                     VStack {
                                         Text("Hours Yesterday")
-                                        Text("\(mainScreenVm.stats?.byInterval[3].totalDuration.minuteToHours ?? "00:00")")
+                                        Text("Will be added")
                                     }
                                     .foregroundColor(.Primary.DarkNight)
                                 }
