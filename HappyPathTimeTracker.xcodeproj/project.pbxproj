@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E06CAA82A8254680019E411 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E06CAA72A8254680019E411 /* Bundle.swift */; };
 		5E1D43EA2A588D2400B6BEA4 /* RemoveTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E1D43E92A588D2400B6BEA4 /* RemoveTimer.graphql */; };
 		5E1D44072A59ACBE00B6BEA4 /* LogTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E1D44062A59ACBE00B6BEA4 /* LogTimer.graphql */; };
 		5E1D440A2A59AF7C00B6BEA4 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44092A59AF7C00B6BEA4 /* Date.swift */; };
@@ -72,6 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E06CAA72A8254680019E411 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		5E1D43E92A588D2400B6BEA4 /* RemoveTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RemoveTimer.graphql; sourceTree = "<group>"; };
 		5E1D44062A59ACBE00B6BEA4 /* LogTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = LogTimer.graphql; sourceTree = "<group>"; };
 		5E1D44092A59AF7C00B6BEA4 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				5E7B54942A611D560097EC94 /* String.swift */,
 				5E7B54962A6120EE0097EC94 /* Int.swift */,
 				5EB384602A70F5B200FDA0E0 /* Color.swift */,
+				5E06CAA72A8254680019E411 /* Bundle.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EF3DF2C2A726B500070CBCC /* NoEntryView.swift in Sources */,
+				5E06CAA82A8254680019E411 /* Bundle.swift in Sources */,
 				5EE372092A5030D800859278 /* BottomView.swift in Sources */,
 				5E3DAF222A5B1F5F005BB83A /* NotificationName.swift in Sources */,
 				5E797CE22A4B1EE4003FCD06 /* CircleDay.swift in Sources */,
@@ -667,7 +671,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gorkemsevim.HappyPathTimeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -701,7 +705,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gorkemsevim.HappyPathTimeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

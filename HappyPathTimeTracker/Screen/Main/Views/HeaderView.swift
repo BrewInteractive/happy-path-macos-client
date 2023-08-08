@@ -98,6 +98,11 @@ struct HeaderView: View {
                                     .foregroundColor(.Primary.DarkNight)
                                 }
                             }
+                            Divider()
+                                .frame(height: 1)
+                                .foregroundColor(.accentColor)
+                            Text("Version: \(Bundle.main.appVersionLong)")
+                                .foregroundColor(.Primary.DarkNight)
                         }
                         .padding()
                         .frame(width: 300)
