@@ -238,9 +238,11 @@ final class MainScreenViewModel: ObservableObject {
                                                  notes: notes,
                                                  startsAt: startsAt,
                                                  endsAt: endsAt)
-            guard let updatedTimerId = updatedTimerInfo?.id,
-                  let totalDuration = updatedTimerInfo?.totalDuration, totalDuration != 0 else {
-                await self.getTimers(date: selectedDate)//TODO: gokcen in fixinden sonra kaldirilip totalDuration asagida kullanilacak
+            guard let updatedTimerInfo = updatedTimerInfo,
+                  let updatedTimerId = updatedTimerInfo.id,
+                  let totalDuration = updatedTimerInfo.totalDuration,
+                      totalDuration != 0 else {
+                await self.getTimers(date: selectedDate)
                       self.updateMainScreenVmProp(for: \.isNewEntryModalShown, newValue: false)
                 return
             }
@@ -251,8 +253,10 @@ final class MainScreenViewModel: ObservableObject {
             
             DispatchQueue.main.async {
                 // update timer in timers data
-                self.timers[tmpUpdatedTimerIndex].totalDuration = totalDuration
                 self.timers[tmpUpdatedTimerIndex].notes = notes
+                self.timers[tmpUpdatedTimerIndex].totalDuration = totalDuration
+                self.timers[tmpUpdatedTimerIndex].endsAt = updatedTimerInfo.endsAt
+                self.timers[tmpUpdatedTimerIndex].startsAt = updatedTimerInfo.startsAt
             }
             await self.getStats()
         } catch {
@@ -386,11 +390,12 @@ final class MainScreenViewModel: ObservableObject {
         if timer != nil {
             timer?.cancel()
         }
-
+        guard timerEntry.startsAt != nil else { return }
+        
         timer = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] timer in
-                let timeInSeconds = timer.timeIntervalSince1970 - timerEntry.startsAt.toISODate()!.date.timeIntervalSince1970
+                let timeInSeconds = timer.timeIntervalSince1970 - timerEntry.startsAt!.toISODate()!.date.timeIntervalSince1970
                 self?.updateMainScreenVmProp(for: \.activeTimerSeconds, newValue: timeInSeconds + Double(timerEntry.totalDurationAsSeconds))
                 let tmpActiveTimerDiff = (Int(timeInSeconds) / 60)
                 

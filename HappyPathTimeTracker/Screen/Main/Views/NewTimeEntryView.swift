@@ -202,13 +202,13 @@ extension NewTimeEntryView {
             Button {
                 if isEditMode {
                     // because we can't update started timer, send startsAt with endsAt param
-                    if let editedTimer = mainScreenVm.getEditedTimer() {
+                    if let editedTimer = mainScreenVm.getEditedTimer(), editedTimer.startsAt != nil {
                         Task {
                             await mainScreenVm.updateTimer(projectTaskId: editedTimer.taskId,
                                                      duration: duration,
                                                      notes: notes,
-                                                     startsAt: editedTimer.startsAt,
-                                                     endsAt: editedTimer.startsAt)
+                                                     startsAt: editedTimer.startsAt!,
+                                                     endsAt: editedTimer.startsAt!)
                         }
                     } else {
                         print("error")

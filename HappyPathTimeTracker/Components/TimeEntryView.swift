@@ -36,7 +36,7 @@ struct TimeEntryView: View {
     }
     
     var showRestartButton: Bool {
-        return activeTimerId == nil && (timeEntry.startsAt.toISODate()?.date.isToday ?? false)
+        return activeTimerId == nil && timeEntry.startsAt != nil && (timeEntry.startsAt!.toISODate()?.date.isToday ?? false)
     }
     
     var body: some View {
