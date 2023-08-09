@@ -37,7 +37,6 @@ final class MainScreenViewModel: ObservableObject {
     @Published var isErrorShown = false
     
     private var timer: AnyCancellable? = nil
-    var errorTimer: Publishers.Autoconnect<Timer.TimerPublisher>? = nil
     var activeTimerId: Int? {
         return timers.first(where: {$0.endsAt == nil})?.id
     }
@@ -105,9 +104,11 @@ final class MainScreenViewModel: ObservableObject {
         do {
             let tmpStats = try await networkManager.fetchStats(graphqlClient: appState?.graphqlClient ?? client,
                                                                date: selectedDate.startOfDayISO)
+            
             self.updateMainScreenVmProp(for: \.stats, newValue: tmpStats)
             // update today total duration with active timer
-            let tmpTodayTotalDuration = tmpStats?.byInterval[2].totalDuration ?? 0
+            let todayTotalStats = tmpStats?.byDate.first(where: {$0.date.toDate()?.isToday ?? false})
+            let tmpTodayTotalDuration = todayTotalStats?.totalDuration ?? 0
             self.updateMainScreenVmProp(for: \.todayTotalDurationWithActiveTimer, newValue: tmpTodayTotalDuration.minuteToHours)
             
             // update this week total duration with active timer
@@ -400,17 +401,22 @@ final class MainScreenViewModel: ObservableObject {
                 let tmpActiveTimerDiff = (Int(timeInSeconds) / 60)
                 
                 // update today total duration with active timer
-                let tmpTodayTotalDuration = self?.stats?.byInterval[2].totalDuration ?? 0
+                let todayTotalStats = self?.stats?.byDate.first(where: {$0.date.toDate()?.isToday ?? false})
+                let tmpTodayTotalDuration = todayTotalStats?.totalDuration ?? 0
                 let tmpTodayTotalDurationWithActiveTimerDuration = tmpTodayTotalDuration + tmpActiveTimerDiff
                 self?.updateMainScreenVmProp(for: \.todayTotalDurationWithActiveTimer, newValue: tmpTodayTotalDurationWithActiveTimerDuration.minuteToHours)
                 
                 // update this week total duration with active timer
-                let tmpThisWeekTotalDuration = self?.stats?.byInterval[1].totalDuration ?? 0
+                let tmpThisWeekStats = self?.stats?.byInterval
+                    .filter({$0.type == IntervalType.Week.rawValue})
+                    .first(where: {$0.startsAt.toDate()?.compare(.isThisWeek) ?? false})
+                let tmpThisWeekTotalDuration = tmpThisWeekStats?.totalDuration ?? 0
                 let tmpThisWeekTotalDurationWithActiveTimerDuration = tmpThisWeekTotalDuration + tmpActiveTimerDiff
                 self?.updateMainScreenVmProp(for: \.thisWeekDurationWithActiveTimer, newValue: tmpThisWeekTotalDurationWithActiveTimerDuration.minuteToHours)
                 
                 // update this month total duration with active timer
-                let tmpThisMonthTotalDuration = self?.stats?.byInterval[0].totalDuration ?? 0
+                let tmpThisMonthStats = self?.stats?.byInterval.first(where: {$0.type == IntervalType.Month.rawValue})
+                let tmpThisMonthTotalDuration = tmpThisMonthStats?.totalDuration ?? 0
                 let tmpThisMonthTotalDurationWithActiveTimerDuration = tmpThisMonthTotalDuration + tmpActiveTimerDiff
                 self?.updateMainScreenVmProp(for: \.thisMonthDurationWithActiveTimer, newValue: tmpThisMonthTotalDurationWithActiveTimerDuration.minuteToHours)
             }
