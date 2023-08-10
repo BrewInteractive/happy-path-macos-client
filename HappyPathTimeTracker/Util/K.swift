@@ -9,7 +9,7 @@ import Foundation
 
 struct K {
     static let token = "TOKEN"
-    static let openURLText = "https://whale-app-suqsi.ondigitalocean.app/login?callback=happytime://action-name"
+    static let openURLText = "https://app.usehappypath.com/auth/app/login"
 }
 
 enum IntervalType: String {
