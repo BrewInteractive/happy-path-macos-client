@@ -166,6 +166,7 @@ final class MainScreenViewModel: ObservableObject {
     
     func refetch(date: Date) async {
         self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
+        self.timer?.cancel()
         do {
             async let tmpProjects = networkManager.fetchProjects(graphqlClient: appState?.graphqlClient)
             async let tmpTimers: () = self.getTimers(date: selectedDate)
@@ -332,7 +333,7 @@ final class MainScreenViewModel: ObservableObject {
                 self.timers[stoppedTimerIndex].endsAt = stoppedTimerInfo?.endsAt ?? Date().toISO()
                 self.timers[stoppedTimerIndex].totalDuration = stoppedTimerTotalDuration
             }
-            
+            await self.getStats()
         } catch {
             self.parseError(for: error)
         }
