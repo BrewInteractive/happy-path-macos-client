@@ -103,6 +103,6 @@ struct BottomView: View {
 struct BottomView_Previews: PreviewProvider {
     static var previews: some View {
         BottomView(selectedDate: Date())
-            .environmentObject(MainScreenViewModel())
+            .environmentObject(MainScreenViewModel(networkSource: NetworkManager()))
     }
 }

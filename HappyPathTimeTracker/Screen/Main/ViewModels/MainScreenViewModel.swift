@@ -16,7 +16,7 @@ enum HappyError: Error {
 }
 
 final class MainScreenViewModel: ObservableObject {
-    var networkManager = NetworkManager()
+    var networkManager: NetworkSource
     
     @Published private(set) var appState: AppState? = nil
     @Published var email: String = ""
@@ -39,6 +39,10 @@ final class MainScreenViewModel: ObservableObject {
     private var timer: AnyCancellable? = nil
     var activeTimerId: Int? {
         return timers.first(where: {$0.endsAt == nil})?.id
+    }
+    
+    init(networkSource: NetworkSource) {
+        self.networkManager = networkSource
     }
     
 //    func logout() {
@@ -91,7 +95,7 @@ final class MainScreenViewModel: ObservableObject {
         
         do {
             let res = try await networkManager.me(graphqlClient: appState?.graphqlClient ?? client)
-            self.updateMainScreenVmProp(for: \.email, newValue: res?.me?.email ?? "")
+            self.updateMainScreenVmProp(for: \.email, newValue: res?.email ?? "")
         } catch {
             self.parseError(for: error)
         }
@@ -112,11 +116,17 @@ final class MainScreenViewModel: ObservableObject {
             self.updateMainScreenVmProp(for: \.todayTotalDurationWithActiveTimer, newValue: tmpTodayTotalDuration.minuteToHours)
             
             // update this week total duration with active timer
-            let tmpThisWeekTotalDuration = tmpStats?.byInterval[1].totalDuration ?? 0
+            let tmpThisWeekStats = tmpStats?.byInterval
+                .filter({$0.type == IntervalType.Week.rawValue})
+                .first(where: {$0.startsAt.toDate()?.compare(.isThisWeek) ?? false})
+            let tmpThisWeekTotalDuration = tmpThisWeekStats?.totalDuration ?? 0
             self.updateMainScreenVmProp(for: \.thisWeekDurationWithActiveTimer, newValue: tmpThisWeekTotalDuration.minuteToHours)
             
             // update this month total duration with active timer
-            let tmpThisMonthTotalDuration = tmpStats?.byInterval[0].totalDuration ?? 0
+            let tmpThisMonthStats = tmpStats?.byInterval
+                .filter({$0.type == IntervalType.Month.rawValue})
+                .first(where: {$0.startsAt.toDate()?.compare(.isThisMonth) ?? false})
+            let tmpThisMonthTotalDuration = tmpThisMonthStats?.totalDuration ?? 0
             self.updateMainScreenVmProp(for: \.thisMonthDurationWithActiveTimer, newValue: tmpThisMonthTotalDuration.minuteToHours)
         } catch {
             self.parseError(for: error)
@@ -146,7 +156,6 @@ final class MainScreenViewModel: ObservableObject {
                 onFinish?()
             }
             self.parseError(for: error)
-            self.updateMainScreenVmProp(for: \.timers, newValue: [])
             self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
         }
     }
@@ -174,7 +183,6 @@ final class MainScreenViewModel: ObservableObject {
             async let tmpMe: () = self.me()
             
             let responses = try await [tmpProjects ?? [], tmpTimers, tmpStats, tmpMe] as [Any]
-            
             self.updateMainScreenVmProp(for: \.projects, newValue: responses[0] as! [Project])
         } catch {
             self.parseError(for: error)
@@ -240,6 +248,7 @@ final class MainScreenViewModel: ObservableObject {
                                                  notes: notes,
                                                  startsAt: startsAt,
                                                  endsAt: endsAt)
+            
             guard let updatedTimerInfo = updatedTimerInfo,
                   let updatedTimerId = updatedTimerInfo.id,
                   let totalDuration = updatedTimerInfo.totalDuration,
@@ -326,13 +335,16 @@ final class MainScreenViewModel: ObservableObject {
             timer?.cancel()
             let stoppedTimerInfo = try await networkManager.stopTimer(graphqlClient: appState?.graphqlClient, for: id)
             guard let stoppedTimerTotalDuration = stoppedTimerInfo?.totalDuration,
+                  let endsAt = stoppedTimerInfo?.endsAt,
                   let stoppedTimerIndex = self.timers.firstIndex(where: {$0.id == id}) else {
                 return
             }
-            DispatchQueue.main.async {
-                self.timers[stoppedTimerIndex].endsAt = stoppedTimerInfo?.endsAt ?? Date().toISO()
-                self.timers[stoppedTimerIndex].totalDuration = stoppedTimerTotalDuration
-            }
+            var tmpStoppedTimer = timers[stoppedTimerIndex]
+            tmpStoppedTimer.endsAt = endsAt
+            tmpStoppedTimer.totalDuration = stoppedTimerTotalDuration
+            
+            updateMainScreenVmProp(for: \.timers[stoppedTimerIndex], newValue: tmpStoppedTimer)
+            updateMainScreenVmProp(for: \.activeTimerSeconds, newValue: 0.0)
             await self.getStats()
         } catch {
             self.parseError(for: error)
@@ -345,19 +357,19 @@ final class MainScreenViewModel: ObservableObject {
         do {
             let restartedTimerInfo = try await networkManager.restartTimer(graphqlClient: appState?.graphqlClient, for: id)
             guard let restartedTimerId = restartedTimerInfo?.id,
-//                  let startsAt = restartedTimerInfo?.startsAt,
-//                  let totalDuration = restartedTimerInfo?.totalDuration, //TODO: gokcen fixledikten sonra commentler kaldirilacak
+                  let startsAt = restartedTimerInfo?.startsAt,
+                  let totalDuration = restartedTimerInfo?.totalDuration,
                   let tmpRestartedTimeEntryIndex = self.timers.firstIndex(where: {$0.id == restartedTimerId}) else {
                 self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
                 return
             }
+            var tmpRestartedTimer = self.timers[tmpRestartedTimeEntryIndex]
+            tmpRestartedTimer.startsAt = startsAt
+            tmpRestartedTimer.endsAt = nil
+            tmpRestartedTimer.totalDuration = totalDuration
             
-            DispatchQueue.main.async {
-                self.timers[tmpRestartedTimeEntryIndex].startsAt = Date().toISO() //TODO: gokcen fixledikten sonra BE den gelen degerle degisecek
-                self.timers[tmpRestartedTimeEntryIndex].endsAt = nil
-                self.timers[tmpRestartedTimeEntryIndex].totalDuration = self.timers[tmpRestartedTimeEntryIndex].totalDuration //TODO: gokcen fixledikten sonra BE den gelen degerle degisecek
-                self.startLocalTimerForEntry(timerEntry: self.timers[tmpRestartedTimeEntryIndex])
-            }
+            updateMainScreenVmProp(for: \.timers[tmpRestartedTimeEntryIndex], newValue: tmpRestartedTimer)
+            self.startLocalTimerForEntry(timerEntry: tmpRestartedTimer)
         } catch {
             self.parseError(for: error)
         }

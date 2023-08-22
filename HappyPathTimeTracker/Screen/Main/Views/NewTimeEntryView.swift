@@ -249,7 +249,7 @@ extension NewTimeEntryView {
 struct NewTimeEntryView_Previews: PreviewProvider {
     static var previews: some View {
         NewTimeEntryView(selectedDate: Date())
-            .environmentObject(MainScreenViewModel())
+            .environmentObject(MainScreenViewModel(networkSource: NetworkManager()))
             .background {
                 Color.Primary.LightBabyPowder
             }

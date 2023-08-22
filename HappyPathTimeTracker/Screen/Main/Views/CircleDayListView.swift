@@ -68,6 +68,6 @@ struct CircleDayListView_Previews: PreviewProvider {
     static var previews: some View {
         CircleDayListView(selectedDate: .constant(Date()),
                           dateList: [Date(), Date(), Date(), Date(), Date(), Date(), Date()])
-        .environmentObject(MainScreenViewModel())
+        .environmentObject(MainScreenViewModel(networkSource: NetworkManager()))
     }
 }

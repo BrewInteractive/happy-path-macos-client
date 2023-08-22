@@ -28,6 +28,6 @@ struct NoEntryView: View {
 struct NoEntryView_Previews: PreviewProvider {
     static var previews: some View {
         NoEntryView()
-            .environmentObject(MainScreenViewModel())
+            .environmentObject(MainScreenViewModel(networkSource: NetworkManager()))
     }
 }

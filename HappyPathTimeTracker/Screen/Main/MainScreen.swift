@@ -13,7 +13,7 @@ import PopupView
 
 struct MainScreen: View {
     @EnvironmentObject var appState: AppState
-    @StateObject private var mainScreenVm = MainScreenViewModel()
+    @StateObject private var mainScreenVm = MainScreenViewModel(networkSource: NetworkManager())
     @Environment(\.openURL) var openURL
     
     var dateList: [Date]

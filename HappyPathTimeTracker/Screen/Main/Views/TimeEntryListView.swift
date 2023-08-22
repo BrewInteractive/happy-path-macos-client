@@ -82,6 +82,6 @@ extension TimeEntryListView {
 struct PersistedTimeEntryView_Previews: PreviewProvider {
     static var previews: some View {
         TimeEntryListView(selectedDate: Date())
-            .environmentObject(MainScreenViewModel())
+            .environmentObject(MainScreenViewModel(networkSource: NetworkManager()))
     }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E028D3B2A861A07006FE85D /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E028D3A2A861A07006FE85D /* MockNetworkManager.swift */; };
+		5E028D3D2A862A32006FE85D /* GraphqlTestMocks in Frameworks */ = {isa = PBXBuildFile; productRef = 5E028D3C2A862A32006FE85D /* GraphqlTestMocks */; };
 		5E06CAA82A8254680019E411 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E06CAA72A8254680019E411 /* Bundle.swift */; };
 		5E1D43EA2A588D2400B6BEA4 /* RemoveTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E1D43E92A588D2400B6BEA4 /* RemoveTimer.graphql */; };
 		5E1D44072A59ACBE00B6BEA4 /* LogTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E1D44062A59ACBE00B6BEA4 /* LogTimer.graphql */; };
@@ -16,6 +18,7 @@
 		5E1D44122A59B97000B6BEA4 /* ProjectTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44112A59B97000B6BEA4 /* ProjectTask.swift */; };
 		5E1D44172A5A8A5D00B6BEA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44162A5A8A5D00B6BEA4 /* AppDelegate.swift */; };
 		5E1F89942A73F7940052173C /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1F89932A73F7940052173C /* Dropdown.swift */; };
+		5E205B9C2A86143000E304E8 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E205B9B2A86143000E304E8 /* DummyData.swift */; };
 		5E3DAF202A5AF3C4005BB83A /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5E3DAF1F2A5AF3C4005BB83A /* KeychainSwift */; };
 		5E3DAF222A5B1F5F005BB83A /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3DAF212A5B1F5F005BB83A /* NotificationName.swift */; };
 		5E3DAF252A5B3718005BB83A /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3DAF242A5B3718005BB83A /* K.swift */; };
@@ -55,7 +58,6 @@
 		5EE372232A50BEC600859278 /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372222A50BEC600859278 /* TokenInterceptor.swift */; };
 		5EE372262A50C1A500859278 /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372252A50C1A500859278 /* MainScreenViewModel.swift */; };
 		5EE372292A520B5E00859278 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372282A520B5E00859278 /* AppState.swift */; };
-		5EE4F81A2A66440400DD46EA /* HappyPathTimeTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4F8192A66440400DD46EA /* HappyPathTimeTrackerTests.swift */; };
 		5EE4F8212A66448700DD46EA /* MainScreenViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4F8202A66448700DD46EA /* MainScreenViewModelTests.swift */; };
 		5EE4F8242A66451400DD46EA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4F8232A66451400DD46EA /* NetworkManager.swift */; };
 		5EF3DF2C2A726B500070CBCC /* NoEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF3DF2B2A726B500070CBCC /* NoEntryView.swift */; };
@@ -73,6 +75,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E028D3A2A861A07006FE85D /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
 		5E06CAA72A8254680019E411 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		5E1D43E92A588D2400B6BEA4 /* RemoveTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RemoveTimer.graphql; sourceTree = "<group>"; };
 		5E1D44062A59ACBE00B6BEA4 /* LogTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = LogTimer.graphql; sourceTree = "<group>"; };
@@ -82,6 +85,7 @@
 		5E1D44112A59B97000B6BEA4 /* ProjectTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTask.swift; sourceTree = "<group>"; };
 		5E1D44162A5A8A5D00B6BEA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5E1F89932A73F7940052173C /* Dropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
+		5E205B9B2A86143000E304E8 /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		5E3DAF1A2A5AAC71005BB83A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5E3DAF212A5B1F5F005BB83A /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		5E3DAF242A5B3718005BB83A /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
@@ -121,7 +125,6 @@
 		5EE372252A50C1A500859278 /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
 		5EE372282A520B5E00859278 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		5EE4F8172A66440400DD46EA /* HappyPathTimeTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HappyPathTimeTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5EE4F8192A66440400DD46EA /* HappyPathTimeTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HappyPathTimeTrackerTests.swift; sourceTree = "<group>"; };
 		5EE4F8202A66448700DD46EA /* MainScreenViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModelTests.swift; sourceTree = "<group>"; };
 		5EE4F8232A66451400DD46EA /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		5EF3DF2B2A726B500070CBCC /* NoEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoEntryView.swift; sourceTree = "<group>"; };
@@ -135,6 +138,7 @@
 			files = (
 				5E797CDF2A4B1CD9003FCD06 /* SwiftDate in Frameworks */,
 				5EE3721C2A50B91100859278 /* DirectusGraphql in Frameworks */,
+				5E028D3D2A862A32006FE85D /* GraphqlTestMocks in Frameworks */,
 				5EC73EF22A80DC6F00528303 /* PopupView in Frameworks */,
 				5E3DAF202A5AF3C4005BB83A /* KeychainSwift in Frameworks */,
 				5EE372122A50483B00859278 /* Apollo in Frameworks */,
@@ -151,6 +155,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E028D392A8619EF006FE85D /* TestData */ = {
+			isa = PBXGroup;
+			children = (
+				5E205B9B2A86143000E304E8 /* DummyData.swift */,
+				5E028D3A2A861A07006FE85D /* MockNetworkManager.swift */,
+			);
+			path = TestData;
+			sourceTree = "<group>";
+		};
 		5E1D44082A59AF7300B6BEA4 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -340,7 +353,7 @@
 		5EE4F8182A66440400DD46EA /* HappyPathTimeTrackerTests */ = {
 			isa = PBXGroup;
 			children = (
-				5EE4F8192A66440400DD46EA /* HappyPathTimeTrackerTests.swift */,
+				5E028D392A8619EF006FE85D /* TestData */,
 				5EE4F8202A66448700DD46EA /* MainScreenViewModelTests.swift */,
 			);
 			path = HappyPathTimeTrackerTests;
@@ -376,6 +389,7 @@
 				5EE3721B2A50B91100859278 /* DirectusGraphql */,
 				5E3DAF1F2A5AF3C4005BB83A /* KeychainSwift */,
 				5EC73EF12A80DC6F00528303 /* PopupView */,
+				5E028D3C2A862A32006FE85D /* GraphqlTestMocks */,
 			);
 			productName = HappyPathTimeTracker;
 			productReference = 5E41B1402A497F51001E90AC /* HappyPathTimeTracker.app */;
@@ -518,7 +532,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EE4F81A2A66440400DD46EA /* HappyPathTimeTrackerTests.swift in Sources */,
+				5E205B9C2A86143000E304E8 /* DummyData.swift in Sources */,
+				5E028D3B2A861A07006FE85D /* MockNetworkManager.swift in Sources */,
 				5EE4F8212A66448700DD46EA /* MainScreenViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -823,6 +838,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5E028D3C2A862A32006FE85D /* GraphqlTestMocks */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GraphqlTestMocks;
+		};
 		5E3DAF1F2A5AF3C4005BB83A /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5E3DAF1E2A5AF3C4005BB83A /* XCRemoteSwiftPackageReference "keychain-swift" */;
