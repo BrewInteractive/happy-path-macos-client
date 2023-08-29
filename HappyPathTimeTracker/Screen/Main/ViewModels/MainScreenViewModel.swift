@@ -9,7 +9,6 @@ import Foundation
 import DirectusGraphql
 import Apollo
 import Combine
-import SwiftDate
 
 enum HappyError: Error {
     case notFoundProject
@@ -108,7 +107,7 @@ final class MainScreenViewModel: ObservableObject {
         self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
         do {
             let tmpStats = try await networkManager.fetchStats(graphqlClient: appState?.graphqlClient ?? client,
-                                                               date: DateInRegion(selectedDate, region: .UTC).startOfDayISO)
+                                                               date: selectedDate)
             self.updateMainScreenVmProp(for: \.stats, newValue: tmpStats)
             // update today total duration with active timer
             let todayTotalStats = tmpStats?.byDate.first(where: {$0.date.toDate()?.isToday ?? false})
@@ -360,7 +359,7 @@ final class MainScreenViewModel: ObservableObject {
             let restartedTimerInfo = try await networkManager.restartTimer(graphqlClient: appState?.graphqlClient, for: id)
             guard let restartedTimerId = restartedTimerInfo?.id,
                   let startsAt = restartedTimerInfo?.startsAt,
-                  let totalDuration = restartedTimerInfo?.totalDuration,
+//                  let totalDuration = restartedTimerInfo?.totalDuration, //TODO: gokcen fix edince acilacak
                   let tmpRestartedTimeEntryIndex = self.timers.firstIndex(where: {$0.id == restartedTimerId}) else {
                 self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
                 return
@@ -368,7 +367,7 @@ final class MainScreenViewModel: ObservableObject {
             var tmpRestartedTimer = self.timers[tmpRestartedTimeEntryIndex]
             tmpRestartedTimer.startsAt = startsAt
             tmpRestartedTimer.endsAt = nil
-            tmpRestartedTimer.totalDuration = totalDuration
+//            tmpRestartedTimer.totalDuration = totalDuration
             
             updateMainScreenVmProp(for: \.timers[tmpRestartedTimeEntryIndex], newValue: tmpRestartedTimer)
             self.startLocalTimerForEntry(timerEntry: tmpRestartedTimer)
