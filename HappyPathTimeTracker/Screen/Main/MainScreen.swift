@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftDate
 import Apollo
 import DirectusGraphql
 import PopupView
@@ -16,16 +15,6 @@ struct MainScreen: View {
     @StateObject private var mainScreenVm = MainScreenViewModel(networkSource: NetworkManager())
     @Environment(\.openURL) var openURL
     
-    var dateList: [Date]
-    
-    init() {
-        let firstDayOfWeek = Date().dateAtStartOf(.weekOfMonth)
-        // create all of days for a week
-        self.dateList = (0..<7).map({ index in
-            firstDayOfWeek.dateByAdding(index, .day).dateAtStartOf(.day).date
-        })
-    }
-    
     var body: some View {
         ZStack {
             Color.Primary.RealWhite
@@ -33,11 +22,10 @@ struct MainScreen: View {
                 .stroke(.gray, lineWidth: 1)
             if appState.isLoggedIn {
                 VStack(spacing: 0) {
-                    HeaderView(selectedDate: mainScreenVm.selectedDate)
+                    HeaderView()
                         .environmentObject(mainScreenVm)
-                    CircleDayListView(selectedDate: $mainScreenVm.selectedDate,
-                                      dateList: dateList)
-                    .environmentObject(mainScreenVm)
+                    CalendarView(selectedDate: $mainScreenVm.selectedDate)
+                        .environmentObject(mainScreenVm)
                     HappyDividier()
                     ZStack {
                         TimeEntryListView(selectedDate: mainScreenVm.selectedDate)
