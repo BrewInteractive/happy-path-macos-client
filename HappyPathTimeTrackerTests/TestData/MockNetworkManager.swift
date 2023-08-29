@@ -21,7 +21,7 @@ class MockNetworkManager: NetworkSource {
         return MeQuery.Data.Me.from(mockMe)
     }
     
-    func fetchStats(graphqlClient: HappyPathTimeTracker.GraphqlClient?, date: String) async throws -> HappyPathTimeTracker.Stats? {
+    func fetchStats(graphqlClient: HappyPathTimeTracker.GraphqlClient?, date: Date) async throws -> HappyPathTimeTracker.Stats? {
         return DummyData.stats
     }
     
