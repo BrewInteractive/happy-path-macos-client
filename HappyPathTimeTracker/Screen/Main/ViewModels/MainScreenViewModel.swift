@@ -9,6 +9,7 @@ import Foundation
 import DirectusGraphql
 import Apollo
 import Combine
+import SwiftDate
 
 enum HappyError: Error {
     case notFoundProject
@@ -25,7 +26,7 @@ final class MainScreenViewModel: ObservableObject {
     @Published var tasks: [ProjectTask] = []
     @Published var isLoading: Bool = false
     @Published var isTasksLoading = false
-    @Published var selectedDate = Date()
+    @Published var selectedDate = Date.now
     @Published var isNewEntryModalShown = false
     @Published var editedTimerItemId: Int? = nil
     @Published var activeTimerSeconds: Double = 0.0
@@ -107,8 +108,7 @@ final class MainScreenViewModel: ObservableObject {
         self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
         do {
             let tmpStats = try await networkManager.fetchStats(graphqlClient: appState?.graphqlClient ?? client,
-                                                               date: selectedDate.startOfDayISO)
-            
+                                                               date: DateInRegion(selectedDate, region: .UTC).startOfDayISO)
             self.updateMainScreenVmProp(for: \.stats, newValue: tmpStats)
             // update today total duration with active timer
             let todayTotalStats = tmpStats?.byDate.first(where: {$0.date.toDate()?.isToday ?? false})
@@ -116,10 +116,11 @@ final class MainScreenViewModel: ObservableObject {
             self.updateMainScreenVmProp(for: \.todayTotalDurationWithActiveTimer, newValue: tmpTodayTotalDuration.minuteToHours)
             
             // update this week total duration with active timer
-            let tmpThisWeekStats = tmpStats?.byInterval
-                .filter({$0.type == IntervalType.Week.rawValue})
-                .first(where: {$0.startsAt.toDate()?.compare(.isThisWeek) ?? false})
-            let tmpThisWeekTotalDuration = tmpThisWeekStats?.totalDuration ?? 0
+            let tmpThisWeekTotalDuration = tmpStats?.byDate
+                .reduce(0, { partialResult, statByDate in
+                    return statByDate.totalDuration + partialResult
+                }) ?? 0
+                
             self.updateMainScreenVmProp(for: \.thisWeekDurationWithActiveTimer, newValue: tmpThisWeekTotalDuration.minuteToHours)
             
             // update this month total duration with active timer
@@ -192,6 +193,7 @@ final class MainScreenViewModel: ObservableObject {
     func logTimer(projectId: Int, projectTaskId: Int, duration: String, notes: String, date: Date) async {
         self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
         
+        // the 2 lines below, try to show a demand time with current second
         let now = Date.now
         let loggedDate = Date(year: date.year, month: date.month, day: date.day, hour: now.hour, minute: now.minute, second: now.second)
         
@@ -376,11 +378,11 @@ final class MainScreenViewModel: ObservableObject {
         self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
     }
     
-    func getTotalDurationMinuteOfDayAsString(date: String) -> String {
-        if date.toDate()?.dateAtStartOf(.day).toISO() == Date().startOfDayISO {
+    func getTotalDurationMinuteOfDayAsString(date: Date) -> String {
+        if date.isToday {
             return todayTotalDurationWithActiveTimer
         }
-        return stats?.byDate.first(where: {$0.date == date})?.totalDuration.minuteToHours ?? "00:00"
+        return stats?.byDate.first(where: {$0.date == date.startOfDayISO})?.totalDuration.minuteToHours ?? "00:00"
     }
     
     private func parseError(for error: Error) {
@@ -420,10 +422,10 @@ final class MainScreenViewModel: ObservableObject {
                 self?.updateMainScreenVmProp(for: \.todayTotalDurationWithActiveTimer, newValue: tmpTodayTotalDurationWithActiveTimerDuration.minuteToHours)
                 
                 // update this week total duration with active timer
-                let tmpThisWeekStats = self?.stats?.byInterval
-                    .filter({$0.type == IntervalType.Week.rawValue})
-                    .first(where: {$0.startsAt.toDate()?.compare(.isThisWeek) ?? false})
-                let tmpThisWeekTotalDuration = tmpThisWeekStats?.totalDuration ?? 0
+                let tmpThisWeekTotalDuration = self?.stats?.byDate
+                    .reduce(0, { partialResult, statByDate in
+                        return statByDate.totalDuration + partialResult
+                    }) ?? 0
                 let tmpThisWeekTotalDurationWithActiveTimerDuration = tmpThisWeekTotalDuration + tmpActiveTimerDiff
                 self?.updateMainScreenVmProp(for: \.thisWeekDurationWithActiveTimer, newValue: tmpThisWeekTotalDurationWithActiveTimerDuration.minuteToHours)
                 
