@@ -359,7 +359,7 @@ final class MainScreenViewModel: ObservableObject {
             let restartedTimerInfo = try await networkManager.restartTimer(graphqlClient: appState?.graphqlClient, for: id)
             guard let restartedTimerId = restartedTimerInfo?.id,
                   let startsAt = restartedTimerInfo?.startsAt,
-//                  let totalDuration = restartedTimerInfo?.totalDuration, //TODO: gokcen fix edince acilacak
+                  let totalDuration = restartedTimerInfo?.totalDuration,
                   let tmpRestartedTimeEntryIndex = self.timers.firstIndex(where: {$0.id == restartedTimerId}) else {
                 self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
                 return
@@ -367,7 +367,7 @@ final class MainScreenViewModel: ObservableObject {
             var tmpRestartedTimer = self.timers[tmpRestartedTimeEntryIndex]
             tmpRestartedTimer.startsAt = startsAt
             tmpRestartedTimer.endsAt = nil
-//            tmpRestartedTimer.totalDuration = totalDuration
+            tmpRestartedTimer.totalDuration = totalDuration
             
             updateMainScreenVmProp(for: \.timers[tmpRestartedTimeEntryIndex], newValue: tmpRestartedTimer)
             self.startLocalTimerForEntry(timerEntry: tmpRestartedTimer)
