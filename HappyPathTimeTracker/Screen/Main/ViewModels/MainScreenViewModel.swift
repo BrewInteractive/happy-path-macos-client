@@ -35,6 +35,7 @@ final class MainScreenViewModel: ObservableObject {
     @Published var totalDurationMap: [String: Int] = [:]
     @Published var stats: Stats? = nil
     @Published var isErrorShown = false
+    let previousMonthLastWeekStartDate: Date
     
     private var timer: AnyCancellable? = nil
     var activeTimerId: Int? {
@@ -43,6 +44,13 @@ final class MainScreenViewModel: ObservableObject {
     
     init(networkSource: NetworkSource) {
         self.networkManager = networkSource
+        // first monday of last month of last week
+        let now = Date.now
+        previousMonthLastWeekStartDate = (now
+            .dateBySet([.month : now.month - 1])?
+            .dateAtEndOf(.month)
+            .dateAtStartOf(.weekOfMonth)
+            .dateByAdding(1, .day).date)!
     }
     
 //    func logout() {

@@ -15,40 +15,30 @@ struct CalendarWeekListView<Day: View>: View {
     @Binding var date: Date
     private let content: (Date) -> Day
     
-//    let daysInWeek = 7
-    
     init(calendar: Calendar,
          date: Binding<Date>,
          @ViewBuilder content: @escaping (Date) -> Day) {
-//        print(date.)
         self.calendar = calendar
         self._date = date
         self.content = content
     }
     
     var body: some View {
-//        let month = date.startOfMonth(using: calendar)
         let days = makeDays()
         
         return VStack {
-//            HStack {
-//                self.title(month)
-//                self.weekSwitcher(month)
-//            }
-//            Text(date, style: .date)
-//            HStack(spacing: 30) {
-//                ForEach(days.prefix(daysInWeek), id: \.self, content: header)
-//            }
             HStack(spacing: 10) {
                 Image("chevron-left")
                     .resizable()
                     .foregroundColor(Color.Primary.CadetGray)
                     .frame(width: 20, height: 20)
                     .onTapGesture {
-                        let tmpSelectedDate = date.dateByAdding(-1, .day)
-                        mainScreenVm.updateMainScreenVmProp(for: \.selectedDate, newValue: tmpSelectedDate.date)
-                        Task {
-                            await mainScreenVm.getTimers(date: tmpSelectedDate.date)
+                        if mainScreenVm.previousMonthLastWeekStartDate.isBeforeDate(date, orEqual: true, granularity: .day) {
+                            let tmpSelectedDate = date.dateByAdding(-1, .day)
+                            mainScreenVm.updateMainScreenVmProp(for: \.selectedDate, newValue: tmpSelectedDate.date)
+                            Task {
+                                await mainScreenVm.getTimers(date: tmpSelectedDate.date)
+                            }
                         }
                     }
                 ForEach(Array(zip(days.indices, days)), id: \.0) { index, day in
@@ -121,6 +111,5 @@ extension DateFormatter {
         self.init()
         self.dateFormat = dateFormat
         self.calendar = calendar
-//        self.locale = Locale(identifier: "tr_TR")
     }
 }
