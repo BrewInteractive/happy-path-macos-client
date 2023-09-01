@@ -8,10 +8,11 @@
 import Foundation
 import Apollo
 import DirectusGraphql
+import SwiftDate
 
 protocol NetworkSource {
     func me(graphqlClient: GraphqlClient?) async throws -> MeQuery.Data.Me?
-    func fetchStats(graphqlClient: GraphqlClient?, date: String) async throws -> Stats?
+    func fetchStats(graphqlClient: GraphqlClient?, date: Date) async throws -> Stats?
     func fetchProjects(graphqlClient: GraphqlClient?) async throws -> [Project]?
     func fetchTimers(graphqlClient: GraphqlClient?, date: Date) async throws -> [TimeEntry]?
     func fetchTasks(graphqlClient: GraphqlClient?, projectId: Int) async throws -> [ProjectTask]?
@@ -42,12 +43,10 @@ final class NetworkManager: NetworkSource {
         })
     }
     
-    func fetchStats(graphqlClient: GraphqlClient?, date: String) async throws -> Stats? {
-        guard let startOfDate = date.toDate()?.date.startOfDayISO else {
-            return nil
-        }
+    func fetchStats(graphqlClient: GraphqlClient?, date: Date) async throws -> Stats? {
+        let statsDate: String = DateInRegion(date).toFormat("YYYY-MM-dd")
         return try await withCheckedThrowingContinuation({ continuation in
-            graphqlClient?.client?.fetch(query: StatsQuery(date: startOfDate), cachePolicy: .fetchIgnoringCacheData) { [weak self] result in
+            graphqlClient?.client?.fetch(query: StatsQuery(date: statsDate), cachePolicy: .fetchIgnoringCacheData) { [weak self] result in
                 switch result {
                 case .success(let res):
                     if res.data != nil {

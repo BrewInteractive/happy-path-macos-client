@@ -36,6 +36,8 @@
 		5E7B54972A6120EE0097EC94 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7B54962A6120EE0097EC94 /* Int.swift */; };
 		5E8FAEF12A6910850016EE08 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8FAEF02A6910850016EE08 /* Auth.swift */; };
 		5E916F352A5ED555001FAF02 /* UpdateTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E916F342A5ED555001FAF02 /* UpdateTimer.graphql */; };
+		5E96C8B62A9C925800121C1A /* CalendarWeekListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E96C8B52A9C925800121C1A /* CalendarWeekListView.swift */; };
+		5E96C8B82A9C931300121C1A /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E96C8B72A9C931300121C1A /* CalendarView.swift */; };
 		5EB384612A70F5B200FDA0E0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB384602A70F5B200FDA0E0 /* Color.swift */; };
 		5EC73EF22A80DC6F00528303 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 5EC73EF12A80DC6F00528303 /* PopupView */; };
 		5ED8E43B2A6E342000F871E0 /* RestartTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5ED8E43A2A6E342000F871E0 /* RestartTimer.graphql */; };
@@ -104,6 +106,8 @@
 		5E7B54962A6120EE0097EC94 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		5E8FAEF02A6910850016EE08 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		5E916F342A5ED555001FAF02 /* UpdateTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UpdateTimer.graphql; sourceTree = "<group>"; };
+		5E96C8B52A9C925800121C1A /* CalendarWeekListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarWeekListView.swift; sourceTree = "<group>"; };
+		5E96C8B72A9C931300121C1A /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		5EB384602A70F5B200FDA0E0 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		5ED8E43A2A6E342000F871E0 /* RestartTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RestartTimer.graphql; sourceTree = "<group>"; };
 		5EE13CE92A5757AE004BF3DA /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -259,6 +263,7 @@
 				5EE3720C2A50317900859278 /* CircleDayListView.swift */,
 				5EE3720E2A50322E00859278 /* CircleDayView.swift */,
 				5EF3DF2B2A726B500070CBCC /* NoEntryView.swift */,
+				5E96C8B72A9C931300121C1A /* CalendarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -266,6 +271,7 @@
 		5EE371FD2A4EDEFF00859278 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				5E96C8B52A9C925800121C1A /* CalendarWeekListView.swift */,
 				5EE371FE2A4EDF0C00859278 /* HappyDividier.swift */,
 				5EE372042A4FFCD900859278 /* TimeEntryView.swift */,
 				5E1F89932A73F7940052173C /* Dropdown.swift */,
@@ -513,6 +519,7 @@
 				5EE372232A50BEC600859278 /* TokenInterceptor.swift in Sources */,
 				5E8FAEF12A6910850016EE08 /* Auth.swift in Sources */,
 				5E1D44122A59B97000B6BEA4 /* ProjectTask.swift in Sources */,
+				5E96C8B82A9C931300121C1A /* CalendarView.swift in Sources */,
 				5EB384612A70F5B200FDA0E0 /* Color.swift in Sources */,
 				5EE4F8242A66451400DD46EA /* NetworkManager.swift in Sources */,
 				5EE3720D2A50317900859278 /* CircleDayListView.swift in Sources */,
@@ -521,6 +528,7 @@
 				5EE372012A4FFB1900859278 /* TimeEntryListView.swift in Sources */,
 				5EE3721F2A50BD0C00859278 /* GraphqlClient.swift in Sources */,
 				5EE3720F2A50322E00859278 /* CircleDayView.swift in Sources */,
+				5E96C8B62A9C925800121C1A /* CalendarWeekListView.swift in Sources */,
 				5E1D44172A5A8A5D00B6BEA4 /* AppDelegate.swift in Sources */,
 				5E7B54972A6120EE0097EC94 /* Int.swift in Sources */,
 				5EE372032A4FFBA400859278 /* TimeEntry.swift in Sources */,

@@ -8,6 +8,7 @@
 import Foundation
 import AppKit
 import KeychainSwift
+import SwiftDate
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     
@@ -29,5 +30,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             print("no token in url")
         }
+    }
+    
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        SwiftDate.defaultRegion = .local
     }
 }
