@@ -5,19 +5,9 @@
 
 public class StopTimerMutation: GraphQLMutation {
   public static let operationName: String = "StopTimer"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      mutation StopTimer($timerId: Int!) {
-        stop(timerId: $timerId) {
-          __typename
-          id
-          startsAt
-          endsAt
-          totalDuration
-        }
-      }
-      """#
+      #"mutation StopTimer($timerId: Int!) { stop(timerId: $timerId) { __typename id startsAt endsAt totalDuration } }"#
     ))
 
   public var timerId: Int

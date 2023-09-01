@@ -5,25 +5,9 @@
 
 public class LogTimerMutation: GraphQLMutation {
   public static let operationName: String = "LogTimer"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      mutation LogTimer($projectTaskId: Int!, $duration: Int!, $notes: String!, $startsAt: String!, $endsAt: String!) {
-        log(
-          projectTaskId: $projectTaskId
-          duration: $duration
-          notes: $notes
-          startsAt: $startsAt
-          endsAt: $endsAt
-        ) {
-          __typename
-          id
-          startsAt
-          endsAt
-          duration
-        }
-      }
-      """#
+      #"mutation LogTimer($projectTaskId: Int!, $duration: Int!, $notes: String!, $startsAt: String!, $endsAt: String!) { log( projectTaskId: $projectTaskId duration: $duration notes: $notes startsAt: $startsAt endsAt: $endsAt ) { __typename id startsAt endsAt duration } }"#
     ))
 
   public var projectTaskId: Int

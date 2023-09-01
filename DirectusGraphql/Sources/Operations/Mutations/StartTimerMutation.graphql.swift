@@ -5,19 +5,9 @@
 
 public class StartTimerMutation: GraphQLMutation {
   public static let operationName: String = "StartTimer"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      mutation StartTimer($projectTaskId: Int!, $duration: Int, $notes: String) {
-        start(projectTaskId: $projectTaskId, duration: $duration, notes: $notes) {
-          __typename
-          id
-          startsAt
-          endsAt
-          duration
-        }
-      }
-      """#
+      #"mutation StartTimer($projectTaskId: Int!, $duration: Int, $notes: String) { start(projectTaskId: $projectTaskId, duration: $duration, notes: $notes) { __typename id startsAt endsAt duration } }"#
     ))
 
   public var projectTaskId: Int

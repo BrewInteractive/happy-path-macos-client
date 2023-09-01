@@ -5,16 +5,9 @@
 
 public class MeQuery: GraphQLQuery {
   public static let operationName: String = "Me"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      query Me {
-        me {
-          __typename
-          email
-        }
-      }
-      """#
+      #"query Me { me { __typename email } }"#
     ))
 
   public init() {}

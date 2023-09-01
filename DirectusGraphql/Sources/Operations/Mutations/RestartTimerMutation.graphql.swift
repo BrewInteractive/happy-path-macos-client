@@ -5,18 +5,9 @@
 
 public class RestartTimerMutation: GraphQLMutation {
   public static let operationName: String = "RestartTimer"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      mutation RestartTimer($timerId: Int!) {
-        restart(timerId: $timerId) {
-          __typename
-          id
-          startsAt
-          totalDuration
-        }
-      }
-      """#
+      #"mutation RestartTimer($timerId: Int!) { restart(timerId: $timerId) { __typename id startsAt totalDuration } }"#
     ))
 
   public var timerId: Int

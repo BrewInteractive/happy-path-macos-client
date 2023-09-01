@@ -5,31 +5,9 @@
 
 public class GetTimersQuery: GraphQLQuery {
   public static let operationName: String = "getTimers"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      query getTimers($startsAt: String!, $endsAt: String!) {
-        timers(startsAt: $startsAt, endsAt: $endsAt) {
-          __typename
-          id
-          endsAt
-          startsAt
-          duration
-          totalDuration
-          task {
-            __typename
-            id
-            name
-          }
-          project {
-            __typename
-            id
-            name
-          }
-          notes
-        }
-      }
-      """#
+      #"query getTimers($startsAt: String!, $endsAt: String!) { timers(startsAt: $startsAt, endsAt: $endsAt) { __typename id endsAt startsAt duration totalDuration task { __typename id name } project { __typename id name } notes } }"#
     ))
 
   public var startsAt: String

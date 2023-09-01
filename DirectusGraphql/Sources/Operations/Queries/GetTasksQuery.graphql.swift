@@ -5,17 +5,9 @@
 
 public class GetTasksQuery: GraphQLQuery {
   public static let operationName: String = "getTasks"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      query getTasks($projectId: Int!) {
-        tasks(projectId: $projectId) {
-          __typename
-          id
-          taskName
-        }
-      }
-      """#
+      #"query getTasks($projectId: Int!) { tasks(projectId: $projectId) { __typename id taskName } }"#
     ))
 
   public var projectId: Int

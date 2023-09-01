@@ -5,22 +5,9 @@
 
 public class UpdateTimerMutation: GraphQLMutation {
   public static let operationName: String = "UpdateTimer"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      mutation UpdateTimer($timerId: Int!, $duration: Int, $startsAt: String, $endsAt: String, $notes: String) {
-        update(
-          timerId: $timerId
-          input: {duration: $duration, startsAt: $startsAt, endsAt: $endsAt, notes: $notes}
-        ) {
-          __typename
-          id
-          startsAt
-          endsAt
-          totalDuration
-        }
-      }
-      """#
+      #"mutation UpdateTimer($timerId: Int!, $duration: Int, $startsAt: String, $endsAt: String, $notes: String) { update( timerId: $timerId input: {duration: $duration, startsAt: $startsAt, endsAt: $endsAt, notes: $notes} ) { __typename id startsAt endsAt totalDuration } }"#
     ))
 
   public var timerId: Int

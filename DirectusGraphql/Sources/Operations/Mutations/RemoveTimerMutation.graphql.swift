@@ -5,16 +5,9 @@
 
 public class RemoveTimerMutation: GraphQLMutation {
   public static let operationName: String = "RemoveTimer"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      mutation RemoveTimer($removeId: Int!) {
-        remove(timerId: $removeId) {
-          __typename
-          id
-        }
-      }
-      """#
+      #"mutation RemoveTimer($removeId: Int!) { remove(timerId: $removeId) { __typename id } }"#
     ))
 
   public var removeId: Int

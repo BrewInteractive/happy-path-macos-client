@@ -5,27 +5,9 @@
 
 public class StatsQuery: GraphQLQuery {
   public static let operationName: String = "Stats"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      query Stats($date: String!) {
-        stats(date: $date) {
-          __typename
-          byDate {
-            __typename
-            date
-            totalDuration
-          }
-          byInterval {
-            __typename
-            type
-            startsAt
-            endsAt
-            totalDuration
-          }
-        }
-      }
-      """#
+      #"query Stats($date: String!) { stats(date: $date) { __typename byDate { __typename date totalDuration } byInterval { __typename type startsAt endsAt totalDuration } } }"#
     ))
 
   public var date: String
