@@ -49,7 +49,6 @@
 		5EE372052A4FFCD900859278 /* TimeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372042A4FFCD900859278 /* TimeEntryView.swift */; };
 		5EE372092A5030D800859278 /* BottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372082A5030D800859278 /* BottomView.swift */; };
 		5EE3720B2A50311C00859278 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE3720A2A50311C00859278 /* HeaderView.swift */; };
-		5EE3720D2A50317900859278 /* CircleDayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE3720C2A50317900859278 /* CircleDayListView.swift */; };
 		5EE3720F2A50322E00859278 /* CircleDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE3720E2A50322E00859278 /* CircleDayView.swift */; };
 		5EE372122A50483B00859278 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 5EE372112A50483B00859278 /* Apollo */; };
 		5EE372152A50523D00859278 /* Tasks.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5EE372142A50523D00859278 /* Tasks.graphql */; };
@@ -118,7 +117,6 @@
 		5EE372042A4FFCD900859278 /* TimeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryView.swift; sourceTree = "<group>"; };
 		5EE372082A5030D800859278 /* BottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomView.swift; sourceTree = "<group>"; };
 		5EE3720A2A50311C00859278 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		5EE3720C2A50317900859278 /* CircleDayListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleDayListView.swift; sourceTree = "<group>"; };
 		5EE3720E2A50322E00859278 /* CircleDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleDayView.swift; sourceTree = "<group>"; };
 		5EE372142A50523D00859278 /* Tasks.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tasks.graphql; sourceTree = "<group>"; };
 		5EE372162A50B82B00859278 /* Timers.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Timers.graphql; sourceTree = "<group>"; };
@@ -260,7 +258,6 @@
 				5EE372002A4FFB1900859278 /* TimeEntryListView.swift */,
 				5EE372082A5030D800859278 /* BottomView.swift */,
 				5EE3720A2A50311C00859278 /* HeaderView.swift */,
-				5EE3720C2A50317900859278 /* CircleDayListView.swift */,
 				5EE3720E2A50322E00859278 /* CircleDayView.swift */,
 				5EF3DF2B2A726B500070CBCC /* NoEntryView.swift */,
 				5E96C8B72A9C931300121C1A /* CalendarView.swift */,
@@ -522,7 +519,6 @@
 				5E96C8B82A9C931300121C1A /* CalendarView.swift in Sources */,
 				5EB384612A70F5B200FDA0E0 /* Color.swift in Sources */,
 				5EE4F8242A66451400DD46EA /* NetworkManager.swift in Sources */,
-				5EE3720D2A50317900859278 /* CircleDayListView.swift in Sources */,
 				5EE371FF2A4EDF0C00859278 /* HappyDividier.swift in Sources */,
 				5E646F162A67212A00B92B96 /* Stats.swift in Sources */,
 				5EE372012A4FFB1900859278 /* TimeEntryListView.swift in Sources */,
@@ -682,7 +678,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"HappyPathTimeTracker/Preview Content\"";
 				DEVELOPMENT_TEAM = MEXY5CM4N3;
@@ -697,7 +693,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.1.4;
+				MARKETING_VERSION = 1.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gorkemsevim.HappyPathTimeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -716,7 +712,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "3rd Party Mac Developer Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"HappyPathTimeTracker/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
@@ -732,7 +728,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.1.4;
+				MARKETING_VERSION = 1.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gorkemsevim.HappyPathTimeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
