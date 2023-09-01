@@ -33,12 +33,10 @@ struct CalendarWeekListView<Day: View>: View {
                     .foregroundColor(Color.Primary.CadetGray)
                     .frame(width: 20, height: 20)
                     .onTapGesture {
-                        if mainScreenVm.previousMonthLastWeekStartDate.isBeforeDate(date, orEqual: true, granularity: .day) {
-                            let tmpSelectedDate = date.dateByAdding(-1, .day)
-                            mainScreenVm.updateMainScreenVmProp(for: \.selectedDate, newValue: tmpSelectedDate.date)
-                            Task {
-                                await mainScreenVm.getTimers(date: tmpSelectedDate.date)
-                            }
+                        let tmpSelectedDate = date.dateByAdding(-1, .day)
+                        mainScreenVm.updateMainScreenVmProp(for: \.selectedDate, newValue: tmpSelectedDate.date)
+                        Task {
+                            await mainScreenVm.getTimers(date: tmpSelectedDate.date)
                         }
                     }
                 ForEach(Array(zip(days.indices, days)), id: \.0) { index, day in

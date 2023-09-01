@@ -13,34 +13,36 @@ struct BottomView: View {
     
     var body: some View {
         HStack {
-            Button {
-                if mainScreenVm.projects.count > 0 {
-                    mainScreenVm.showNewEntryTimerModal()
-                } else {
-                    Task {
-                        await mainScreenVm.refetch(date: selectedDate)
+            if mainScreenVm.previousMonthLastWeekStartDate.isBeforeDate(selectedDate, orEqual: true, granularity: .day) {
+                Button {
+                    if mainScreenVm.projects.count > 0 {
+                        mainScreenVm.showNewEntryTimerModal()
+                    } else {
+                        Task {
+                            await mainScreenVm.refetch(date: selectedDate)
+                        }
+                    }
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius:100)
+                            .fill(Color.ShadesOfDark.D_04)
+                            .frame(width: 32, height: 32)
+                        Image(systemName: "plus")
+                            .resizable()
+                            .foregroundColor(.ShadesOfTeal.Teal_400)
+                            .frame(width: 14, height: 14)
                     }
                 }
-            } label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius:100)
-                        .fill(Color.ShadesOfDark.D_04)
-                        .frame(width: 32, height: 32)
-                    Image(systemName: "plus")
-                        .resizable()
-                        .foregroundColor(.ShadesOfTeal.Teal_400)
-                        .frame(width: 14, height: 14)
+                .buttonStyle(.plain)
+                .popover(isPresented: $mainScreenVm.isNewEntryModalShown) {
+                    NewTimeEntryView(selectedDate: selectedDate)
+                        .environmentObject(mainScreenVm)
+                        .background {
+                            Color.Primary.RealWhite
+                                .padding(-80)
+                        }
+                        .border(Color.ShadesofCadetGray.CadetGray200)
                 }
-            }
-            .buttonStyle(.plain)
-            .popover(isPresented: $mainScreenVm.isNewEntryModalShown) {
-                NewTimeEntryView(selectedDate: selectedDate)
-                    .environmentObject(mainScreenVm)
-                    .background {
-                        Color.Primary.RealWhite
-                            .padding(-80)
-                    }
-                    .border(Color.ShadesofCadetGray.CadetGray200)
             }
             Spacer()
             Button {

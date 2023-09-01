@@ -49,7 +49,9 @@ struct TimeEntryListView: View {
                             hoveredTimeEntryId == mainScreenVm.timers[index].id ? Color.ShadesOfTeal.Teal_100 : Color.ShadesofCadetGray.CadetGray50
                         })
                         .contextMenu {
-                            TimeEntryContextMenu(id: mainScreenVm.timers[index].id)
+                            if mainScreenVm.previousMonthLastWeekStartDate.isBeforeDate(selectedDate, orEqual: true, granularity: .day) {
+                                TimeEntryContextMenu(id: mainScreenVm.timers[index].id)
+                            }
                         }
                     }
                 }

@@ -49,8 +49,7 @@ final class MainScreenViewModel: ObservableObject {
         previousMonthLastWeekStartDate = (now
             .dateBySet([.month : now.month - 1])?
             .dateAtEndOf(.month)
-            .dateAtStartOf(.weekOfMonth)
-            .dateByAdding(1, .day).date)!
+            .dateAtStartOf(.weekOfMonth).date)!
     }
     
 //    func logout() {
