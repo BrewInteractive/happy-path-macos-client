@@ -28,6 +28,10 @@ struct HappyPathTimeTrackerApp: App {
                     self.appState.updateAppStateProp(for: \.isLoggedIn, newValue: true)
                     appState.updateClientAuthToken(token: token.object as! String)
                 }
+                .environment(\.font, .figtree())
+                .preferredColorScheme(.light)
+                .frame(width: 400)
+                .frame(minHeight: 450)
         } label: {
             let image: NSImage = {
                     let ratio = $0.size.height / $0.size.width

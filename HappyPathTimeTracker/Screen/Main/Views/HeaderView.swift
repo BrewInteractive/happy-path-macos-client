@@ -40,8 +40,7 @@ struct HeaderView: View {
 //                        }
 //                }
                 Text("\(mainScreenVm.selectedDate.toFormat("EEEE, dd MMM"))")
-                    .font(.body)
-                    .bold()
+                    .font(.figtree(weight: .medium))
                     .frame(maxWidth: .infinity, alignment: .center)
                 Spacer()
                 Image(systemName: "info.circle")
@@ -118,7 +117,6 @@ extension HeaderView {
                 .foregroundColor(.Primary.DarkNight)
         }
         .padding()
-        .frame(width: 300)
         .background {
             Color.Primary.LightBabyPowder
                 .padding(-80)
@@ -129,5 +127,6 @@ extension HeaderView {
 struct HeaderView_Previews: PreviewProvider {
     static var previews: some View {
         HeaderView()
+            .environmentObject(MainScreenViewModel(networkSource: NetworkManager()))
     }
 }

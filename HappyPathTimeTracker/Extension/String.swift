@@ -30,4 +30,10 @@ extension String {
         
         return Int(self)!
     }
+    
+    var capitalizedFirstletter: Self {
+        let firstLetter = self.prefix(1).capitalized
+        let remainingLetters = self.dropFirst()
+        return firstLetter + remainingLetters
+    }
 }

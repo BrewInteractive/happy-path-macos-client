@@ -23,9 +23,25 @@
 		5E41B1462A497F51001E90AC /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E41B1452A497F51001E90AC /* MainScreen.swift */; };
 		5E41B1482A497F52001E90AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E41B1472A497F52001E90AC /* Assets.xcassets */; };
 		5E41B14B2A497F52001E90AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E41B14A2A497F52001E90AC /* Preview Assets.xcassets */; };
+		5E588AF52AB16F3700F6DB85 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E588AF42AB16F3700F6DB85 /* Font.swift */; };
+		5E588B172AB1A20A00F6DB85 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E588B162AB1A20A00F6DB85 /* LoginScreen.swift */; };
 		5E5FC02C2A5F45AD00A19330 /* StartTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E5FC02B2A5F45AD00A19330 /* StartTimer.graphql */; };
 		5E646F142A671AB800B92B96 /* Stats.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E646F132A671AB800B92B96 /* Stats.graphql */; };
 		5E646F162A67212A00B92B96 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E646F152A67212A00B92B96 /* Stats.swift */; };
+		5E78758F2AB1A61700866AD1 /* Figtree-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7875812AB1A61600866AD1 /* Figtree-ExtraBoldItalic.ttf */; };
+		5E7875902AB1A61700866AD1 /* Figtree-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7875822AB1A61600866AD1 /* Figtree-Medium.ttf */; };
+		5E7875912AB1A61700866AD1 /* Figtree-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7875832AB1A61600866AD1 /* Figtree-Bold.ttf */; };
+		5E7875922AB1A61700866AD1 /* Figtree-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7875842AB1A61600866AD1 /* Figtree-ExtraBold.ttf */; };
+		5E7875932AB1A61700866AD1 /* Figtree-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7875852AB1A61600866AD1 /* Figtree-Light.ttf */; };
+		5E7875942AB1A61700866AD1 /* Figtree-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7875862AB1A61600866AD1 /* Figtree-MediumItalic.ttf */; };
+		5E7875952AB1A61700866AD1 /* Figtree-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7875872AB1A61600866AD1 /* Figtree-SemiBoldItalic.ttf */; };
+		5E7875962AB1A61700866AD1 /* Figtree-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7875882AB1A61600866AD1 /* Figtree-Black.ttf */; };
+		5E7875972AB1A61700866AD1 /* Figtree-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7875892AB1A61600866AD1 /* Figtree-BlackItalic.ttf */; };
+		5E7875982AB1A61700866AD1 /* Figtree-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E78758A2AB1A61700866AD1 /* Figtree-SemiBold.ttf */; };
+		5E7875992AB1A61700866AD1 /* Figtree-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E78758B2AB1A61700866AD1 /* Figtree-Italic.ttf */; };
+		5E78759A2AB1A61700866AD1 /* Figtree-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E78758C2AB1A61700866AD1 /* Figtree-Regular.ttf */; };
+		5E78759B2AB1A61700866AD1 /* Figtree-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E78758D2AB1A61700866AD1 /* Figtree-BoldItalic.ttf */; };
+		5E78759C2AB1A61700866AD1 /* Figtree-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E78758E2AB1A61700866AD1 /* Figtree-LightItalic.ttf */; };
 		5E797CDF2A4B1CD9003FCD06 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 5E797CDE2A4B1CD9003FCD06 /* SwiftDate */; };
 		5E797CE22A4B1EE4003FCD06 /* CircleDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E797CE12A4B1EE4003FCD06 /* CircleDay.swift */; };
 		5E7B54912A609E2D0097EC94 /* StopTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E7B54902A609E2D0097EC94 /* StopTimer.graphql */; };
@@ -80,9 +96,26 @@
 		5E41B1472A497F52001E90AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5E41B14A2A497F52001E90AC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5E41B14C2A497F52001E90AC /* HappyPathTimeTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HappyPathTimeTracker.entitlements; sourceTree = "<group>"; };
+		5E4E64A72AB32A8900713FFA /* RobotoMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Regular.ttf"; sourceTree = "<group>"; };
+		5E588AF42AB16F3700F6DB85 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		5E588B162AB1A20A00F6DB85 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		5E5FC02B2A5F45AD00A19330 /* StartTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = StartTimer.graphql; sourceTree = "<group>"; };
 		5E646F132A671AB800B92B96 /* Stats.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Stats.graphql; sourceTree = "<group>"; };
 		5E646F152A67212A00B92B96 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
+		5E7875812AB1A61600866AD1 /* Figtree-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		5E7875822AB1A61600866AD1 /* Figtree-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-Medium.ttf"; sourceTree = "<group>"; };
+		5E7875832AB1A61600866AD1 /* Figtree-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-Bold.ttf"; sourceTree = "<group>"; };
+		5E7875842AB1A61600866AD1 /* Figtree-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-ExtraBold.ttf"; sourceTree = "<group>"; };
+		5E7875852AB1A61600866AD1 /* Figtree-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-Light.ttf"; sourceTree = "<group>"; };
+		5E7875862AB1A61600866AD1 /* Figtree-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-MediumItalic.ttf"; sourceTree = "<group>"; };
+		5E7875872AB1A61600866AD1 /* Figtree-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		5E7875882AB1A61600866AD1 /* Figtree-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-Black.ttf"; sourceTree = "<group>"; };
+		5E7875892AB1A61600866AD1 /* Figtree-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-BlackItalic.ttf"; sourceTree = "<group>"; };
+		5E78758A2AB1A61700866AD1 /* Figtree-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-SemiBold.ttf"; sourceTree = "<group>"; };
+		5E78758B2AB1A61700866AD1 /* Figtree-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-Italic.ttf"; sourceTree = "<group>"; };
+		5E78758C2AB1A61700866AD1 /* Figtree-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-Regular.ttf"; sourceTree = "<group>"; };
+		5E78758D2AB1A61700866AD1 /* Figtree-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-BoldItalic.ttf"; sourceTree = "<group>"; };
+		5E78758E2AB1A61700866AD1 /* Figtree-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-LightItalic.ttf"; sourceTree = "<group>"; };
 		5E797CE12A4B1EE4003FCD06 /* CircleDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleDay.swift; sourceTree = "<group>"; };
 		5E7B54902A609E2D0097EC94 /* StopTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = StopTimer.graphql; sourceTree = "<group>"; };
 		5E7B54942A611D560097EC94 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -140,6 +173,7 @@
 				5E7B54962A6120EE0097EC94 /* Int.swift */,
 				5EB384602A70F5B200FDA0E0 /* Color.swift */,
 				5E06CAA72A8254680019E411 /* Bundle.swift */,
+				5E588AF42AB16F3700F6DB85 /* Font.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -174,6 +208,7 @@
 		5E41B1422A497F51001E90AC /* HappyPathTimeTracker */ = {
 			isa = PBXGroup;
 			children = (
+				5E588AEF2AB16E3E00F6DB85 /* Fonts */,
 				5EE4F8222A66450800DD46EA /* Managers */,
 				5E3DAF232A5B370F005BB83A /* Util */,
 				5E3DAF1A2A5AAC71005BB83A /* Info.plist */,
@@ -199,6 +234,44 @@
 				5E41B14A2A497F52001E90AC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5E588AEF2AB16E3E00F6DB85 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				5E7875882AB1A61600866AD1 /* Figtree-Black.ttf */,
+				5E7875892AB1A61600866AD1 /* Figtree-BlackItalic.ttf */,
+				5E7875832AB1A61600866AD1 /* Figtree-Bold.ttf */,
+				5E78758D2AB1A61700866AD1 /* Figtree-BoldItalic.ttf */,
+				5E7875842AB1A61600866AD1 /* Figtree-ExtraBold.ttf */,
+				5E7875812AB1A61600866AD1 /* Figtree-ExtraBoldItalic.ttf */,
+				5E78758B2AB1A61700866AD1 /* Figtree-Italic.ttf */,
+				5E7875852AB1A61600866AD1 /* Figtree-Light.ttf */,
+				5E78758E2AB1A61700866AD1 /* Figtree-LightItalic.ttf */,
+				5E7875822AB1A61600866AD1 /* Figtree-Medium.ttf */,
+				5E7875862AB1A61600866AD1 /* Figtree-MediumItalic.ttf */,
+				5E78758C2AB1A61700866AD1 /* Figtree-Regular.ttf */,
+				5E78758A2AB1A61700866AD1 /* Figtree-SemiBold.ttf */,
+				5E7875872AB1A61600866AD1 /* Figtree-SemiBoldItalic.ttf */,
+				5E4E64A72AB32A8900713FFA /* RobotoMono-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		5E588B142AB1A1AE00F6DB85 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				5E588B152AB1A1EF00F6DB85 /* Views */,
+				5E588B162AB1A20A00F6DB85 /* LoginScreen.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		5E588B152AB1A1EF00F6DB85 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		5E797CE02A4B1ED0003FCD06 /* Model */ = {
@@ -242,6 +315,7 @@
 		5EE372062A50309A00859278 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				5E588B142AB1A1AE00F6DB85 /* Login */,
 				5EE372072A5030B200859278 /* Main */,
 			);
 			path = Screen;
@@ -250,9 +324,9 @@
 		5EE372072A5030B200859278 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				5E41B1452A497F51001E90AC /* MainScreen.swift */,
 				5EE372242A50C19800859278 /* ViewModels */,
 				5EE371FA2A4EDEB500859278 /* Views */,
-				5E41B1452A497F51001E90AC /* MainScreen.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -395,20 +469,34 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E78758F2AB1A61700866AD1 /* Figtree-ExtraBoldItalic.ttf in Resources */,
+				5E7875932AB1A61700866AD1 /* Figtree-Light.ttf in Resources */,
 				5EE13CEA2A5757AE004BF3DA /* .gitignore in Resources */,
+				5E7875962AB1A61700866AD1 /* Figtree-Black.ttf in Resources */,
+				5E7875902AB1A61700866AD1 /* Figtree-Medium.ttf in Resources */,
+				5E7875922AB1A61700866AD1 /* Figtree-ExtraBold.ttf in Resources */,
+				5E78759A2AB1A61700866AD1 /* Figtree-Regular.ttf in Resources */,
 				5E646F142A671AB800B92B96 /* Stats.graphql in Resources */,
 				5E41B14B2A497F52001E90AC /* Preview Assets.xcassets in Resources */,
 				5EE372152A50523D00859278 /* Tasks.graphql in Resources */,
+				5E7875972AB1A61700866AD1 /* Figtree-BlackItalic.ttf in Resources */,
 				5ED8E43B2A6E342000F871E0 /* RestartTimer.graphql in Resources */,
+				5E7875912AB1A61700866AD1 /* Figtree-Bold.ttf in Resources */,
 				5E41B1482A497F52001E90AC /* Assets.xcassets in Resources */,
 				5E7B54912A609E2D0097EC94 /* StopTimer.graphql in Resources */,
+				5E78759B2AB1A61700866AD1 /* Figtree-BoldItalic.ttf in Resources */,
 				5EF3DF2E2A726F640070CBCC /* Me.graphql in Resources */,
 				5EE372172A50B82B00859278 /* Timers.graphql in Resources */,
+				5E7875942AB1A61700866AD1 /* Figtree-MediumItalic.ttf in Resources */,
 				5E1D44072A59ACBE00B6BEA4 /* LogTimer.graphql in Resources */,
+				5E7875992AB1A61700866AD1 /* Figtree-Italic.ttf in Resources */,
+				5E7875982AB1A61700866AD1 /* Figtree-SemiBold.ttf in Resources */,
 				5E5FC02C2A5F45AD00A19330 /* StartTimer.graphql in Resources */,
 				5E1D43EA2A588D2400B6BEA4 /* RemoveTimer.graphql in Resources */,
+				5E78759C2AB1A61700866AD1 /* Figtree-LightItalic.ttf in Resources */,
 				5E916F352A5ED555001FAF02 /* UpdateTimer.graphql in Resources */,
 				5E1D440E2A59B5D700B6BEA4 /* Projects.graphql in Resources */,
+				5E7875952AB1A61700866AD1 /* Figtree-SemiBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +519,7 @@
 				5E1F89942A73F7940052173C /* Dropdown.swift in Sources */,
 				5EE372262A50C1A500859278 /* MainScreenViewModel.swift in Sources */,
 				5E1D44102A59B69400B6BEA4 /* Project.swift in Sources */,
+				5E588AF52AB16F3700F6DB85 /* Font.swift in Sources */,
 				5EE372292A520B5E00859278 /* AppState.swift in Sources */,
 				5E1D440A2A59AF7C00B6BEA4 /* Date.swift in Sources */,
 				5E3DAF252A5B3718005BB83A /* K.swift in Sources */,
@@ -446,6 +535,7 @@
 				5E646F162A67212A00B92B96 /* Stats.swift in Sources */,
 				5EE372012A4FFB1900859278 /* TimeEntryListView.swift in Sources */,
 				5EE3721F2A50BD0C00859278 /* GraphqlClient.swift in Sources */,
+				5E588B172AB1A20A00F6DB85 /* LoginScreen.swift in Sources */,
 				5EE3720F2A50322E00859278 /* CircleDayView.swift in Sources */,
 				5E96C8B62A9C925800121C1A /* CalendarWeekListView.swift in Sources */,
 				5E1D44172A5A8A5D00B6BEA4 /* AppDelegate.swift in Sources */,
@@ -583,7 +673,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"HappyPathTimeTracker/Preview Content\"";
 				DEVELOPMENT_TEAM = MEXY5CM4N3;
@@ -592,13 +682,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HappyPathTimeTracker/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.1.7;
+				MARKETING_VERSION = 1.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gorkemsevim.HappyPathTimeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -617,7 +708,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "3rd Party Mac Developer Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"HappyPathTimeTracker/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
@@ -627,13 +718,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HappyPathTimeTracker/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.1.7;
+				MARKETING_VERSION = 1.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gorkemsevim.HappyPathTimeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

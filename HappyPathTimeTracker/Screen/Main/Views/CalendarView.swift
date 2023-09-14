@@ -44,5 +44,6 @@ struct CalendarView_Previews: PreviewProvider {
     static var previews: some View {
         CalendarView(selectedDate: .constant(.now))
             .environmentObject(MainScreenViewModel(networkSource: NetworkManager()))
+            .environment(\.font, .figtree())
     }
 }

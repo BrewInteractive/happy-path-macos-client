@@ -15,13 +15,17 @@ struct NoEntryView: View {
         VStack(alignment: .leading) {
             Spacer()
             Image("Log-Alert")
-            Text(mainScreenVm.email)
-                .foregroundColor(.Primary.DarkNight)
-            Text("Click the + button below to add your first time entry.")
-                .foregroundColor(.ShadesofCadetGray.CadetGray600)
+            VStack(alignment: .leading, spacing: 8) {
+                Text(mainScreenVm.email)
+                    .foregroundColor(.Primary.DarkNight)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Text("Click the + button below to add your first time entry.")
+                    .font(.figtree(size: 13))
+                    .foregroundColor(.ShadesofCadetGray.CadetGray600)
+            }
             Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(20)
     }
 }
 

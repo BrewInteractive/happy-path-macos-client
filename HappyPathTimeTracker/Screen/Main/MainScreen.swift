@@ -29,7 +29,6 @@ struct MainScreen: View {
                     HappyDividier()
                     ZStack {
                         TimeEntryListView(selectedDate: mainScreenVm.selectedDate)
-                            .frame(maxHeight: .infinity)
                             .environmentObject(mainScreenVm)
                         if mainScreenVm.isLoading {
                             ZStack {
@@ -68,22 +67,25 @@ struct MainScreen: View {
                         .animation(.spring())
                 }
             } else {
-                Button {
-                    openURL(URL(string: K.openURLText)!)
-                } label: {
-                    Text("Please Login")
-                }
-                
+               LoginScreen()
             }
         }
-        .frame(width: 400, height: 400)
         .contextMenu {
-            Button {
-                Task {
-                    await mainScreenVm.refetch(date: mainScreenVm.selectedDate)
+            VStack {
+                if appState.isLoggedIn {                
+                    Button {
+                        Task {
+                            await mainScreenVm.refetch(date: mainScreenVm.selectedDate)
+                        }
+                    } label: {
+                        Text("Yenile")
+                    }
                 }
-            } label: {
-                Text("Yenile")
+                Button {
+                    NSApplication.shared.terminate(nil)
+                } label: {
+                    Text("Kapat")
+                }
             }
         }
     }

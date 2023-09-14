@@ -19,10 +19,12 @@ struct CircleDayView: View {
                     .foregroundColor(circleDay.isSelected ? .ShadesOfTeal.Teal_400 : .ShadesOfLightWhite.W_88)
                 VStack {
                     Text("\(circleDay.date.weekdayName(.veryShort))")
+                        .font(.figtree(size: 16, weight: .medium))
                         .foregroundColor(circleDay.isSelected ? .ShadesOfLightWhite.W_64 : .Primary.CadetGray)
                 }
             }
             Text(dailyTotalDuration)
+                .font(.roboto())
                 .foregroundColor(dailyTotalDuration == "00:00" ? .ShadesofCadetGray.CadetGray500 : .ShadesofCadetGray.CadetGray900)
         }
     }
@@ -47,6 +49,7 @@ struct CircleDayView_Previews: PreviewProvider {
         .background {
             Color.Primary.LightBabyPowder
         }
+        .environment(\.font, .figtree())
     }
     
 }

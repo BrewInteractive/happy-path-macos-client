@@ -64,21 +64,6 @@ struct BottomView: View {
             }
             .buttonStyle(.plain)
             .padding(.trailing, 8)
-            Button {
-                NSApplication.shared.terminate(nil)
-            } label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius:100)
-                        .fill(Color.ShadesOfDark.D_04)
-                        .frame(width: 32, height: 32)
-                    Image(systemName: "xmark.circle.fill")
-                        .resizable()
-                        .foregroundColor(.ShadesOfTeal.Teal_400)
-                        .frame(width: 14, height: 14)
-                }
-            }
-            .buttonStyle(.plain)
-            .padding(.trailing, 8)
 //            Button {
 //                mainScreenVm.logout()
 //            } label: {

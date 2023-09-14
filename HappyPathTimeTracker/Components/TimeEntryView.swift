@@ -42,9 +42,9 @@ struct TimeEntryView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: 8) {
                     Text(timeEntry.projectName)
-                        .font(.footnote)
+                        .font(.figtree(size: 16))
                         .foregroundColor(.Primary.DarkNight)
                     Text(timeEntry.taskName)
                         .foregroundColor(.Primary.DarkNight)
@@ -52,9 +52,11 @@ struct TimeEntryView: View {
                         .background {
                             tasksBackground[timeEntry.taskId] ?? Color.ShadesOfIcterine.Icterine100
                         }
-                    Text(timeEntry.notes)
-                        .font(.callout)
-                        .foregroundColor(.ShadesofCadetGray.CadetGray900)
+                    if !timeEntry.notes.isEmpty {
+                        Text(timeEntry.notes)
+                            .font(.callout)
+                            .foregroundColor(.ShadesofCadetGray.CadetGray900)
+                    }
                 }
                 Spacer()
                 HStack {
@@ -103,7 +105,7 @@ struct TimeEntryView: View {
                 }
             }
             .padding(.horizontal, 12)
-            .padding(.vertical, 6)
+            .padding(.vertical, 16)
         }
     }
 }
