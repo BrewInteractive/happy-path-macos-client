@@ -44,6 +44,9 @@ struct TimeEntryListView: View {
                                 hoveredTimeEntryId = nil
                             }
                         }
+                        .onTapGesture(count: 2, perform: {
+                            mainScreenVm.showEditTimerModal(editedTimerId: mainScreenVm.timers[index].id)
+                        })
                         .background(content: {
                             hoveredTimeEntryId == mainScreenVm.timers[index].id ? Color.ShadesOfTeal.Teal_100 : Color.ShadesofCadetGray.CadetGray50
                         })
