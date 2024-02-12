@@ -202,8 +202,3 @@ extension StartNewTimerView {
         }
     }
 }
-
-#Preview {
-    StartNewTimerView(selectedDate: .now, selectedTimerEntry: nil)
-        .environmentObject(MainScreenViewModel(networkSource: NetworkManager()))
-}

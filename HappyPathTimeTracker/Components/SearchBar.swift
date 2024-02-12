@@ -44,13 +44,3 @@ struct SearchBar: View {
         )
     }
 }
-
-#Preview {
-    SearchBar(placeholder: "Search ...", searchText: .constant(""))
-        .preferredColorScheme(.dark)
-}
-
-#Preview {
-    SearchBar(placeholder: "Search ...", searchText: .constant(""))
-        .preferredColorScheme(.light)
-}
