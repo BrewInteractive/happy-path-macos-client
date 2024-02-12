@@ -15,6 +15,7 @@ enum HappyError: Error {
     case errorFromBackend
 }
 
+@MainActor
 final class MainScreenViewModel: ObservableObject {
     var networkManager: NetworkSource
     
@@ -28,19 +29,20 @@ final class MainScreenViewModel: ObservableObject {
     @Published var selectedDate = Date.now
     @Published var isNewEntryModalShown = false
     @Published var editedTimerItemId: Int? = nil
-    @Published var activeTimerSeconds: Double = 0.0
-    @Published var todayTotalDurationWithActiveTimer: String = "00:00"
-    @Published var thisWeekDurationWithActiveTimer: String = "00:00"
-    @Published var thisMonthDurationWithActiveTimer: String = "00:00"
-    @Published var totalDurationMap: [String: Int] = [:]
     @Published var stats: Stats? = nil
     @Published var isErrorShown = false
-    let previousMonthLastWeekStartDate: Date
     
-    private var timer: AnyCancellable? = nil
-    var activeTimerId: Int? {
-        return timers.first(where: {$0.endsAt == nil})?.id
-    }
+//    func readAllLogs() {
+//        do {
+//            try HappyLogger.readLogs()
+//        } catch {
+//            print("error occured while reading logs : ", error.localizedDescription)
+//        }
+//    }
+    
+    let previousMonthLastWeekStartDate: Date
+    private var timer: Timer? = nil
+    
     
     init(networkSource: NetworkSource) {
         self.networkManager = networkSource
@@ -52,152 +54,119 @@ final class MainScreenViewModel: ObservableObject {
             .dateAtStartOf(.weekOfMonth).date)!
     }
     
-//    func logout() {
-//        appState?.logout()
-//    }
+    var groupedTimers: [Int: [TimeEntry]] {
+        Dictionary(grouping: timers, by: { $0.projectId })
+    }
     
     func updateViewModel(appState: AppState) async {
-        self.updateMainScreenVmProp(for: \.appState, newValue: appState)
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
-        do {
-            async let tmpProjects = networkManager.fetchProjects(graphqlClient: appState.graphqlClient)
-            async let tmpTimers: () = self.getTimers(client: appState.graphqlClient, date: selectedDate)
-            async let tmpStats: () = self.getStats(client: appState.graphqlClient)
-            async let tmpMe: () = self.me(client: appState.graphqlClient)
-            
-            let responses = try await [tmpProjects ?? [], tmpTimers, tmpStats, tmpMe] as [Any]
-            
-            self.updateMainScreenVmProp(for: \.projects, newValue: responses[0] as! [Project])
-        } catch {
-            self.parseError(for: error)
+        self.appState = appState
+        isLoading = true
+        await fetchAllData()
+        isLoading = false
+        
+        if timer != nil {
+            timer?.invalidate()
+            timer = nil
+        }
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { timer in
+            Task.detached { [weak self] in
+                await self?.fetchAllData()
+            }
         }
     }
     
     //MARK: - Property Changers
     
     func showEditTimerModal(editedTimerId: Int) {
-        self.updateMainScreenVmProp(for: \.isNewEntryModalShown, newValue: true)
-        self.updateMainScreenVmProp(for: \.editedTimerItemId, newValue: editedTimerId)
+        isNewEntryModalShown = true
+        editedTimerItemId = editedTimerId
     }
     
+    @MainActor
     func showNewEntryTimerModal() {
-        self.updateMainScreenVmProp(for: \.isNewEntryModalShown, newValue: true)
-        self.updateMainScreenVmProp(for: \.editedTimerItemId, newValue: nil)
+        isNewEntryModalShown = true
+        editedTimerItemId = nil
+    }
+    
+    @MainActor
+    func hideNewEntryTimerModal() {
+        isNewEntryModalShown = false
     }
     
     func getEditedTimer() -> TimeEntry? {
         return self.timers.first(where: {$0.id == editedTimerItemId})
     }
     
-    func updateMainScreenVmProp<T>(for keyPath: ReferenceWritableKeyPath<MainScreenViewModel, T>, newValue: T) {
-        DispatchQueue.main.async { [weak self] in
-            self?[keyPath: keyPath] = newValue
-        }
-    }
-    
     //MARK: - Network Requests
     
     func me(client: GraphqlClient? = nil) async {
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
-        
         do {
             let res = try await networkManager.me(graphqlClient: appState?.graphqlClient ?? client)
-            self.updateMainScreenVmProp(for: \.email, newValue: res?.email ?? "")
+            email = res?.email ?? ""
+            HappyLogger.logger.log("Me fetched successfully")
         } catch {
+            HappyLogger.logger.error("Error occured while fetching Me")
             self.parseError(for: error)
         }
-        
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
     }
     
     func getStats(client: GraphqlClient? = nil) async {
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
         do {
-            let tmpStats = try await networkManager.fetchStats(graphqlClient: appState?.graphqlClient ?? client,
+            stats = try await networkManager.fetchStats(graphqlClient: appState?.graphqlClient ?? client,
                                                                date: selectedDate)
-            self.updateMainScreenVmProp(for: \.stats, newValue: tmpStats)
-            // update today total duration with active timer
-            let todayTotalStats = tmpStats?.byDate.first(where: {$0.date.toDate()?.isToday ?? false})
-            let tmpTodayTotalDuration = todayTotalStats?.totalDuration ?? 0
-            self.updateMainScreenVmProp(for: \.todayTotalDurationWithActiveTimer, newValue: tmpTodayTotalDuration.minuteToHours)
-            
-            // update this week total duration with active timer
-            let tmpThisWeekTotalDuration = tmpStats?.byDate
-                .reduce(0, { partialResult, statByDate in
-                    return statByDate.totalDuration + partialResult
-                }) ?? 0
-                
-            self.updateMainScreenVmProp(for: \.thisWeekDurationWithActiveTimer, newValue: tmpThisWeekTotalDuration.minuteToHours)
-            
-            // update this month total duration with active timer
-            let tmpThisMonthStats = tmpStats?.byInterval
-                .filter({$0.type == IntervalType.Month.rawValue})
-                .first(where: {$0.startsAt.toDate()?.compare(.isThisMonth) ?? false})
-            let tmpThisMonthTotalDuration = tmpThisMonthStats?.totalDuration ?? 0
-            self.updateMainScreenVmProp(for: \.thisMonthDurationWithActiveTimer, newValue: tmpThisMonthTotalDuration.minuteToHours)
+            HappyLogger.logger.log("Stats fetched successfully")
         } catch {
+            HappyLogger.logger.error("Error occured while fetching Stats")
             self.parseError(for: error)
         }
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
     }
     
     func getTimers(client: GraphqlClient? = nil, date: Date, onFinish: (() -> Void)? = nil) async {
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
         do {
-            let tmpTimers = try await networkManager.fetchTimers(graphqlClient: appState?.graphqlClient ?? client, date: date) ?? []
-            self.updateMainScreenVmProp(for: \.timers, newValue: tmpTimers)
-            self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
-            self.updateMainScreenVmProp(for: \.totalDurationMap[date.startOfDayISO],
-                                        newValue: tmpTimers.reduce(0, { partialResult, timeEntry in
-                return partialResult + timeEntry.totalDuration
-            }))
+            timers = try await networkManager.fetchTimers(graphqlClient: appState?.graphqlClient ?? client, date: date) ?? []
             DispatchQueue.main.async {
                 onFinish?()
             }
-            if let startedTimeEntry = tmpTimers.first(where: {$0.endsAt == nil || ($0.endsAt != nil && $0.endsAt!.isEmpty)}) {
-                self.startLocalTimerForEntry(timerEntry: startedTimeEntry)
-            }
-            
+            HappyLogger.logger.log("Timers fetched successfully")
         } catch {
             DispatchQueue.main.async {
                 onFinish?()
             }
+            HappyLogger.logger.error("Error occured while fetching Timers")
             self.parseError(for: error)
-            self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
         }
+    }
+    
+    func getJustTimers(date: Date) async {
+        isLoading = true
+        await getTimers(date: date)
+        await getStats()
+        isLoading = false
     }
     
     func getTasks(projectId: Int) async {
-        self.updateMainScreenVmProp(for: \.isTasksLoading, newValue: true)
+        isTasksLoading = true
         
         do {
-            let tmpTasks = try await networkManager.fetchTasks(graphqlClient: appState?.graphqlClient, projectId: projectId) ?? []
-            self.updateMainScreenVmProp(for: \.tasks, newValue: tmpTasks)
-            self.updateMainScreenVmProp(for: \.isTasksLoading, newValue: false)
+            tasks = try await networkManager.fetchTasks(graphqlClient: appState?.graphqlClient, projectId: projectId) ?? []
+            HappyLogger.logger.log("Tasks fetched successfully")
         } catch {
+            HappyLogger.logger.error("Error occured while fetching Tasks")
             self.parseError(for: error)
-            self.updateMainScreenVmProp(for: \.isTasksLoading, newValue: false)
         }
+        
+        isTasksLoading = false
     }
     
     func refetch(date: Date) async {
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
-        self.timer?.cancel()
-        do {
-            async let tmpProjects = networkManager.fetchProjects(graphqlClient: appState?.graphqlClient)
-            async let tmpTimers: () = self.getTimers(date: selectedDate)
-            async let tmpStats: () = self.getStats()
-            async let tmpMe: () = self.me()
-            
-            let responses = try await [tmpProjects ?? [], tmpTimers, tmpStats, tmpMe] as [Any]
-            self.updateMainScreenVmProp(for: \.projects, newValue: responses[0] as! [Project])
-        } catch {
-            self.parseError(for: error)
-        }
+        isLoading = true
+        await fetchAllData()
+        isLoading = false
     }
     
-    func logTimer(projectId: Int, projectTaskId: Int, duration: String, notes: String, date: Date) async {
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
+    func logTimer(projectId: Int, projectTaskId: Int, duration: Int, notes: String, date: Date) async {
+        isLoading = true
         
         // the 2 lines below, try to show a demand time with current second
         let now = Date.now
@@ -216,6 +185,7 @@ final class MainScreenViewModel: ObservableObject {
                let project = self.projects.first(where: {$0.id == projectId}) else {
                 throw HappyError.notFoundProject
             }
+            
             let tmpNewTimer = TimeEntry(id: Int(loggedTimerId)!,
                       projectId: projectId,
                       projectName: project.name,
@@ -224,45 +194,46 @@ final class MainScreenViewModel: ObservableObject {
                       notes: notes,
                       startsAt: loggedStartsAt,
                       endsAt: loggedTimerInfo?.endsAt,
-                      duration: duration.toMinute,
-                      totalDuration: duration.toMinute)
-            
-            DispatchQueue.main.async {
-                self.timers.append(tmpNewTimer)
-            }
+                      duration: duration,
+                      totalDuration: duration)
+            self.timers.append(tmpNewTimer)
+            try? await Task.sleep(for: .seconds(1))
             await self.getStats()
+            HappyLogger.logger.log("Log timer successfully with id: \(loggedTimerId)")
         } catch {
+            HappyLogger.logger.error("Error occured while logging Timer with projectId: \(projectId), projectTaskId: \(projectTaskId)")
             self.parseError(for: error)
         }
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
-        self.updateMainScreenVmProp(for: \.isNewEntryModalShown, newValue: false)
+        
+        isLoading = false
+        isNewEntryModalShown = false
     }
     
     func updateTimer(projectTaskId: Int,
-                     duration: String,
+                     duration: Int,
                      notes: String,
                      startsAt: String,
                      endsAt: String) async {
         
-        guard let editedTimeItemId = editedTimerItemId else {
+        guard let editedTimerItemId = editedTimerItemId else {
             return
         }
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
+        
+        isLoading = true
         do {
             let updatedTimerInfo = try await networkManager.updateTimer(graphqlClient: appState?.graphqlClient,
-                                                 editedTimeItemId: editedTimeItemId,
-                                                 projectTaskId: projectTaskId,
-                                                 duration: duration,
-                                                 notes: notes,
-                                                 startsAt: startsAt,
-                                                 endsAt: endsAt)
+                                                                        editedTimerItemId: editedTimerItemId,
+                                                                        projectTaskId: projectTaskId,
+                                                                        duration: duration,
+                                                                        notes: notes,
+                                                                        startsAt: startsAt,
+                                                                        endsAt: endsAt)
             
             guard let updatedTimerInfo = updatedTimerInfo,
                   let updatedTimerId = updatedTimerInfo.id,
                   let totalDuration = updatedTimerInfo.totalDuration,
                       totalDuration != 0 else {
-                await self.getTimers(date: selectedDate)
-                      self.updateMainScreenVmProp(for: \.isNewEntryModalShown, newValue: false)
+                isNewEntryModalShown = false
                 return
             }
             
@@ -270,42 +241,45 @@ final class MainScreenViewModel: ObservableObject {
                 throw HappyError.notFoundProject
             }
             
-            DispatchQueue.main.async {
-                // update timer in timers data
-                self.timers[tmpUpdatedTimerIndex].notes = notes
-                self.timers[tmpUpdatedTimerIndex].totalDuration = totalDuration
-                self.timers[tmpUpdatedTimerIndex].endsAt = updatedTimerInfo.endsAt
-                self.timers[tmpUpdatedTimerIndex].startsAt = updatedTimerInfo.startsAt
-            }
+            try? await Task.sleep(for: .seconds(1))
             await self.getStats()
+
+            // update timer in timers data
+            self.timers[tmpUpdatedTimerIndex].notes = notes
+            self.timers[tmpUpdatedTimerIndex].totalDuration = totalDuration
+            self.timers[tmpUpdatedTimerIndex].endsAt = updatedTimerInfo.endsAt
+            self.timers[tmpUpdatedTimerIndex].startsAt = updatedTimerInfo.startsAt
+            HappyLogger.logger.log("Update timer successfully with id: \(editedTimerItemId)")
         } catch {
+            HappyLogger.logger.error("Error occured while updating Timer with id: \(editedTimerItemId)")
             self.parseError(for: error)
         }
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
-        self.updateMainScreenVmProp(for: \.isNewEntryModalShown, newValue: false)
+        isLoading = false
+        isNewEntryModalShown = false
     }
     
     func removeTimer(id: Int, selectedDate: Date) async {
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
+        isLoading = true
         do {
             let removedTimerId = try await networkManager.removeTimer(graphqlClient: appState?.graphqlClient, id: id, selectedDate: selectedDate)
+            try? await Task.sleep(for: .seconds(1))
+            await self.getStats()
             if removedTimerId != nil {
                 guard let removedTimerIndex = self.timers.firstIndex(where: {$0.id == removedTimerId}) else {
                     throw HappyError.notFoundProject
                 }
-                DispatchQueue.main.async {
-                    self.timers.remove(at: removedTimerIndex)
-                }
+                self.timers.remove(at: removedTimerIndex)
             }
-            await self.getStats()
+            HappyLogger.logger.log("Remove timer successfully with id: \(id)")
         } catch {
+            HappyLogger.logger.error("Error occured while removing Timer with id: \(id)")
             self.parseError(for: error)
-            self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
         }
+        isLoading = false
     }
     
     func startTimer(projectId: Int, projectTaskId: Int, notes: String) async {
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
+        isLoading = true
         do {
             let startedTimerInfo = try await networkManager.startTimer(graphqlClient: appState?.graphqlClient,
                                                 projectTaskId: projectTaskId,
@@ -323,123 +297,101 @@ final class MainScreenViewModel: ObservableObject {
                                             notes: notes,
                                             startsAt: startedTimerInfo?.startsAt ?? Date().toISO(),
                                             endsAt: startedTimerInfo?.endsAt,
-                                            duration: nil,
+                                            duration: 0,
                                             totalDuration: 0)
-            DispatchQueue.main.async {
-                self.timers.append(tmpStartedTimer)
-            }
-            self.startLocalTimerForEntry(timerEntry: tmpStartedTimer)
+            self.timers.append(tmpStartedTimer)
+            HappyLogger.logger.log("Start timer successfully with id: \(startedTimerId)")
         } catch {
+            HappyLogger.logger.error("Error occured while starting Timer with projectId: \(projectId), projectTaskId: \(projectTaskId)")
             self.parseError(for: error)
         }
-        self.updateMainScreenVmProp(for: \.isNewEntryModalShown, newValue: false)
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
+        isNewEntryModalShown = false
+        isLoading = false
     }
     
     func stopTimer(for id: Int) async {
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
-        self.updateMainScreenVmProp(for: \.activeTimerSeconds, newValue: 0.0)
+        isLoading = true
         do {
-            timer?.cancel()
             let stoppedTimerInfo = try await networkManager.stopTimer(graphqlClient: appState?.graphqlClient, for: id)
             guard let stoppedTimerTotalDuration = stoppedTimerInfo?.totalDuration,
                   let endsAt = stoppedTimerInfo?.endsAt,
                   let stoppedTimerIndex = self.timers.firstIndex(where: {$0.id == id}) else {
                 return
             }
+            
+            try? await Task.sleep(for: .seconds(1))
+            await self.getStats()
+            
             var tmpStoppedTimer = timers[stoppedTimerIndex]
             tmpStoppedTimer.endsAt = endsAt
             tmpStoppedTimer.totalDuration = stoppedTimerTotalDuration
             
-            updateMainScreenVmProp(for: \.timers[stoppedTimerIndex], newValue: tmpStoppedTimer)
-            updateMainScreenVmProp(for: \.activeTimerSeconds, newValue: 0.0)
-            await self.getStats()
+            timers[stoppedTimerIndex] = tmpStoppedTimer
+            HappyLogger.logger.log("Stop timer successfully with id: \(id)")
         } catch {
+            HappyLogger.logger.error("Error occured while stopping Timer with id: \(id)")
             self.parseError(for: error)
         }
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
+        isLoading = false
     }
     
     func restartTimer(for id: Int) async {
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: true)
+        isLoading = true
         do {
             let restartedTimerInfo = try await networkManager.restartTimer(graphqlClient: appState?.graphqlClient, for: id)
             guard let restartedTimerId = restartedTimerInfo?.id,
-                  let startsAt = restartedTimerInfo?.startsAt,
-                  let totalDuration = restartedTimerInfo?.totalDuration,
                   let tmpRestartedTimeEntryIndex = self.timers.firstIndex(where: {$0.id == restartedTimerId}) else {
-                self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
+                isLoading = false
                 return
             }
             var tmpRestartedTimer = self.timers[tmpRestartedTimeEntryIndex]
-            tmpRestartedTimer.startsAt = startsAt
             tmpRestartedTimer.endsAt = nil
-            tmpRestartedTimer.totalDuration = totalDuration
             
-            updateMainScreenVmProp(for: \.timers[tmpRestartedTimeEntryIndex], newValue: tmpRestartedTimer)
-            self.startLocalTimerForEntry(timerEntry: tmpRestartedTimer)
+            timers[tmpRestartedTimeEntryIndex] = tmpRestartedTimer
+            HappyLogger.logger.log("Restart timer successfully with id: \(id)")
         } catch {
+            HappyLogger.logger.error("Error occured while stopping Timer with id: \(id)")
             self.parseError(for: error)
         }
-        self.updateMainScreenVmProp(for: \.isLoading, newValue: false)
+        
+        isLoading = false
     }
     
     func getTotalDurationMinuteOfDayAsString(date: Date) -> String {
-        if date.isToday {
-            return todayTotalDurationWithActiveTimer
-        }
         return stats?.byDate.first(where: {$0.date == date.startOfDayISO})?.totalDuration.minuteToHours ?? "00:00"
     }
     
+    private func fetchAllData() async {
+        do {
+            async let tmpProjects = networkManager.fetchProjects(graphqlClient: appState?.graphqlClient)
+            async let tmpTimers: () = self.getTimers(date: selectedDate)
+            async let tmpStats: () = self.getStats()
+            async let tmpMe: () = self.me()
+            
+            let responses = try await [tmpProjects ?? [], tmpTimers, tmpStats, tmpMe] as [Any]
+            projects = responses[0] as! [Project]
+            HappyLogger.logger.log("Fetched all data successfully")
+        } catch {
+            HappyLogger.logger.error("Error occured while fetching all data")
+            self.parseError(for: error)
+        }
+    }
+    
     private func parseError(for error: Error) {
-        print(error)
         if let error = error as? Apollo.ResponseCodeInterceptor.ResponseCodeError {
             switch error {
             case .invalidResponseCode(let response, _):
                 if response?.statusCode == 403 {
-                    self.appState?.updateAppStateProp(for: \.isLoggedIn, newValue: false)
+                    HappyLogger.logger.error("403 Error occured: \(error.localizedDescription)")
+                    self.appState?.isLoggedIn = false
                 } else if response?.statusCode == 504 {
-//                    self.appState?.updateAppStateProp(for: \.isError, newValue: true)
+                    HappyLogger.logger.error("504 Error occured: \(error.localizedDescription)")
                 }
             }
         } else {
+            HappyLogger.logger.error("Undefined error occured: \(error.localizedDescription)")
             // show error popup
-            updateMainScreenVmProp(for: \.isErrorShown, newValue: true)
+            isErrorShown = true
         }
-    }
-    
-    private func startLocalTimerForEntry(timerEntry: TimeEntry) {
-        if timer != nil {
-            timer?.cancel()
-        }
-        guard timerEntry.startsAt != nil else { return }
-        
-        timer = Timer.publish(every: 1, on: .main, in: .common)
-            .autoconnect()
-            .sink { [weak self] timer in
-                let timeInSeconds = timer.timeIntervalSince1970 - timerEntry.startsAt!.toISODate()!.date.timeIntervalSince1970
-                self?.updateMainScreenVmProp(for: \.activeTimerSeconds, newValue: timeInSeconds + Double(timerEntry.totalDurationAsSeconds))
-                let tmpActiveTimerDiff = (Int(timeInSeconds) / 60)
-                
-                // update today total duration with active timer
-                let todayTotalStats = self?.stats?.byDate.first(where: {$0.date.toDate()?.isToday ?? false})
-                let tmpTodayTotalDuration = todayTotalStats?.totalDuration ?? 0
-                let tmpTodayTotalDurationWithActiveTimerDuration = tmpTodayTotalDuration + tmpActiveTimerDiff
-                self?.updateMainScreenVmProp(for: \.todayTotalDurationWithActiveTimer, newValue: tmpTodayTotalDurationWithActiveTimerDuration.minuteToHours)
-                
-                // update this week total duration with active timer
-                let tmpThisWeekTotalDuration = self?.stats?.byDate
-                    .reduce(0, { partialResult, statByDate in
-                        return statByDate.totalDuration + partialResult
-                    }) ?? 0
-                let tmpThisWeekTotalDurationWithActiveTimerDuration = tmpThisWeekTotalDuration + tmpActiveTimerDiff
-                self?.updateMainScreenVmProp(for: \.thisWeekDurationWithActiveTimer, newValue: tmpThisWeekTotalDurationWithActiveTimerDuration.minuteToHours)
-                
-                // update this month total duration with active timer
-                let tmpThisMonthStats = self?.stats?.byInterval.first(where: {$0.type == IntervalType.Month.rawValue})
-                let tmpThisMonthTotalDuration = tmpThisMonthStats?.totalDuration ?? 0
-                let tmpThisMonthTotalDurationWithActiveTimerDuration = tmpThisMonthTotalDuration + tmpActiveTimerDiff
-                self?.updateMainScreenVmProp(for: \.thisMonthDurationWithActiveTimer, newValue: tmpThisMonthTotalDurationWithActiveTimerDuration.minuteToHours)
-            }
     }
 }

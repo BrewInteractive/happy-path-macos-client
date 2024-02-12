@@ -10,6 +10,7 @@ import SwiftUI
 struct BottomView: View {
     @EnvironmentObject var mainScreenVm: MainScreenViewModel
     let selectedDate: Date
+    @State private var isShown = false
     
     var body: some View {
         HStack {
@@ -34,15 +35,16 @@ struct BottomView: View {
                     }
                 }
                 .buttonStyle(.plain)
-                .popover(isPresented: $mainScreenVm.isNewEntryModalShown) {
-                    NewTimeEntryView(selectedDate: selectedDate)
-                        .environmentObject(mainScreenVm)
-                        .background {
-                            Color.Primary.RealWhite
-                                .padding(-80)
-                        }
-                        .border(Color.ShadesofCadetGray.CadetGray200)
-                }
+//                .popover(isPresented: $isShown) {
+//                    NewTimeEntryView(selectedDate: selectedDate)
+//                        .environmentObject(mainScreenVm)
+//                        .background {
+//                            Color.Primary.RealWhite
+//                                .padding(-80)
+//                        }
+//                        .border(Color.ShadesofCadetGray.CadetGray200)
+//                }
+                .sync($mainScreenVm.isNewEntryModalShown, with: $isShown)
             }
             Spacer()
             Button {

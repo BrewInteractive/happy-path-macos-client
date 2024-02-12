@@ -12,6 +12,7 @@ import SwiftDate
 import AppKit
 
 class AppDelegate: NSObject, NSApplicationDelegate {
+    
     // will run with deeplink
     func application(_ application: NSApplication, open urls: [URL]) {
         let components = URLComponents(url: urls[0], resolvingAgainstBaseURL: false)
@@ -28,7 +29,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
         } else {
-            print("no token in url")
+            HappyLogger.logger.critical("There is any token in deeplink url")
+            fatalError()
         }
     }
     

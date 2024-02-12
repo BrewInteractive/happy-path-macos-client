@@ -76,22 +76,12 @@ struct NewTimeEntryView: View {
                     selectedProjectId = editedTimer.projectId
                     selectedTaskId = editedTimer.taskId
                     notes = editedTimer.notes
-                    if editedTimer.id == mainScreenVm.activeTimerId {
-                        duration = Int(mainScreenVm.activeTimerSeconds).secondsToHours
-                    } else {
-                        duration = editedTimer.totalDuration.minuteToHours
-                    }
+                    duration = editedTimer.totalDuration.minuteToHours
                 }
             }
             
             if mainScreenVm.isTasksLoading {
-                ZStack {
-                    Color.Primary.DarkNight.opacity(0.2)
-                    ProgressView()
-                        .background {
-                            Color.ShadesOfDark.D_04.opacity(0.3)
-                        }
-                }
+                Loading()
             }
         }
     }
@@ -186,7 +176,7 @@ extension NewTimeEntryView {
         HStack {
             HappyDividier(color: .gray.opacity(0.2))
             Button {
-                self.mainScreenVm.updateMainScreenVmProp(for: \.isNewEntryModalShown, newValue: false)
+                mainScreenVm.hideNewEntryTimerModal()
             } label: {
                 Text("Cancel")
                     .foregroundColor(.Primary.DarkNight)
@@ -205,7 +195,7 @@ extension NewTimeEntryView {
                     if let editedTimer = mainScreenVm.getEditedTimer(), editedTimer.startsAt != nil {
                         Task {
                             await mainScreenVm.updateTimer(projectTaskId: editedTimer.taskId,
-                                                     duration: duration,
+                                                           duration: duration.toMinute,
                                                      notes: notes,
                                                      startsAt: editedTimer.startsAt!,
                                                      endsAt: editedTimer.startsAt!)
@@ -224,7 +214,7 @@ extension NewTimeEntryView {
                         Task {
                             await mainScreenVm.logTimer(projectId: selectedProjectId,
                                                         projectTaskId: selectedTaskId,
-                                                        duration: duration,
+                                                        duration: duration.toMinute,
                                                         notes: notes,
                                                         date: selectedDate)
                         }

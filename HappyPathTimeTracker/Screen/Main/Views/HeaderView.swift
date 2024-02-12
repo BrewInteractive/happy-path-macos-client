@@ -75,7 +75,8 @@ extension HeaderView {
                 GridRow {
                     VStack {
                         Text("Hours Today")
-                        Text(mainScreenVm.todayTotalDurationWithActiveTimer)
+//                        Text(mainScreenVm.todayTotalDurationWithActiveTimer)
+                        Text("0")
                     }
                     .foregroundColor(.Primary.DarkNight)
                     Rectangle()
@@ -96,7 +97,8 @@ extension HeaderView {
                     VStack {
                         Text("Hours This Week")
                             .foregroundColor(.Primary.DarkNight)
-                        Text(mainScreenVm.thisWeekDurationWithActiveTimer)
+//                        Text(mainScreenVm.thisWeekDurationWithActiveTimer)
+                        Text("0")
                     }
                     .foregroundColor(.Primary.DarkNight)
                     Rectangle()
@@ -105,7 +107,8 @@ extension HeaderView {
                         .frame(maxHeight: .infinity)
                     VStack {
                         Text("Hours This Month")
-                        Text(mainScreenVm.thisMonthDurationWithActiveTimer)
+//                        Text(mainScreenVm.thisMonthDurationWithActiveTimer)
+                        Text("0")
                     }
                     .foregroundColor(.Primary.DarkNight)
                 }

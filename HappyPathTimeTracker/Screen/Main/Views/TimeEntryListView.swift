@@ -13,48 +13,62 @@ struct TimeEntryListView: View {
     let selectedDate: Date
     
     var body: some View {
-        ScrollView(.vertical) {
-            VStack(spacing: 3) {
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(spacing: 8) {
                 if mainScreenVm.timers.isEmpty {
                     NoEntryView()
                         .environmentObject(mainScreenVm)
                 } else {
-                    ForEach(Array(zip(mainScreenVm.timers.indices, mainScreenVm.timers)), id: \.0) { index, item in
-                        if index != 0 && index != mainScreenVm.timers.count {
-                            HappyDividier(color: .gray.opacity(0.1))
+                    ForEach(mainScreenVm.groupedTimers.sorted(by: { $0.key < $1.key }), id: \.key) { (projectId, entries) in
+                        VStack(alignment: .leading) {
+                            Text(entries.first?.projectName ?? "")
+                                .font(.figtree(size: 16))
+                                .foregroundColor(.Primary.DarkNight)
+                                .padding(.horizontal, 12)
+                            ForEach(entries, id: \.id) { entry in
+                                HStack(alignment: .center) {
+                                    TimeEntryView(timeEntry: entry,
+                                                  isHovered: hoveredTimeEntryId == entry.id,
+                                                  onStop: { id in
+                                        Task {
+                                            await mainScreenVm.stopTimer(for: id)
+                                        }
+                                    }, onEdit: { id in
+                                        mainScreenVm.showEditTimerModal(editedTimerId: id)
+                                    }, onRestart: { id in
+                                        Task {
+                                            await mainScreenVm.restartTimer(for: id)
+                                        }
+                                    }, onDelete: { id in
+                                        Task {
+                                            await mainScreenVm.removeTimer(id: id, selectedDate: selectedDate)
+                                        }
+                                    })
+                                    .onTapGesture(count: 2, perform: {
+                                        mainScreenVm.showEditTimerModal(editedTimerId: entry.id)
+                                    })
+                                }
+                                .padding(.horizontal, 10)
+                                .onHover { isHovered in
+                                    if isHovered {
+                                        hoveredTimeEntryId = entry.id
+                                    } else {
+                                        hoveredTimeEntryId = nil
+                                    }
+                                }
+                                .background(content: {
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .foregroundStyle(hoveredTimeEntryId == entry.id ? Color.ShadesOfTeal.Teal_100 : Color.ShadesofCadetGray.CadetGray50)
+                                })
+                            }
                         }
-                        TimeEntryView(timeEntry: mainScreenVm.timers[index],
-                                      activeTime: mainScreenVm.activeTimerSeconds,
-                                      activeTimerId: mainScreenVm.activeTimerId,
-                                      onStop: { id in
-                            Task {
-                                await mainScreenVm.stopTimer(for: id)
-                            }
-                        }, onEdit: { id in
-                            mainScreenVm.showEditTimerModal(editedTimerId: id)
-                        }, onRestart: { id in
-                            Task {
-                                await mainScreenVm.restartTimer(for: id)
-                            }
-                        })
-                        .onHover { isHovered in
-                            if isHovered {
-                                hoveredTimeEntryId = mainScreenVm.timers[index].id
-                            } else {
-                                hoveredTimeEntryId = nil
-                            }
+                        .padding(.top, 8)
+//                        .padding(.horizontal, 12)
+                        .background {
+                            RoundedRectangle(cornerRadius: 16)
+                                .foregroundStyle(Color.ShadesofCadetGray.CadetGray50)
                         }
-                        .onTapGesture(count: 2, perform: {
-                            mainScreenVm.showEditTimerModal(editedTimerId: mainScreenVm.timers[index].id)
-                        })
-                        .background(content: {
-                            hoveredTimeEntryId == mainScreenVm.timers[index].id ? Color.ShadesOfTeal.Teal_100 : Color.ShadesofCadetGray.CadetGray50
-                        })
-                        .contextMenu {
-                            if mainScreenVm.previousMonthLastWeekStartDate.isBeforeDate(selectedDate, orEqual: true, granularity: .day) {
-                                TimeEntryContextMenu(id: mainScreenVm.timers[index].id)
-                            }
-                        }
+//                        .padding(8)
                     }
                 }
             }

@@ -23,9 +23,9 @@ struct CalendarView: View {
         CalendarWeekListView(calendar: calendar, date: $selectedDate) { date in
             CircleDayView(circleDay: .init(date: date, isSelected: isSameWith(date1: selectedDate, date2: date), totalSeconds: 0), dailyTotalDuration: mainScreenVm.getTotalDurationMinuteOfDayAsString(date: date))
                 .onTapGesture {
-                    mainScreenVm.updateMainScreenVmProp(for: \.selectedDate, newValue: date)
+                    selectedDate = date
                     Task {
-                        await mainScreenVm.getTimers(date: date)
+                        await mainScreenVm.getJustTimers(date: date)
                     }
                 }
         }

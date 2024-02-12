@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E060F082B72C60C00888778 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E060F072B72C60C00888778 /* View+Extension.swift */; };
 		5E06CAA82A8254680019E411 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E06CAA72A8254680019E411 /* Bundle.swift */; };
 		5E1D43EA2A588D2400B6BEA4 /* RemoveTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E1D43E92A588D2400B6BEA4 /* RemoveTimer.graphql */; };
 		5E1D44072A59ACBE00B6BEA4 /* LogTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E1D44062A59ACBE00B6BEA4 /* LogTimer.graphql */; };
@@ -15,7 +16,6 @@
 		5E1D44102A59B69400B6BEA4 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D440F2A59B69400B6BEA4 /* Project.swift */; };
 		5E1D44122A59B97000B6BEA4 /* ProjectTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44112A59B97000B6BEA4 /* ProjectTask.swift */; };
 		5E1D44172A5A8A5D00B6BEA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44162A5A8A5D00B6BEA4 /* AppDelegate.swift */; };
-		5E1F89942A73F7940052173C /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1F89932A73F7940052173C /* Dropdown.swift */; };
 		5E3DAF202A5AF3C4005BB83A /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5E3DAF1F2A5AF3C4005BB83A /* KeychainSwift */; };
 		5E3DAF222A5B1F5F005BB83A /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3DAF212A5B1F5F005BB83A /* NotificationName.swift */; };
 		5E3DAF252A5B3718005BB83A /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3DAF242A5B3718005BB83A /* K.swift */; };
@@ -28,6 +28,7 @@
 		5E5FC02C2A5F45AD00A19330 /* StartTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E5FC02B2A5F45AD00A19330 /* StartTimer.graphql */; };
 		5E646F142A671AB800B92B96 /* Stats.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E646F132A671AB800B92B96 /* Stats.graphql */; };
 		5E646F162A67212A00B92B96 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E646F152A67212A00B92B96 /* Stats.swift */; };
+		5E69F5E52ADC5527000FD1FB /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E69F5E42ADC5527000FD1FB /* SearchBar.swift */; };
 		5E78758F2AB1A61700866AD1 /* Figtree-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7875812AB1A61600866AD1 /* Figtree-ExtraBoldItalic.ttf */; };
 		5E7875902AB1A61700866AD1 /* Figtree-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7875822AB1A61600866AD1 /* Figtree-Medium.ttf */; };
 		5E7875912AB1A61700866AD1 /* Figtree-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7875832AB1A61600866AD1 /* Figtree-Bold.ttf */; };
@@ -52,6 +53,8 @@
 		5E96C8B62A9C925800121C1A /* CalendarWeekListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E96C8B52A9C925800121C1A /* CalendarWeekListView.swift */; };
 		5E96C8B82A9C931300121C1A /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E96C8B72A9C931300121C1A /* CalendarView.swift */; };
 		5EB384612A70F5B200FDA0E0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB384602A70F5B200FDA0E0 /* Color.swift */; };
+		5EC4AEA02B7A4F530084D4E9 /* StartNewTimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC4AE9F2B7A4F530084D4E9 /* StartNewTimerViewModel.swift */; };
+		5EC4AEA22B7A599C0084D4E9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC4AEA12B7A599C0084D4E9 /* Logger.swift */; };
 		5EC73EF22A80DC6F00528303 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 5EC73EF12A80DC6F00528303 /* PopupView */; };
 		5ED8E43B2A6E342000F871E0 /* RestartTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5ED8E43A2A6E342000F871E0 /* RestartTimer.graphql */; };
 		5EE13CEA2A5757AE004BF3DA /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5EE13CE92A5757AE004BF3DA /* .gitignore */; };
@@ -73,11 +76,14 @@
 		5EE372262A50C1A500859278 /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372252A50C1A500859278 /* MainScreenViewModel.swift */; };
 		5EE372292A520B5E00859278 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE372282A520B5E00859278 /* AppState.swift */; };
 		5EE4F8242A66451400DD46EA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4F8232A66451400DD46EA /* NetworkManager.swift */; };
+		5EE888DF2B73A68300671E52 /* StartNewTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE888DE2B73A68300671E52 /* StartNewTimerView.swift */; };
+		5EF0195F2B779F02004ED61B /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0195E2B779F02004ED61B /* Loading.swift */; };
 		5EF3DF2C2A726B500070CBCC /* NoEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF3DF2B2A726B500070CBCC /* NoEntryView.swift */; };
 		5EF3DF2E2A726F640070CBCC /* Me.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5EF3DF2D2A726F640070CBCC /* Me.graphql */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E060F072B72C60C00888778 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		5E06CAA72A8254680019E411 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		5E1D43E92A588D2400B6BEA4 /* RemoveTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RemoveTimer.graphql; sourceTree = "<group>"; };
 		5E1D44062A59ACBE00B6BEA4 /* LogTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = LogTimer.graphql; sourceTree = "<group>"; };
@@ -86,7 +92,6 @@
 		5E1D440F2A59B69400B6BEA4 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		5E1D44112A59B97000B6BEA4 /* ProjectTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTask.swift; sourceTree = "<group>"; };
 		5E1D44162A5A8A5D00B6BEA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5E1F89932A73F7940052173C /* Dropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
 		5E3DAF1A2A5AAC71005BB83A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5E3DAF212A5B1F5F005BB83A /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		5E3DAF242A5B3718005BB83A /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
@@ -102,6 +107,7 @@
 		5E5FC02B2A5F45AD00A19330 /* StartTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = StartTimer.graphql; sourceTree = "<group>"; };
 		5E646F132A671AB800B92B96 /* Stats.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Stats.graphql; sourceTree = "<group>"; };
 		5E646F152A67212A00B92B96 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
+		5E69F5E42ADC5527000FD1FB /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		5E7875812AB1A61600866AD1 /* Figtree-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		5E7875822AB1A61600866AD1 /* Figtree-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-Medium.ttf"; sourceTree = "<group>"; };
 		5E7875832AB1A61600866AD1 /* Figtree-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Figtree-Bold.ttf"; sourceTree = "<group>"; };
@@ -125,6 +131,8 @@
 		5E96C8B52A9C925800121C1A /* CalendarWeekListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarWeekListView.swift; sourceTree = "<group>"; };
 		5E96C8B72A9C931300121C1A /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		5EB384602A70F5B200FDA0E0 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		5EC4AE9F2B7A4F530084D4E9 /* StartNewTimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartNewTimerViewModel.swift; sourceTree = "<group>"; };
+		5EC4AEA12B7A599C0084D4E9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		5ED8E43A2A6E342000F871E0 /* RestartTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RestartTimer.graphql; sourceTree = "<group>"; };
 		5EE13CE92A5757AE004BF3DA /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		5EE371FB2A4EDEDF00859278 /* NewTimeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTimeEntryView.swift; sourceTree = "<group>"; };
@@ -144,6 +152,8 @@
 		5EE372252A50C1A500859278 /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
 		5EE372282A520B5E00859278 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		5EE4F8232A66451400DD46EA /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		5EE888DE2B73A68300671E52 /* StartNewTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartNewTimerView.swift; sourceTree = "<group>"; };
+		5EF0195E2B779F02004ED61B /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		5EF3DF2B2A726B500070CBCC /* NoEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoEntryView.swift; sourceTree = "<group>"; };
 		5EF3DF2D2A726F640070CBCC /* Me.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Me.graphql; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -174,6 +184,7 @@
 				5EB384602A70F5B200FDA0E0 /* Color.swift */,
 				5E06CAA72A8254680019E411 /* Bundle.swift */,
 				5E588AF42AB16F3700F6DB85 /* Font.swift */,
+				5E060F072B72C60C00888778 /* View+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -182,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				5E3DAF242A5B3718005BB83A /* K.swift */,
+				5EC4AEA12B7A599C0084D4E9 /* Logger.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -297,6 +309,7 @@
 				5EE3720E2A50322E00859278 /* CircleDayView.swift */,
 				5EF3DF2B2A726B500070CBCC /* NoEntryView.swift */,
 				5E96C8B72A9C931300121C1A /* CalendarView.swift */,
+				5EE888DE2B73A68300671E52 /* StartNewTimerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -307,7 +320,8 @@
 				5E96C8B52A9C925800121C1A /* CalendarWeekListView.swift */,
 				5EE371FE2A4EDF0C00859278 /* HappyDividier.swift */,
 				5EE372042A4FFCD900859278 /* TimeEntryView.swift */,
-				5E1F89932A73F7940052173C /* Dropdown.swift */,
+				5E69F5E42ADC5527000FD1FB /* SearchBar.swift */,
+				5EF0195E2B779F02004ED61B /* Loading.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -378,6 +392,7 @@
 			isa = PBXGroup;
 			children = (
 				5EE372252A50C1A500859278 /* MainScreenViewModel.swift */,
+				5EC4AE9F2B7A4F530084D4E9 /* StartNewTimerViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -433,7 +448,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					5E41B13F2A497F51001E90AC = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -509,6 +524,7 @@
 			files = (
 				5EF3DF2C2A726B500070CBCC /* NoEntryView.swift in Sources */,
 				5E06CAA82A8254680019E411 /* Bundle.swift in Sources */,
+				5EF0195F2B779F02004ED61B /* Loading.swift in Sources */,
 				5EE372092A5030D800859278 /* BottomView.swift in Sources */,
 				5E3DAF222A5B1F5F005BB83A /* NotificationName.swift in Sources */,
 				5E797CE22A4B1EE4003FCD06 /* CircleDay.swift in Sources */,
@@ -516,13 +532,15 @@
 				5E41B1462A497F51001E90AC /* MainScreen.swift in Sources */,
 				5EE372052A4FFCD900859278 /* TimeEntryView.swift in Sources */,
 				5E7B54952A611D560097EC94 /* String.swift in Sources */,
-				5E1F89942A73F7940052173C /* Dropdown.swift in Sources */,
 				5EE372262A50C1A500859278 /* MainScreenViewModel.swift in Sources */,
+				5EE888DF2B73A68300671E52 /* StartNewTimerView.swift in Sources */,
 				5E1D44102A59B69400B6BEA4 /* Project.swift in Sources */,
 				5E588AF52AB16F3700F6DB85 /* Font.swift in Sources */,
 				5EE372292A520B5E00859278 /* AppState.swift in Sources */,
+				5EC4AEA22B7A599C0084D4E9 /* Logger.swift in Sources */,
 				5E1D440A2A59AF7C00B6BEA4 /* Date.swift in Sources */,
 				5E3DAF252A5B3718005BB83A /* K.swift in Sources */,
+				5E060F082B72C60C00888778 /* View+Extension.swift in Sources */,
 				5E41B1442A497F51001E90AC /* HappyPathTimeTrackerApp.swift in Sources */,
 				5EE3720B2A50311C00859278 /* HeaderView.swift in Sources */,
 				5EE372232A50BEC600859278 /* TokenInterceptor.swift in Sources */,
@@ -530,6 +548,8 @@
 				5E1D44122A59B97000B6BEA4 /* ProjectTask.swift in Sources */,
 				5E96C8B82A9C931300121C1A /* CalendarView.swift in Sources */,
 				5EB384612A70F5B200FDA0E0 /* Color.swift in Sources */,
+				5EC4AEA02B7A4F530084D4E9 /* StartNewTimerViewModel.swift in Sources */,
+				5E69F5E52ADC5527000FD1FB /* SearchBar.swift in Sources */,
 				5EE4F8242A66451400DD46EA /* NetworkManager.swift in Sources */,
 				5EE371FF2A4EDF0C00859278 /* HappyDividier.swift in Sources */,
 				5E646F162A67212A00B92B96 /* Stats.swift in Sources */,
@@ -585,6 +605,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -646,6 +667,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -689,7 +711,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.1.8;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gorkemsevim.HappyPathTimeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -725,7 +747,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.1.8;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gorkemsevim.HappyPathTimeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -24,7 +24,7 @@ class GraphqlClient {
             
             self.client = ApolloClient(networkTransport: networkTransport, store: store)
         } else {
-            print("nil token")
+            HappyLogger.logger.critical("There is any token in graphql client")
         }
     }
 }

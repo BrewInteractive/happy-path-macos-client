@@ -21,71 +21,82 @@ struct MainScreen: View {
             RoundedRectangle(cornerRadius: 6)
                 .stroke(.gray, lineWidth: 1)
             if appState.isLoggedIn {
-                VStack(spacing: 0) {
-                    HeaderView()
-                        .environmentObject(mainScreenVm)
-                    CalendarView(selectedDate: $mainScreenVm.selectedDate)
-                        .environmentObject(mainScreenVm)
-                    HappyDividier()
-                    ZStack {
-                        TimeEntryListView(selectedDate: mainScreenVm.selectedDate)
-                            .environmentObject(mainScreenVm)
-                        if mainScreenVm.isLoading {
-                            ZStack {
-                                Color.Primary.DarkNight.opacity(0.2)
-                                ProgressView()
-                                    .background {
-                                        Color.ShadesOfDark.D_04.opacity(0.3)
-                                    }
-                            }
-                        }
-                    }
-                    HappyDividier()
-                    BottomView(selectedDate: mainScreenVm.selectedDate)
-                        .environmentObject(mainScreenVm)
-                }
-                .clipShape(RoundedRectangle(cornerRadius: 6))
-                .onAppear {
-                    Task {
-                        await mainScreenVm.updateViewModel(appState: appState)
-                    }
-                }
-                .popup(isPresented: $mainScreenVm.isErrorShown) {
-                    Text("Error occured")
-                        .padding()
-                        .background(Color.red)
-                        .cornerRadius(10)
-                } customize: {
-                    $0
-                        .autohideIn(2)
-                        .type(.floater(verticalPadding: 8, horizontalPadding: 8, useSafeAreaInset: true))
-                        .position(.bottomTrailing)
-                        .appearFrom(.bottom)
-                        .dismissCallback {
-                            mainScreenVm.updateMainScreenVmProp(for: \.isErrorShown, newValue: false)
-                        }
-                        .animation(.spring())
-                }
+                AuthUserView()
             } else {
                LoginScreen()
             }
         }
         .contextMenu {
-            VStack {
-                if appState.isLoggedIn {                
-                    Button {
-                        Task {
-                            await mainScreenVm.refetch(date: mainScreenVm.selectedDate)
-                        }
-                    } label: {
-                        Text("Yenile")
+            HappyContextMenu()
+        }
+    }
+}
+
+extension MainScreen {
+    @ViewBuilder
+    func AuthUserView() -> some View {
+        ZStack {
+            VStack(spacing: 0) {
+                HeaderView()
+                    .environmentObject(mainScreenVm)
+                CalendarView(selectedDate: $mainScreenVm.selectedDate)
+                    .environmentObject(mainScreenVm)
+                HappyDividier()
+                ZStack {
+                    TimeEntryListView(selectedDate: mainScreenVm.selectedDate)
+                        .environmentObject(mainScreenVm)
+                    if mainScreenVm.isLoading {
+                        Loading()
                     }
                 }
+                HappyDividier()
+                BottomView(selectedDate: mainScreenVm.selectedDate)
+                    .environmentObject(mainScreenVm)
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 6))
+            .task {
+                await mainScreenVm.updateViewModel(appState: appState)
+            }
+            .popup(isPresented: $mainScreenVm.isErrorShown) {
+                Text("Error occured")
+                    .padding()
+                    .background(Color.red)
+                    .cornerRadius(10)
+            } customize: {
+                $0
+                    .autohideIn(2)
+                    .type(.floater(verticalPadding: 8, horizontalPadding: 8, useSafeAreaInset: true))
+                    .position(.bottomTrailing)
+                    .appearFrom(.bottom)
+                    .dismissCallback {
+                        mainScreenVm.isErrorShown = false
+                    }
+                    .animation(.spring())
+            }
+            
+            if mainScreenVm.isNewEntryModalShown {
+                StartNewTimerView(selectedDate: mainScreenVm.selectedDate, selectedTimerEntry: mainScreenVm.getEditedTimer())
+                    .environmentObject(mainScreenVm)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func HappyContextMenu() -> some View {
+        VStack {
+            if appState.isLoggedIn {
                 Button {
-                    NSApplication.shared.terminate(nil)
+                    Task {
+                        await mainScreenVm.refetch(date: mainScreenVm.selectedDate)
+                    }
                 } label: {
-                    Text("Kapat")
+                    Text("Yenile")
                 }
+            }
+            Button {
+                NSApplication.shared.terminate(nil)
+            } label: {
+                Text("Kapat")
             }
         }
     }

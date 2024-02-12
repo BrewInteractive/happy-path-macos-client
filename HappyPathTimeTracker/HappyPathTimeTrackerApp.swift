@@ -21,17 +21,15 @@ struct HappyPathTimeTrackerApp: App {
                     let keychain = KeychainSwift()
                     let token = keychain.get(K.token)
                     if token != nil {
-                        self.appState.updateAppStateProp(for: \.isLoggedIn, newValue: true)
+                        self.appState.isLoggedIn = true
                     }
                 }
                 .onReceive(NotificationCenter.default.publisher(for: Notification.Name.loginByMagicLinkNotification)) { token in
-                    self.appState.updateAppStateProp(for: \.isLoggedIn, newValue: true)
+                    self.appState.isLoggedIn = false
                     appState.updateClientAuthToken(token: token.object as! String)
                 }
                 .environment(\.font, .figtree())
-                .preferredColorScheme(.light)
-                .frame(width: 400)
-                .frame(minHeight: 450)
+                .frame(width: 400, height: 450)
         } label: {
             let image: NSImage = {
                     let ratio = $0.size.height / $0.size.width

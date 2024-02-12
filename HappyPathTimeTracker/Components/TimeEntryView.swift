@@ -24,31 +24,49 @@ let tasksBackground: [Int:Color] = [
 
 struct TimeEntryView: View {
     let timeEntry: TimeEntry
-    let activeTime: Double
-    let activeTimerId: Int?
+    let isHovered: Bool
     let onStop: ((Int) async -> Void)
     let onEdit: ((Int) async -> Void)
     let onRestart: ((Int) async -> Void)
+    let onDelete: ((Int) async -> Void)
     
     var isActive: Bool {
         return timeEntry.endsAt == nil ||
         (timeEntry.endsAt != nil && timeEntry.endsAt!.isEmpty)
     }
     
+    var activeTimeMinute: String {
+//        if let startedDate = timeEntry.startsAt, let date = timeEntry.startsAt?.toISODate()?.date {
+//            let now = Date.now
+//            let diffM =  now.difference(in: .minute, from: date) ?? 0
+//            let diffH =  now.difference(in: .hour, from: date) ?? 0
+//            let durationH = (timeEntry.duration ?? 0) / 60
+//            let durationM = (timeEntry.duration ?? 0) - durationH * 60
+//            let totalH = diffH + durationH
+//            let totalM = diffM + durationM
+//            let h = String(format: "%02d", totalH)
+//            let m = String(format: "%02d", totalM)
+//            return "\(h):\(m)"
+//        }
+        
+        let totalDurationH = timeEntry.totalDuration / 60
+        let totalDurationM = timeEntry.totalDuration - (60 * totalDurationH)
+        
+        let h = String(format: "%02d", totalDurationH)
+        let m = String(format: "%02d", totalDurationM)
+        return "\(h):\(m)"
+    }
+    
     var showRestartButton: Bool {
-        return activeTimerId == nil && timeEntry.startsAt != nil && (timeEntry.startsAt!.toISODate()?.date.isToday ?? false)
+        return timeEntry.startsAt != nil && (timeEntry.startsAt!.toISODate()?.date.isToday ?? false)
     }
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(timeEntry.projectName)
-                        .font(.figtree(size: 16))
-                        .foregroundColor(.Primary.DarkNight)
                     Text(timeEntry.taskName)
                         .foregroundColor(.Primary.DarkNight)
-                        .padding(4)
                         .background {
                             tasksBackground[timeEntry.taskId] ?? Color.ShadesOfIcterine.Icterine100
                         }
@@ -59,53 +77,50 @@ struct TimeEntryView: View {
                     }
                 }
                 Spacer()
-                HStack {
-                    Text(isActive ? "\(Int(activeTime).toHours)" : "\(timeEntry.totalDuration.minuteToHours)")
+                VStack(alignment: .trailing) {
+                    Text(isActive ? "\(activeTimeMinute)" : "\(timeEntry.totalDuration.minuteToHours)")
                         .foregroundColor(isActive ? .ShadesofCadetGray.CadetGray500 : .ShadesofCadetGray.CadetGray900)
-                        .onTapGesture {
+                    HStack {
+                        Button {
+                            Task {
+                                await onDelete(timeEntry.id)
+                            }
+                        } label: {
+                            RoundedButton(image: Image(systemName: "trash"), color:  Color.red)
+                        }
+                        .buttonStyle(.plain)
+                        Button {
                             Task {
                                 await onEdit(timeEntry.id)
                             }
-                        }
-                    if isActive {
-                        Button {
-                            Task {
-                                await onStop(timeEntry.id)
-                            }
                         } label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius:100)
-                                    .fill(Color.Primary.RealWhite)
-                                    .frame(width: 32, height: 32)
-                                Image("Pause Icon")
-                                    .resizable()
-                                    .frame(width: 12, height: 12)
-                                    .foregroundColor(.ShadesOfCoral.Coral500)
-                            }
+                            RoundedButton(image: Image(systemName: "pencil"), color:  Color.ShadesOfTeal.Teal_400)
                         }
                         .buttonStyle(.plain)
-                    } else if(showRestartButton) {
-                        Button {
-                            Task {
-                                await onRestart(timeEntry.id)
+                        
+                        if isActive {
+                            Button {
+                                Task {
+                                    await onStop(timeEntry.id)
+                                }
+                            } label: {
+                                RoundedButton(image: Image("Pause Icon"), color: Color.ShadesOfCoral.Coral500)
                             }
-                        } label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius:100)
-                                    .fill(Color.ShadesOfDark.D_04)
-                                    .frame(width: 32, height: 32)
-                                Image(systemName: "play.fill")
-                                    .resizable()
-                                    .foregroundColor(.ShadesOfTeal.Teal_400)
-                                    .frame(width: 12, height: 12)
+                            .buttonStyle(.plain)
+                        } else if(showRestartButton) {
+                            Button {
+                                Task {
+                                    await onRestart(timeEntry.id)
+                                }
+                            } label: {
+                                RoundedButton(image: Image(systemName: "play.fill"), color:  Color.ShadesOfTeal.Teal_400)
                             }
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
                     }
                 }
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 16)
+            .padding(.vertical, 20)
         }
     }
 }
@@ -121,15 +136,34 @@ struct TimeEntryView_Previews: PreviewProvider {
                                        startsAt: Date().toISO(),
                                        endsAt: nil,
                                        duration: 0,
-                                       totalDuration: 123), activeTime: 1, activeTimerId: nil) { id in
+                                       totalDuration: 123), isHovered: true) { id in
             print("start")
         } onEdit: { id in
             print("edit")
         } onRestart: { id in
             print("restart")
+        } onDelete: { id in
+            print("delete")
         }
         .background {
             Color.ShadesofCadetGray.CadetGray100
+        }
+    }
+}
+
+struct RoundedButton: View {
+    let image: Image
+    let color: Color
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius:100)
+                .fill(Color.ShadesOfDark.D_04)
+                .frame(width: 32, height: 32)
+            image
+                .resizable()
+                .foregroundColor(color)
+                .frame(width: 12, height: 12)
         }
     }
 }

@@ -18,6 +18,7 @@ extension Color {
     
     struct ShadesOfDark {
         static let D_04 = Color("04")
+        static let D_32 = Color("32")
     }
     
     struct ShadesOfLightWhite {
@@ -30,6 +31,7 @@ extension Color {
         static let CadetGray100 = Color("cadet gray-100")
         static let CadetGray200 = Color("cadet gray-200")
         static let CadetGray300 = Color("cadet gray-300")
+        static let CadetGray400 = Color("cadet gray-400")
         static let CadetGray500 = Color("cadet gray-500")
         static let CadetGray600 = Color("cadet gray-600")
         static let CadetGray900 = Color("cadet gray-900")
@@ -45,10 +47,13 @@ extension Color {
     
     struct ShadesOfCoral {
         static let Coral500 = Color("coral-500")
+        static let Coral700 = Color("coral-700")
     }
     
     struct ShadesOfTeal {
+        static let Teal_50 = Color("teal-50")
         static let Teal_100 = Color("teal-100")
+        static let Teal_300 = Color("teal-300")
         static let Teal_400 = Color("teal-400")
     }
     

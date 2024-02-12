@@ -8,6 +8,7 @@
 import Foundation
 
 struct Project: Identifiable, Hashable {
+    typealias ID = Int
     let id: Int
-    let name: String
+    var name: String
 }
