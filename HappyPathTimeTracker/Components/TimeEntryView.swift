@@ -87,7 +87,7 @@ struct TimeEntryView: View {
                             await onDelete(timeEntry.id)
                         }
                     } label: {
-                        RoundedButton(image: Image(systemName: "trash"), color:  Color.red)
+                        RoundedButton(image: Image(systemName: "trash.circle.fill"), color:  Color.red)
                     }
                     .buttonStyle(.plain)
                     Button {
@@ -95,7 +95,7 @@ struct TimeEntryView: View {
                             await onEdit(timeEntry.id)
                         }
                     } label: {
-                        RoundedButton(image: Image(systemName: "pencil"), color:  Color.ShadesOfTeal.Teal_400)
+                        RoundedButton(image: Image(systemName: "square.and.pencil.circle.fill"), color:  Color.ShadesOfTeal.Teal_400)
                     }
                     .buttonStyle(.plain)
                     
@@ -105,7 +105,7 @@ struct TimeEntryView: View {
                                 await onStop(timeEntry.id)
                             }
                         } label: {
-                            RoundedButton(image: Image("Pause Icon"), color: Color.ShadesOfCoral.Coral500)
+                            RoundedButton(image: Image(systemName: "pause.circle.fill"), color: Color.ShadesOfCoral.Coral500)
                         }
                         .buttonStyle(.plain)
                     } else if(showRestartButton) {
@@ -114,7 +114,7 @@ struct TimeEntryView: View {
                                 await onRestart(timeEntry.id)
                             }
                         } label: {
-                            RoundedButton(image: Image(systemName: "play.fill"), color:  Color.ShadesOfTeal.Teal_400)
+                            RoundedButton(image: Image(systemName: "play.circle.fill"), color:  Color.ShadesOfTeal.Teal_400)
                         }
                         .buttonStyle(.plain)
                     }
@@ -157,14 +157,15 @@ struct RoundedButton: View {
     let color: Color
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius:100)
-                .fill(Color.ShadesOfDark.D_04)
-                .frame(width: 32, height: 32)
-            image
-                .resizable()
-                .foregroundColor(color)
-                .frame(width: 12, height: 12)
-        }
+//        ZStack {
+//            RoundedRectangle(cornerRadius:100)
+//                .fill(Color.ShadesOfDark.D_04)
+//                .frame(width: 32, height: 32)
+//            
+//        }
+        image
+            .resizable()
+            .foregroundColor(color)
+            .frame(width: 24, height: 24)
     }
 }
