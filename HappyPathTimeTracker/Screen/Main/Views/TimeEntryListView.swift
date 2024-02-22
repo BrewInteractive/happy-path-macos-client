@@ -14,7 +14,7 @@ struct TimeEntryListView: View {
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: true) {
-            VStack(spacing: 8) {
+            VStack(spacing: 16) {
                 if mainScreenVm.timers.isEmpty {
                     NoEntryView()
                         .environmentObject(mainScreenVm)
@@ -22,7 +22,7 @@ struct TimeEntryListView: View {
                     ForEach(mainScreenVm.groupedTimers.sorted(by: { $0.key < $1.key }), id: \.key) { (projectId, entries) in
                         VStack(alignment: .leading, spacing: 8) {
                             Text(entries.first?.projectName ?? "")
-                                .font(.figtree(size: 16, weight: .bold))
+                                .font(.figtree(size: 16, weight: .semiBold))
                                 .foregroundColor(.Primary.DarkNight)
                                 .padding(.horizontal, 12)
                             ForEach(entries, id: \.id) { entry in
@@ -69,10 +69,11 @@ struct TimeEntryListView: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .foregroundStyle(Color.G.G_F3F6F7)
                         }
-                        .padding(16)
+                        .padding(.horizontal, 16)
                     }
                 }
             }
+            .padding(.top, 16)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

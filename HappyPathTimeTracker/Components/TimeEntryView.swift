@@ -67,15 +67,14 @@ struct TimeEntryView: View {
                 Text(timeEntry.taskName)
                     .font(.figtree(size: 14, weight: .medium))
                     .foregroundColor(.Primary.DarkNight)
-//                    .background {
-//                        tasksBackground[timeEntry.taskId] ?? Color.ShadesOfIcterine.Icterine100
-//                    }
+                    .padding(.top, 4)
                 if !timeEntry.notes.isEmpty {
                     Text(timeEntry.notes)
                         .font(.figtree(size: 12))
                         .foregroundColor(.G.G_959595)
                         .lineLimit(2)
                 }
+                Spacer()
             }
             Spacer()
             VStack(alignment: .trailing) {
