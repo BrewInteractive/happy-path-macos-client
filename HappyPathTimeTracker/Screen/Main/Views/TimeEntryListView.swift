@@ -58,10 +58,13 @@ struct TimeEntryListView: View {
                                     RoundedRectangle(cornerRadius: 8)
                                         .foregroundStyle(hoveredTimeEntryId == entry.id ? Color.G.G_DBDFE1 : Color.G.G_F3F6F7)
                                 })
+                                if entry.id != entries.last?.id {
+                                    HappyDividier(color: .G.G_00000014)
+                                        .padding(.horizontal, 4)
+                                }
                             }
                         }
                         .padding(.top, 8)
-//                        .padding(.horizontal, 12)
                         .background {
                             RoundedRectangle(cornerRadius: 8)
                                 .foregroundStyle(Color.G.G_F3F6F7)

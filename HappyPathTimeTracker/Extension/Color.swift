@@ -12,6 +12,7 @@ extension Color {
         static let G_959595 = Color("G_959595")
         static let G_F3F6F7 = Color("G_F3F6F7")
         static let G_DBDFE1 = Color("G_DBDFE1")
+        static let G_00000014 = Color("G_00000014")
     }
     struct Primary {
         static let DarkNight = Color("Dark (Night)")
