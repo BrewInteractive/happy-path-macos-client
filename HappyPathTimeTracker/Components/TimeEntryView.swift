@@ -62,66 +62,68 @@ struct TimeEntryView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(timeEntry.taskName)
-                        .foregroundColor(.Primary.DarkNight)
-                        .background {
-                            tasksBackground[timeEntry.taskId] ?? Color.ShadesOfIcterine.Icterine100
-                        }
-                    if !timeEntry.notes.isEmpty {
-                        Text(timeEntry.notes)
-                            .font(.callout)
-                            .foregroundColor(.ShadesofCadetGray.CadetGray900)
-                    }
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(timeEntry.taskName)
+                    .font(.figtree(size: 14, weight: .medium))
+                    .foregroundColor(.Primary.DarkNight)
+//                    .background {
+//                        tasksBackground[timeEntry.taskId] ?? Color.ShadesOfIcterine.Icterine100
+//                    }
+                if !timeEntry.notes.isEmpty {
+                    Text(timeEntry.notes)
+                        .font(.figtree(size: 12))
+                        .foregroundColor(.G.G_959595)
+                        .lineLimit(2)
                 }
-                Spacer()
-                VStack(alignment: .trailing) {
-                    Text(isActive ? "\(activeTimeMinute)" : "\(timeEntry.totalDuration.minuteToHours)")
-                        .foregroundColor(isActive ? .ShadesofCadetGray.CadetGray500 : .ShadesofCadetGray.CadetGray900)
-                    HStack {
+            }
+            Spacer()
+            VStack(alignment: .trailing) {
+                Text(isActive ? "\(activeTimeMinute)" : "\(timeEntry.totalDuration.minuteToHours)")
+                    .font(.figtree(size: 14, weight: .bold))
+                    .foregroundColor(isActive ? .ShadesofCadetGray.CadetGray500 : .ShadesofCadetGray.CadetGray900)
+                HStack(spacing: 8) {
+                    Button {
+                        Task {
+                            await onDelete(timeEntry.id)
+                        }
+                    } label: {
+                        RoundedButton(image: Image(systemName: "trash"), color:  Color.red)
+                    }
+                    .buttonStyle(.plain)
+                    Button {
+                        Task {
+                            await onEdit(timeEntry.id)
+                        }
+                    } label: {
+                        RoundedButton(image: Image(systemName: "pencil"), color:  Color.ShadesOfTeal.Teal_400)
+                    }
+                    .buttonStyle(.plain)
+                    
+                    if isActive {
                         Button {
                             Task {
-                                await onDelete(timeEntry.id)
+                                await onStop(timeEntry.id)
                             }
                         } label: {
-                            RoundedButton(image: Image(systemName: "trash"), color:  Color.red)
+                            RoundedButton(image: Image("Pause Icon"), color: Color.ShadesOfCoral.Coral500)
                         }
                         .buttonStyle(.plain)
+                    } else if(showRestartButton) {
                         Button {
                             Task {
-                                await onEdit(timeEntry.id)
+                                await onRestart(timeEntry.id)
                             }
                         } label: {
-                            RoundedButton(image: Image(systemName: "pencil"), color:  Color.ShadesOfTeal.Teal_400)
+                            RoundedButton(image: Image(systemName: "play.fill"), color:  Color.ShadesOfTeal.Teal_400)
                         }
                         .buttonStyle(.plain)
-                        
-                        if isActive {
-                            Button {
-                                Task {
-                                    await onStop(timeEntry.id)
-                                }
-                            } label: {
-                                RoundedButton(image: Image("Pause Icon"), color: Color.ShadesOfCoral.Coral500)
-                            }
-                            .buttonStyle(.plain)
-                        } else if(showRestartButton) {
-                            Button {
-                                Task {
-                                    await onRestart(timeEntry.id)
-                                }
-                            } label: {
-                                RoundedButton(image: Image(systemName: "play.fill"), color:  Color.ShadesOfTeal.Teal_400)
-                            }
-                            .buttonStyle(.plain)
-                        }
                     }
                 }
             }
-            .padding(.vertical, 20)
+            .padding(.top, 4)
         }
+        .padding(.bottom, 16)
     }
 }
 
