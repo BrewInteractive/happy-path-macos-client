@@ -13,6 +13,7 @@ import Combine
 enum HappyError: Error {
     case notFoundProject
     case errorFromBackend
+    case updateError
 }
 
 @MainActor
@@ -230,11 +231,8 @@ final class MainScreenViewModel: ObservableObject {
                                                                         endsAt: endsAt)
             
             guard let updatedTimerInfo = updatedTimerInfo,
-                  let updatedTimerId = updatedTimerInfo.id,
-                  let totalDuration = updatedTimerInfo.totalDuration,
-                      totalDuration != 0 else {
-                isNewEntryModalShown = false
-                return
+                  let updatedTimerId = updatedTimerInfo.id else {
+                throw HappyError.updateError
             }
             
             guard let tmpUpdatedTimerIndex = self.timers.firstIndex(where: {$0.id == updatedTimerId}) else {
@@ -246,7 +244,7 @@ final class MainScreenViewModel: ObservableObject {
 
             // update timer in timers data
             self.timers[tmpUpdatedTimerIndex].notes = notes
-            self.timers[tmpUpdatedTimerIndex].totalDuration = totalDuration
+            self.timers[tmpUpdatedTimerIndex].totalDuration = duration
             self.timers[tmpUpdatedTimerIndex].endsAt = updatedTimerInfo.endsAt
             self.timers[tmpUpdatedTimerIndex].startsAt = updatedTimerInfo.startsAt
             HappyLogger.logger.log("Update timer successfully with id: \(editedTimerItemId)")

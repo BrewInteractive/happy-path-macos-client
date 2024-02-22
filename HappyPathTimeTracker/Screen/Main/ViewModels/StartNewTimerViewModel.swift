@@ -109,7 +109,6 @@ final class StartNewTimerViewModel: ObservableObject {
     func logOrUpdateTimer() async {
         guard let mainScreenVm = mainScreenVm else { return }
         if checkIsFormValid() {
-            
             if isEditMode {
                 // because we can't update started timer, send startsAt with endsAt param
                 if let editedTimer = mainScreenVm.getEditedTimer(), editedTimer.startsAt != nil {
@@ -120,7 +119,6 @@ final class StartNewTimerViewModel: ObservableObject {
                                                        notes: notes,
                                                        startsAt: editedTimer.startsAt!,
                                                        endsAt: editedTimer.startsAt!)
-                        HappyLogger.logger.log("Updated timer with id: \(editedTimer.taskId)")
                     }
                 } else {
                     HappyLogger.logger.error("Error occured while updating timer")

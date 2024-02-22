@@ -75,7 +75,6 @@ extension HeaderView {
                 GridRow {
                     VStack {
                         Text("Hours Today")
-//                        Text(mainScreenVm.todayTotalDurationWithActiveTimer)
                         Text("0")
                     }
                     .foregroundColor(.Primary.DarkNight)
@@ -97,7 +96,6 @@ extension HeaderView {
                     VStack {
                         Text("Hours This Week")
                             .foregroundColor(.Primary.DarkNight)
-//                        Text(mainScreenVm.thisWeekDurationWithActiveTimer)
                         Text("0")
                     }
                     .foregroundColor(.Primary.DarkNight)
@@ -107,7 +105,6 @@ extension HeaderView {
                         .frame(maxHeight: .infinity)
                     VStack {
                         Text("Hours This Month")
-//                        Text(mainScreenVm.thisMonthDurationWithActiveTimer)
                         Text("0")
                     }
                     .foregroundColor(.Primary.DarkNight)
@@ -116,8 +113,21 @@ extension HeaderView {
             Divider()
                 .frame(height: 1)
                 .foregroundColor(.accentColor)
-            Text("Version: \(Bundle.main.appVersionLong)")
-                .foregroundColor(.Primary.DarkNight)
+            HStack() {
+                Button(action: {
+                    print("send email")
+                }, label: {
+                    Image(systemName: "envelope")
+                        .resizable()
+                        .frame(width: 16, height: 12)
+                        .foregroundStyle(Color.ShadesOfTeal.Teal_400)
+                })
+                .buttonStyle(.plain)
+                Spacer()
+                Text("Version: \(Bundle.main.appVersionLong)")
+                    .font(.figtree(size: 12))
+                    .foregroundColor(.Primary.DarkNight)
+            }
         }
         .padding()
         .background {
