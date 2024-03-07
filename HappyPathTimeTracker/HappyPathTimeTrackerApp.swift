@@ -21,7 +21,10 @@ struct HappyPathTimeTrackerApp: App {
                     let keychain = KeychainSwift()
                     let token = keychain.get(K.token)
                     if token != nil {
+                        HappyLogger.logger.log("user is authenticated")
                         self.appState.isLoggedIn = true
+                    } else {
+                        HappyLogger.logger.log("user is not authenticated")
                     }
                 }
                 .onReceive(NotificationCenter.default.publisher(for: Notification.Name.loginByMagicLinkNotification)) { token in
