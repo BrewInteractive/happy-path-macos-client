@@ -17,6 +17,7 @@ struct TimeEntry: Identifiable {
     var startsAt: String?
     var endsAt: String?
     let duration: Int?
+    var relations: [String]?
     var totalDuration: Int
     
     var totalDurationAsSeconds: Int {

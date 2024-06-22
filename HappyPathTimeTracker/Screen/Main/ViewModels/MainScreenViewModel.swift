@@ -61,10 +61,11 @@ final class MainScreenViewModel: ObservableObject {
     
     func updateViewModel(appState: AppState) async {
         self.appState = appState
+        HappyLogger.logger.log("update view model is loading true")
         isLoading = true
         await fetchAllData()
         isLoading = false
-        
+        HappyLogger.logger.log("update view model is loading false")
         if timer != nil {
             timer?.invalidate()
             timer = nil
@@ -140,10 +141,12 @@ final class MainScreenViewModel: ObservableObject {
     }
     
     func getJustTimers(date: Date) async {
+        HappyLogger.logger.log("getJustTimers is loading true")
         isLoading = true
         await getTimers(date: date)
         await getStats()
         isLoading = false
+        HappyLogger.logger.log("getJustTimers is loading false")
     }
     
     func getTasks(projectId: Int) async {
@@ -161,12 +164,15 @@ final class MainScreenViewModel: ObservableObject {
     }
     
     func refetch(date: Date) async {
+        HappyLogger.logger.log("refetch is loading true")
         isLoading = true
         await fetchAllData()
         isLoading = false
+        HappyLogger.logger.log("refetch is loading false")
     }
     
-    func logTimer(projectId: Int, projectTaskId: Int, duration: Int, notes: String, date: Date) async {
+    func logTimer(projectId: Int, projectTaskId: Int, duration: Int, notes: String, date: Date, relations: [String]?) async {
+        HappyLogger.logger.log("logTimer is loading true")
         isLoading = true
         
         // the 2 lines below, try to show a demand time with current second
@@ -175,10 +181,11 @@ final class MainScreenViewModel: ObservableObject {
         
         do {
             let loggedTimerInfo = try await networkManager.logTimer(graphqlClient: appState?.graphqlClient,
-                                              projectTaskId: projectTaskId,
-                                              duration: duration,
-                                              notes: notes,
-                                              date: loggedDate)
+                                                                    projectTaskId: projectTaskId,
+                                                                    duration: duration,
+                                                                    notes: notes,
+                                                                    date: loggedDate,
+                                                                    relations: relations)
             guard let loggedTimerId = loggedTimerInfo?.id, let loggedStartsAt = loggedTimerInfo?.startsAt else {
                 return
             }
@@ -188,15 +195,16 @@ final class MainScreenViewModel: ObservableObject {
             }
             
             let tmpNewTimer = TimeEntry(id: Int(loggedTimerId)!,
-                      projectId: projectId,
-                      projectName: project.name,
-                      taskId: projectTaskId,
-                      taskName: task.name,
-                      notes: notes,
-                      startsAt: loggedStartsAt,
-                      endsAt: loggedTimerInfo?.endsAt,
-                      duration: duration,
-                      totalDuration: duration)
+                                        projectId: projectId,
+                                        projectName: project.name,
+                                        taskId: projectTaskId,
+                                        taskName: task.name,
+                                        notes: notes,
+                                        startsAt: loggedStartsAt,
+                                        endsAt: loggedTimerInfo?.endsAt,
+                                        duration: duration,
+                                        relations: relations,
+                                        totalDuration: duration)
             self.timers.append(tmpNewTimer)
             try? await Task.sleep(for: .seconds(1))
             await self.getStats()
@@ -208,18 +216,20 @@ final class MainScreenViewModel: ObservableObject {
         
         isLoading = false
         isNewEntryModalShown = false
+        HappyLogger.logger.log("logTimer is loading false")
     }
     
     func updateTimer(projectTaskId: Int,
                      duration: Int,
                      notes: String,
                      startsAt: String,
-                     endsAt: String) async {
+                     endsAt: String,
+                     relations: [String]?) async {
         
         guard let editedTimerItemId = editedTimerItemId else {
             return
         }
-        
+        HappyLogger.logger.log("updateTimer is loading true")
         isLoading = true
         do {
             let updatedTimerInfo = try await networkManager.updateTimer(graphqlClient: appState?.graphqlClient,
@@ -228,7 +238,8 @@ final class MainScreenViewModel: ObservableObject {
                                                                         duration: duration,
                                                                         notes: notes,
                                                                         startsAt: startsAt,
-                                                                        endsAt: endsAt)
+                                                                        endsAt: endsAt,
+                                                                        relations: relations)
             
             guard let updatedTimerInfo = updatedTimerInfo,
                   let updatedTimerId = updatedTimerInfo.id else {
@@ -247,6 +258,7 @@ final class MainScreenViewModel: ObservableObject {
             self.timers[tmpUpdatedTimerIndex].totalDuration = duration
             self.timers[tmpUpdatedTimerIndex].endsAt = updatedTimerInfo.endsAt
             self.timers[tmpUpdatedTimerIndex].startsAt = updatedTimerInfo.startsAt
+            self.timers[tmpUpdatedTimerIndex].relations = relations
             HappyLogger.logger.log("Update timer successfully with id: \(editedTimerItemId)")
         } catch {
             HappyLogger.logger.error("Error occured while updating Timer with id: \(editedTimerItemId)")
@@ -254,9 +266,11 @@ final class MainScreenViewModel: ObservableObject {
         }
         isLoading = false
         isNewEntryModalShown = false
+        HappyLogger.logger.log("updateTimer is loading false")
     }
     
     func removeTimer(id: Int, selectedDate: Date) async {
+        HappyLogger.logger.log("removeTimer is loading true")
         isLoading = true
         do {
             let removedTimerId = try await networkManager.removeTimer(graphqlClient: appState?.graphqlClient, id: id, selectedDate: selectedDate)
@@ -274,14 +288,17 @@ final class MainScreenViewModel: ObservableObject {
             self.parseError(for: error)
         }
         isLoading = false
+        HappyLogger.logger.log("removeTimer is loading false")
     }
     
-    func startTimer(projectId: Int, projectTaskId: Int, notes: String) async {
+    func startTimer(projectId: Int, projectTaskId: Int, notes: String, relations: [String]?) async {
+        HappyLogger.logger.log("startTimer is loading true")
         isLoading = true
         do {
             let startedTimerInfo = try await networkManager.startTimer(graphqlClient: appState?.graphqlClient,
-                                                projectTaskId: projectTaskId,
-                                                notes: notes)
+                                                                       projectTaskId: projectTaskId,
+                                                                       notes: notes,
+                                                                       relations: nil)
             guard let startedTimerId = startedTimerInfo?.id,
                   let task = self.tasks.first(where: {$0.id == projectTaskId}),
                   let project = self.projects.first(where: {$0.id == projectId}) else {
@@ -296,6 +313,7 @@ final class MainScreenViewModel: ObservableObject {
                                             startsAt: startedTimerInfo?.startsAt ?? Date().toISO(),
                                             endsAt: startedTimerInfo?.endsAt,
                                             duration: 0,
+                                            relations: relations,
                                             totalDuration: 0)
             self.timers.append(tmpStartedTimer)
             HappyLogger.logger.log("Start timer successfully with id: \(startedTimerId)")
@@ -305,9 +323,11 @@ final class MainScreenViewModel: ObservableObject {
         }
         isNewEntryModalShown = false
         isLoading = false
+        HappyLogger.logger.log("startTimer is loading false")
     }
     
     func stopTimer(for id: Int) async {
+        HappyLogger.logger.log("stopTimer is loading true")
         isLoading = true
         do {
             let stoppedTimerInfo = try await networkManager.stopTimer(graphqlClient: appState?.graphqlClient, for: id)
@@ -331,9 +351,11 @@ final class MainScreenViewModel: ObservableObject {
             self.parseError(for: error)
         }
         isLoading = false
+        HappyLogger.logger.log("stopTimer is loading false")
     }
     
     func restartTimer(for id: Int) async {
+        HappyLogger.logger.log("restartTimer is loading true")
         isLoading = true
         do {
             let restartedTimerInfo = try await networkManager.restartTimer(graphqlClient: appState?.graphqlClient, for: id)
@@ -353,6 +375,7 @@ final class MainScreenViewModel: ObservableObject {
         }
         
         isLoading = false
+        HappyLogger.logger.log("restartTimer is loading false")
     }
     
     func getTotalDurationMinuteOfDayAsString(date: Date) -> String {
@@ -360,6 +383,10 @@ final class MainScreenViewModel: ObservableObject {
     }
     
     private func fetchAllData() async {
+        if appState?.graphqlClient == nil {
+            HappyLogger.logger.log("fetch all data graphql client nil")
+            return
+        }
         do {
             async let tmpProjects = networkManager.fetchProjects(graphqlClient: appState?.graphqlClient)
             async let tmpTimers: () = self.getTimers(date: selectedDate)
@@ -372,6 +399,10 @@ final class MainScreenViewModel: ObservableObject {
         } catch {
             HappyLogger.logger.error("Error occured while fetching all data")
             self.parseError(for: error)
+            DispatchQueue.main.async {
+                self.timer?.invalidate()
+                self.timer = nil
+            }
         }
     }
     

@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import KeychainSwift
 
 struct LoginScreen: View {
     @Environment(\.openURL) var openURL
+    @State private var token: String = ""
     
     var body: some View {
         VStack {
@@ -17,6 +19,13 @@ struct LoginScreen: View {
             } label: {
                 Text("Please Login")
             }
+            Spacer()
+            TextField("", text: $token)
+        }
+        .onAppear {
+            let keychain = KeychainSwift()
+            let kToken = keychain.get(K.token)
+            token = kToken ?? ""
         }
     }
 }

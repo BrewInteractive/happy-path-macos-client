@@ -37,7 +37,7 @@
         }
     },
     "headers": {
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdvcmtlbXNAYnJld3d3LmNvbSIsImlhdCI6MTY4OTgzNjYyOSwiZXhwIjoxNjkyNDI4NjI5fQ.Er2M7itsijr2QRQCOWQlrEId_uDSg5BGTbw3XZ8ZSsw"
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdvcmtlbXNAYnJld3d3LmNvbSIsImlhdCI6MTcxODk2MDAzNCwiZXhwIjoxNzIxNTUyMDM0fQ.Kmh2c1i-wu3DhuzJdc8ESnNHXG0WyBweVRJvZCCj5BQ"
     },
     "outputPath": "./directus-schema.graphqls"
   }

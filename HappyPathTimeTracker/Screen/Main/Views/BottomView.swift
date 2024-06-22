@@ -35,15 +35,6 @@ struct BottomView: View {
                     }
                 }
                 .buttonStyle(.plain)
-//                .popover(isPresented: $isShown) {
-//                    NewTimeEntryView(selectedDate: selectedDate)
-//                        .environmentObject(mainScreenVm)
-//                        .background {
-//                            Color.Primary.RealWhite
-//                                .padding(-80)
-//                        }
-//                        .border(Color.ShadesofCadetGray.CadetGray200)
-//                }
                 .sync($mainScreenVm.isNewEntryModalShown, with: $isShown)
             }
             Spacer()

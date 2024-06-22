@@ -12,11 +12,11 @@ import SwiftDate
 import AppKit
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
     // will run with deeplink
     func application(_ application: NSApplication, open urls: [URL]) {
         let components = URLComponents(url: urls[0], resolvingAgainstBaseURL: false)
         let token = components?.queryItems?.first(where: {$0.name == "token"})?.value
+        print("token from url: ", token)
         HappyLogger.logger.log("token: \(token?.debugDescription ?? "no-token")")
         if let tokenData = token?.data(using: .utf8) {
             if let encodedToken = Data(base64Encoded: tokenData) {
@@ -27,6 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         HappyLogger.logger.log("setting token")
                         keychain.set(tokenString, forKey: K.token)
                     }
+                    HappyLogger.logger.log("sharing token")
                     NotificationCenter.default.post(name: Notification.Name.loginByMagicLinkNotification, object: tokenString)
                 }
             }

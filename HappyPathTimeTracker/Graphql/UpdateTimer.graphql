@@ -1,7 +1,7 @@
-mutation UpdateTimer($timerId: Int!, $duration: Int, $startsAt: String, $endsAt: String, $notes: String) {
+mutation UpdateTimer($timerId: Int!, $duration: Int, $startsAt: String, $endsAt: String, $notes: String, $relations: [String]) {
     update(
         timerId: $timerId
-        input: {duration: $duration, startsAt: $startsAt, endsAt: $endsAt, notes: $notes}
+        input: {duration: $duration, startsAt: $startsAt, endsAt: $endsAt, notes: $notes, relations: $relations}
     ) {
         id
         startsAt

@@ -4,7 +4,7 @@
 import ApolloAPI
 
 public extension Objects {
-  static let Restart = Object(
+  static let Restart = ApolloAPI.Object(
     typename: "Restart",
     implementedInterfaces: []
   )

@@ -16,10 +16,10 @@ protocol NetworkSource {
     func fetchProjects(graphqlClient: GraphqlClient?) async throws -> [Project]?
     func fetchTimers(graphqlClient: GraphqlClient?, date: Date) async throws -> [TimeEntry]?
     func fetchTasks(graphqlClient: GraphqlClient?, projectId: Int) async throws -> [ProjectTask]?
-    func logTimer(graphqlClient: GraphqlClient?, projectTaskId: Int, duration: Int, notes: String, date: Date) async throws -> LogTimerMutation.Data.Log?
-    func updateTimer(graphqlClient: GraphqlClient?, editedTimerItemId: Int, projectTaskId: Int, duration: Int, notes: String, startsAt: String, endsAt: String) async throws -> UpdateTimerMutation.Data.Update?
+    func logTimer(graphqlClient: GraphqlClient?, projectTaskId: Int, duration: Int, notes: String, date: Date, relations: [String]?) async throws -> LogTimerMutation.Data.Log?
+    func updateTimer(graphqlClient: GraphqlClient?, editedTimerItemId: Int, projectTaskId: Int, duration: Int, notes: String, startsAt: String, endsAt: String, relations: [String]?) async throws -> UpdateTimerMutation.Data.Update?
     func removeTimer(graphqlClient: GraphqlClient?, id: Int, selectedDate: Date) async throws -> Int?
-    func startTimer(graphqlClient: GraphqlClient?, projectTaskId: Int, notes: String) async throws -> StartTimerMutation.Data.Start?
+    func startTimer(graphqlClient: GraphqlClient?, projectTaskId: Int, notes: String, relations: [String]?) async throws -> StartTimerMutation.Data.Start?
     func stopTimer(graphqlClient: GraphqlClient?, for id: Int) async throws -> StopTimerMutation.Data.Stop?
     func restartTimer(graphqlClient: GraphqlClient?, for id: Int) async throws -> RestartTimerMutation.Data.Restart?
 }
@@ -27,6 +27,10 @@ protocol NetworkSource {
 final class NetworkManager: NetworkSource {
     
     func me(graphqlClient: GraphqlClient?) async throws -> MeQuery.Data.Me? {
+        if graphqlClient == nil {
+            HappyLogger.logger.log("me request graphql client nil")
+            return nil
+        }
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?.fetch(query: MeQuery(), cachePolicy: .fetchIgnoringCacheData) { result in
                 switch result {
@@ -44,6 +48,10 @@ final class NetworkManager: NetworkSource {
     }
     
     func fetchStats(graphqlClient: GraphqlClient?, date: Date) async throws -> Stats? {
+        if graphqlClient == nil {
+            HappyLogger.logger.log("fetch stats request graphql client nil")
+            return nil
+        }
         let statsDate: String = DateInRegion(date).toFormat("YYYY-MM-dd")
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?.fetch(query: StatsQuery(date: statsDate), cachePolicy: .fetchIgnoringCacheData) { [weak self] result in
@@ -63,6 +71,10 @@ final class NetworkManager: NetworkSource {
     }
     
     func fetchProjects(graphqlClient: GraphqlClient? = nil) async throws -> [Project]? {
+        if graphqlClient == nil {
+            HappyLogger.logger.log("fetch projects request graphql client nil")
+            return nil
+        }
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?.fetch(query: GetProjectsQuery(), cachePolicy: .fetchIgnoringCacheData) { [weak self] result in
                 switch result {
@@ -81,6 +93,10 @@ final class NetworkManager: NetworkSource {
     }
     
     func fetchTimers(graphqlClient: GraphqlClient?, date: Date) async throws -> [TimeEntry]? {
+        if graphqlClient == nil {
+            HappyLogger.logger.log("fetch timers request graphql client nil")
+            return nil
+        }
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?
                 .fetch(query: GetTimersQuery(startsAt: date.startOfDayISO, endsAt: date.endOfDayISO), cachePolicy: .fetchIgnoringCacheData) { [weak self] result in
@@ -100,6 +116,10 @@ final class NetworkManager: NetworkSource {
     }
     
     func fetchTasks(graphqlClient: GraphqlClient?, projectId: Int) async throws -> [ProjectTask]? {
+        if graphqlClient == nil {
+            HappyLogger.logger.log("fetch tasks request graphql client nil")
+            return nil
+        }
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?
                 .fetch(query: GetTasksQuery(projectId: projectId), cachePolicy: .fetchIgnoringCacheData) { [weak self] result in
@@ -118,14 +138,19 @@ final class NetworkManager: NetworkSource {
         })
     }
     
-    func logTimer(graphqlClient: GraphqlClient?, projectTaskId: Int, duration: Int, notes: String, date: Date) async throws -> LogTimerMutation.Data.Log? {
+    func logTimer(graphqlClient: GraphqlClient?, projectTaskId: Int, duration: Int, notes: String, date: Date, relations: [String]?) async throws -> LogTimerMutation.Data.Log? {
+        if graphqlClient == nil {
+            HappyLogger.logger.log("log timer request graphql client nil")
+            return nil
+        }
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?
                 .perform(mutation: LogTimerMutation(projectTaskId: projectTaskId,
                                                     duration: duration,
                                                     notes: notes,
                                                     startsAt: date.toISO(),
-                                                    endsAt: date.toISO())) { result in
+                                                    endsAt: date.toISO(),
+                                                    relations: relations != nil ? .some(relations!) : .none)) { result in
                     switch result {
                     case .success(let res):
                         if res.data != nil {
@@ -146,14 +171,20 @@ final class NetworkManager: NetworkSource {
                      duration: Int,
                      notes: String,
                      startsAt: String,
-                     endsAt: String) async throws -> UpdateTimerMutation.Data.Update? {
+                     endsAt: String,
+                     relations: [String]?) async throws -> UpdateTimerMutation.Data.Update? {
+        if graphqlClient == nil {
+            HappyLogger.logger.log("update timer request graphql client nil")
+            return nil
+        }
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?
                 .perform(mutation: UpdateTimerMutation(timerId: editedTimerItemId,
                                                        duration: .some(duration),
                                                        startsAt: .some(startsAt),
                                                        endsAt: .some(endsAt),
-                                                       notes: .some(notes))) { result in
+                                                       notes: .some(notes),
+                                                       relations: relations != nil ? .some(relations!) : .none)) { result in
                     switch result {
                     case .success(let res):
                         if res.data != nil {
@@ -169,6 +200,10 @@ final class NetworkManager: NetworkSource {
     }
     
     func removeTimer(graphqlClient: GraphqlClient?, id: Int, selectedDate: Date) async throws -> Int? {
+        if graphqlClient == nil {
+            HappyLogger.logger.log("remove timer request graphql client nil")
+            return nil
+        }
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?.client?
                 .perform(mutation: RemoveTimerMutation(removeId: id)) { result in
@@ -186,13 +221,19 @@ final class NetworkManager: NetworkSource {
         })
     }
     
-    func startTimer(graphqlClient: GraphqlClient?, projectTaskId: Int, notes: String) async throws -> StartTimerMutation.Data.Start? {
+    func startTimer(graphqlClient: GraphqlClient?, projectTaskId: Int, notes: String, relations: [String]?) async throws -> StartTimerMutation.Data.Start? {
+        if graphqlClient == nil {
+            HappyLogger.logger.log("start timer request graphql client nil")
+            return nil
+        }
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?
                 .client?
                 .perform(mutation: StartTimerMutation(projectTaskId: projectTaskId,
                                                       duration: .some(0),
-                                                      notes: .some(notes)), resultHandler: { result in
+                                                      notes: .some(notes),
+                                                      relations: relations != nil ? .some(relations!) : .none),
+                         resultHandler: { result in
                     switch result {
                     case .success(let res):
                         if res.data != nil {
@@ -208,6 +249,10 @@ final class NetworkManager: NetworkSource {
     }
     
     func stopTimer(graphqlClient: GraphqlClient?, for id: Int) async throws -> StopTimerMutation.Data.Stop? {
+        if graphqlClient == nil {
+            HappyLogger.logger.log("stop timer request graphql client nil")
+            return nil
+        }
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?
                 .client?
@@ -227,6 +272,10 @@ final class NetworkManager: NetworkSource {
     }
     
     func restartTimer(graphqlClient: GraphqlClient?, for id: Int) async throws -> RestartTimerMutation.Data.Restart? {
+        if graphqlClient == nil {
+            HappyLogger.logger.log("restart timer request graphql client nil")
+            return nil
+        }
         return try await withCheckedThrowingContinuation({ continuation in
             graphqlClient?
                 .client?
@@ -275,27 +324,27 @@ final class NetworkManager: NetworkSource {
             return partialResult + statsByDate.totalDuration
         }
         let weeklyInterval = StatsByInterval(type: "weekly",
-                        startsAt: Date().dateAtStartOf(.weekday).startOfDayISO,
-                        endsAt: Date().dateAtEndOf(.weekday).endOfDayISO,
-                        totalDuration: weeklyIntervalTotalDuration)
+                                             startsAt: Date().dateAtStartOf(.weekday).startOfDayISO,
+                                             endsAt: Date().dateAtEndOf(.weekday).endOfDayISO,
+                                             totalDuration: weeklyIntervalTotalDuration)
         
         tmpStatByInterval.append(weeklyInterval)
         
         // calculate daily interval
         let dailyIntervalTotalDuration = tmpStatByDate.first(where: {$0.date.toDate()?.dateAtStartOf(.day).toISO() == Date().startOfDayISO})?.totalDuration ?? 0
         let dailyInterval = StatsByInterval(type: "daily",
-                        startsAt: Date().startOfDayISO,
-                        endsAt: Date().endOfDayISO,
-                        totalDuration: dailyIntervalTotalDuration)
+                                            startsAt: Date().startOfDayISO,
+                                            endsAt: Date().endOfDayISO,
+                                            totalDuration: dailyIntervalTotalDuration)
         
         tmpStatByInterval.append(dailyInterval)
         
         // calculate previous daily interval
         let yesterdayDailyIntervalTotalDuration = tmpStatByDate.first(where: {$0.date.toDate()?.dateAtStartOf(.day).toISO() == Date().dateByAdding(-1, .day).date.startOfDayISO})?.totalDuration ?? 0
         let yesterdayDailyInterval = StatsByInterval(type: "yesterday",
-                        startsAt: Date().startOfDayISO,
-                        endsAt: Date().endOfDayISO,
-                        totalDuration: yesterdayDailyIntervalTotalDuration)
+                                                     startsAt: Date().startOfDayISO,
+                                                     endsAt: Date().endOfDayISO,
+                                                     totalDuration: yesterdayDailyIntervalTotalDuration)
         
         tmpStatByInterval.append(yesterdayDailyInterval)
         
@@ -331,6 +380,7 @@ final class NetworkManager: NetworkSource {
                              startsAt: startsAt,
                              endsAt: timer.endsAt,
                              duration: timer.duration,
+                             relations: timer.relations?.compactMap { $0 },
                              totalDuration: timer.totalDuration ?? 0)
         }) ?? []
     }

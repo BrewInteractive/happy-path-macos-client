@@ -4,7 +4,7 @@
 import ApolloAPI
 
 public extension Objects {
-  static let ByInterval = Object(
+  static let ByInterval = ApolloAPI.Object(
     typename: "ByInterval",
     implementedInterfaces: []
   )

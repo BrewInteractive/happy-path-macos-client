@@ -7,7 +7,7 @@ public class GetTimersQuery: GraphQLQuery {
   public static let operationName: String = "getTimers"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query getTimers($startsAt: String!, $endsAt: String!) { timers(startsAt: $startsAt, endsAt: $endsAt) { __typename id endsAt startsAt duration totalDuration task { __typename id name } project { __typename id name } notes } }"#
+      #"query getTimers($startsAt: String!, $endsAt: String!) { timers(startsAt: $startsAt, endsAt: $endsAt) { __typename id endsAt startsAt duration totalDuration relations task { __typename id name } project { __typename id name } notes } }"#
     ))
 
   public var startsAt: String
@@ -55,6 +55,7 @@ public class GetTimersQuery: GraphQLQuery {
         .field("startsAt", String?.self),
         .field("duration", Int?.self),
         .field("totalDuration", Int?.self),
+        .field("relations", [String?]?.self),
         .field("task", Task?.self),
         .field("project", Project?.self),
         .field("notes", String?.self),
@@ -65,6 +66,7 @@ public class GetTimersQuery: GraphQLQuery {
       public var startsAt: String? { __data["startsAt"] }
       public var duration: Int? { __data["duration"] }
       public var totalDuration: Int? { __data["totalDuration"] }
+      public var relations: [String?]? { __data["relations"] }
       public var task: Task? { __data["task"] }
       public var project: Project? { __data["project"] }
       public var notes: String? { __data["notes"] }

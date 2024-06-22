@@ -7,27 +7,31 @@ public class StartTimerMutation: GraphQLMutation {
   public static let operationName: String = "StartTimer"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation StartTimer($projectTaskId: Int!, $duration: Int, $notes: String) { start(projectTaskId: $projectTaskId, duration: $duration, notes: $notes) { __typename id startsAt endsAt duration } }"#
+      #"mutation StartTimer($projectTaskId: Int!, $duration: Int, $notes: String, $relations: [String]) { start( projectTaskId: $projectTaskId duration: $duration notes: $notes relations: $relations ) { __typename id startsAt endsAt duration } }"#
     ))
 
   public var projectTaskId: Int
   public var duration: GraphQLNullable<Int>
   public var notes: GraphQLNullable<String>
+  public var relations: GraphQLNullable<[String?]>
 
   public init(
     projectTaskId: Int,
     duration: GraphQLNullable<Int>,
-    notes: GraphQLNullable<String>
+    notes: GraphQLNullable<String>,
+    relations: GraphQLNullable<[String?]>
   ) {
     self.projectTaskId = projectTaskId
     self.duration = duration
     self.notes = notes
+    self.relations = relations
   }
 
   public var __variables: Variables? { [
     "projectTaskId": projectTaskId,
     "duration": duration,
-    "notes": notes
+    "notes": notes,
+    "relations": relations
   ] }
 
   public struct Data: DirectusGraphql.SelectionSet {
@@ -39,7 +43,8 @@ public class StartTimerMutation: GraphQLMutation {
       .field("start", Start?.self, arguments: [
         "projectTaskId": .variable("projectTaskId"),
         "duration": .variable("duration"),
-        "notes": .variable("notes")
+        "notes": .variable("notes"),
+        "relations": .variable("relations")
       ]),
     ] }
 

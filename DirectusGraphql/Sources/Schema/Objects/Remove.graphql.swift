@@ -4,7 +4,7 @@
 import ApolloAPI
 
 public extension Objects {
-  static let Remove = Object(
+  static let Remove = ApolloAPI.Object(
     typename: "Remove",
     implementedInterfaces: []
   )

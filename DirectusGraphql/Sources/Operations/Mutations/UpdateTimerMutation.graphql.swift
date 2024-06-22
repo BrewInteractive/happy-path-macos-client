@@ -7,7 +7,7 @@ public class UpdateTimerMutation: GraphQLMutation {
   public static let operationName: String = "UpdateTimer"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation UpdateTimer($timerId: Int!, $duration: Int, $startsAt: String, $endsAt: String, $notes: String) { update( timerId: $timerId input: {duration: $duration, startsAt: $startsAt, endsAt: $endsAt, notes: $notes} ) { __typename id startsAt endsAt totalDuration } }"#
+      #"mutation UpdateTimer($timerId: Int!, $duration: Int, $startsAt: String, $endsAt: String, $notes: String, $relations: [String]) { update( timerId: $timerId input: { duration: $duration startsAt: $startsAt endsAt: $endsAt notes: $notes relations: $relations } ) { __typename id startsAt endsAt totalDuration } }"#
     ))
 
   public var timerId: Int
@@ -15,19 +15,22 @@ public class UpdateTimerMutation: GraphQLMutation {
   public var startsAt: GraphQLNullable<String>
   public var endsAt: GraphQLNullable<String>
   public var notes: GraphQLNullable<String>
+  public var relations: GraphQLNullable<[String?]>
 
   public init(
     timerId: Int,
     duration: GraphQLNullable<Int>,
     startsAt: GraphQLNullable<String>,
     endsAt: GraphQLNullable<String>,
-    notes: GraphQLNullable<String>
+    notes: GraphQLNullable<String>,
+    relations: GraphQLNullable<[String?]>
   ) {
     self.timerId = timerId
     self.duration = duration
     self.startsAt = startsAt
     self.endsAt = endsAt
     self.notes = notes
+    self.relations = relations
   }
 
   public var __variables: Variables? { [
@@ -35,7 +38,8 @@ public class UpdateTimerMutation: GraphQLMutation {
     "duration": duration,
     "startsAt": startsAt,
     "endsAt": endsAt,
-    "notes": notes
+    "notes": notes,
+    "relations": relations
   ] }
 
   public struct Data: DirectusGraphql.SelectionSet {
@@ -50,7 +54,8 @@ public class UpdateTimerMutation: GraphQLMutation {
           "duration": .variable("duration"),
           "startsAt": .variable("startsAt"),
           "endsAt": .variable("endsAt"),
-          "notes": .variable("notes")
+          "notes": .variable("notes"),
+          "relations": .variable("relations")
         ]
       ]),
     ] }

@@ -1,10 +1,11 @@
-mutation LogTimer($projectTaskId: Int!, $duration: Int!, $notes: String!, $startsAt: String!, $endsAt: String!) {
+mutation LogTimer($projectTaskId: Int!, $duration: Int!, $notes: String!, $startsAt: String!, $endsAt: String!, $relations: [String]) {
     log(
         projectTaskId: $projectTaskId
         duration: $duration
         notes: $notes
         startsAt: $startsAt
         endsAt: $endsAt
+        relations: $relations
     ) {
         id
         startsAt

@@ -3,12 +3,21 @@ A directive used by the Apollo iOS client to annotate operations or fragments th
 """
 directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
 
+"""
+A directive used by the Apollo iOS code generation engine to generate custom import statements in operation or fragment definition files. An import statement to import a module with the name provided in the `module` argument will be added to the generated definition file.
+"""
+directive @import(
+  """The name of the module to import."""
+  module: String!
+) repeatable on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
+
 type Query {
   me: Me
   timers(startsAt: String!, endsAt: String!): [Timers]
   projects: [Projects]
   tasks(projectId: Int!): [Tasks]
   stats(date: String!): Stats
+  timer(id: Int): Timer
 }
 
 type Me {
@@ -22,6 +31,7 @@ type Timers {
   duration: Int
   totalDuration: Int
   notes: String
+  relations: [String]
   project: Project
   task: Task
 }
@@ -63,10 +73,20 @@ type ByInterval {
   totalDuration: Int
 }
 
+type Timer {
+  id: Int
+  startsAt: String
+  endsAt: String
+  duration: Int
+  totalDuration: Int
+  notes: String
+  relations: [String]
+}
+
 type Mutation {
-  start(projectTaskId: Int!, duration: Int, notes: String): Start
+  start(projectTaskId: Int!, duration: Int, notes: String, relations: [String]): Start
   stop(timerId: Int!): Stop
-  log(projectTaskId: Int!, duration: Int, notes: String, startsAt: String, endsAt: String): Log
+  log(projectTaskId: Int!, duration: Int, notes: String, relations: [String], startsAt: String, endsAt: String): Log
   remove(timerId: Int!): Remove
   update(timerId: Int!, input: Input): Update
   restart(timerId: Int!): Restart
@@ -110,6 +130,7 @@ input Input {
   startsAt: String
   endsAt: String
   notes: String
+  relations: [String]
 }
 
 type Restart {

@@ -7,6 +7,7 @@ query getTimers($startsAt: String!, $endsAt: String!) {
         startsAt,
         duration,
         totalDuration,
+        relations,
         task {
             id,
             name

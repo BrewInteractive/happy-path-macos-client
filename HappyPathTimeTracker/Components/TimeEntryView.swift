@@ -22,6 +22,8 @@ let tasksBackground: [Int:Color] = [
     135: Color.ShadesOfNonPhotoBlue.NonPhotoBlue300,
 ]
 
+let RELATED_LINKS_LIMIT = 2
+
 struct TimeEntryView: View {
     let timeEntry: TimeEntry
     let isHovered: Bool
@@ -36,19 +38,6 @@ struct TimeEntryView: View {
     }
     
     var activeTimeMinute: String {
-//        if let startedDate = timeEntry.startsAt, let date = timeEntry.startsAt?.toISODate()?.date {
-//            let now = Date.now
-//            let diffM =  now.difference(in: .minute, from: date) ?? 0
-//            let diffH =  now.difference(in: .hour, from: date) ?? 0
-//            let durationH = (timeEntry.duration ?? 0) / 60
-//            let durationM = (timeEntry.duration ?? 0) - durationH * 60
-//            let totalH = diffH + durationH
-//            let totalM = diffM + durationM
-//            let h = String(format: "%02d", totalH)
-//            let m = String(format: "%02d", totalM)
-//            return "\(h):\(m)"
-//        }
-        
         let totalDurationH = timeEntry.totalDuration / 60
         let totalDurationM = timeEntry.totalDuration - (60 * totalDurationH)
         
@@ -73,6 +62,20 @@ struct TimeEntryView: View {
                         .font(.figtree(size: 12))
                         .foregroundColor(.G.G_959595)
                         .lineLimit(2)
+                }
+                if timeEntry.relations != nil {
+                    ForEach(timeEntry.relations!.prefix(RELATED_LINKS_LIMIT).indices, id: \.self) { index in
+                        HStack(spacing: 2) {
+                            Circle()
+                                .foregroundColor(.blue)
+                                .frame(width: 4, height: 4)
+                            Link(timeEntry.relations![index].lowercased(), destination: URL(string: timeEntry.relations![index])!)
+                            if index == RELATED_LINKS_LIMIT - 1 {
+                                Text("...")
+                                    .foregroundStyle(Color.ShadesOfTeal.Teal_400)
+                            }
+                        }
+                    }
                 }
                 Spacer()
             }
@@ -137,6 +140,7 @@ struct TimeEntryView_Previews: PreviewProvider {
                                        startsAt: Date().toISO(),
                                        endsAt: nil,
                                        duration: 0,
+                                       relations: nil,
                                        totalDuration: 123), isHovered: true) { id in
             print("start")
         } onEdit: { id in

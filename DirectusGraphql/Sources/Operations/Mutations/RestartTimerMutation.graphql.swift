@@ -7,7 +7,7 @@ public class RestartTimerMutation: GraphQLMutation {
   public static let operationName: String = "RestartTimer"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation RestartTimer($timerId: Int!) { restart(timerId: $timerId) { __typename id startsAt totalDuration } }"#
+      #"mutation RestartTimer($timerId: Int!) { restart(timerId: $timerId) { __typename id } }"#
     ))
 
   public var timerId: Int
@@ -40,13 +40,9 @@ public class RestartTimerMutation: GraphQLMutation {
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", Int?.self),
-        .field("startsAt", String?.self),
-        .field("totalDuration", Int?.self),
       ] }
 
       public var id: Int? { __data["id"] }
-      public var startsAt: String? { __data["startsAt"] }
-      public var totalDuration: Int? { __data["totalDuration"] }
     }
   }
 }

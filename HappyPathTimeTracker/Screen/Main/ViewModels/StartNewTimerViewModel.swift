@@ -17,6 +17,7 @@ final class StartNewTimerViewModel: ObservableObject {
     @Published var selectedProjectId: Int? = nil
     @Published var selectedTaskId: Int? = nil
     @Published var notes: String = ""
+    @Published var relatedLinks: [String] = []
     @Published var duration: Date = .nowAt(.startOfDay)
     @Published var isErrorShown = false
     
@@ -27,6 +28,7 @@ final class StartNewTimerViewModel: ObservableObject {
             _selectedProjectId = Published(wrappedValue: selectedTimerEntry!.projectId)
             _selectedTaskId = Published(wrappedValue: selectedTimerEntry!.taskId)
             _notes = Published(wrappedValue: selectedTimerEntry!.notes)
+            _relatedLinks = Published(wrappedValue: selectedTimerEntry!.relations ?? [])
             
             let durationHour = selectedTimerEntry!.totalDuration / 60
             let durationMinute = selectedTimerEntry!.totalDuration - durationHour * 60
@@ -80,6 +82,16 @@ final class StartNewTimerViewModel: ObservableObject {
         await mainScreenVm?.getTasks(projectId: item.id)
     }
     
+    func addToRelatedLinks(_ link: String) {
+        //TODO: check link is real url
+        //TODO: check is link added before
+        self.relatedLinks.append(link)
+    }
+    
+    func removeRelatedLink(_ link: String) {
+        self.relatedLinks.removeAll(where: {$0 == link})
+    }
+    
     func checkIsFormValid() -> Bool {
         if notes.isEmpty {
             isErrorShown = true
@@ -109,6 +121,7 @@ final class StartNewTimerViewModel: ObservableObject {
     func logOrUpdateTimer() async {
         guard let mainScreenVm = mainScreenVm else { return }
         if checkIsFormValid() {
+            print("relatedLinks: ", relatedLinks)
             if isEditMode {
                 // because we can't update started timer, send startsAt with endsAt param
                 if let editedTimer = mainScreenVm.getEditedTimer(), editedTimer.startsAt != nil {
@@ -118,7 +131,8 @@ final class StartNewTimerViewModel: ObservableObject {
                                                        duration: totalDurationAsMinute,
                                                        notes: notes,
                                                        startsAt: editedTimer.startsAt!,
-                                                       endsAt: editedTimer.startsAt!)
+                                                       endsAt: editedTimer.startsAt!,
+                                                       relations: relatedLinks)
                     }
                 } else {
                     HappyLogger.logger.error("Error occured while updating timer")
@@ -128,7 +142,8 @@ final class StartNewTimerViewModel: ObservableObject {
                     Task {
                         await mainScreenVm.startTimer(projectId: selectedProjectId!,
                                                       projectTaskId: selectedTaskId!,
-                                                      notes: notes)
+                                                      notes: notes,
+                                                      relations: relatedLinks)
                         HappyLogger.logger.log("Started a new timer with project id: \(self.selectedProjectId!) and task id: \(self.selectedTaskId!)")
                     }
                 } else {
@@ -138,7 +153,8 @@ final class StartNewTimerViewModel: ObservableObject {
                                                     projectTaskId: selectedTaskId!,
                                                     duration: totalDurationAsMinute,
                                                     notes: notes,
-                                                    date: selectedDate)
+                                                    date: selectedDate,
+                                                    relations: relatedLinks)
                         HappyLogger.logger.log("Logged a new timer with project id: \(self.selectedProjectId!) and task id: \(self.selectedTaskId!)")
                     }
                 }

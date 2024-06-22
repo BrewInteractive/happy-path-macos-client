@@ -4,7 +4,7 @@
 import ApolloAPI
 
 public extension Objects {
-  static let ByDate = Object(
+  static let ByDate = ApolloAPI.Object(
     typename: "ByDate",
     implementedInterfaces: []
   )

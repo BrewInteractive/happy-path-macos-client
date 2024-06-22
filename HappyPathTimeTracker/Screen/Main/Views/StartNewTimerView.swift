@@ -156,7 +156,19 @@ extension StartNewTimerView {
                         .scrollContentBackground(.hidden)
                 }
             }
-            
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Related Links: ")
+                    .font(.figtree(size:14, weight: .regular))
+                    .foregroundStyle(Color.Primary.DarkNight)
+                ForEach(startNewTimerVm.relatedLinks, id: \.self) { link in
+                    RelatedLink(defaultLink: link, onRemove: { link in
+                        startNewTimerVm.removeRelatedLink(link)
+                    }, onAdded: nil)
+                }
+                RelatedLink(defaultLink: nil, onRemove: nil) { link in
+                    startNewTimerVm.addToRelatedLinks(link)
+                }
+            }
             Text("Add Time")
                 .font(.figtree(size: 14, weight: .medium))
                 .foregroundStyle(Color.Primary.DarkNight)
@@ -200,5 +212,82 @@ extension StartNewTimerView {
                 .buttonStyle(.link)
             }
         }
+    }
+}
+
+struct RelatedLink: View {
+    let defaultLink: String?
+    let onRemove: ((_ link: String) -> Void)?
+    let onAdded: ((_ value: String) -> Void)?
+    @State private var relatedLink: String = ""
+    @State private var isInvalidLinkErrorShown: Bool = false
+    
+    init?(defaultLink: String?, onRemove: ( (_: String) -> Void)?, onAdded: ((_: String) -> Void)?) {
+        self.defaultLink = defaultLink
+        self.onRemove = onRemove
+        self.onAdded = onAdded
+        
+        if (defaultLink != nil && onRemove == nil) ||
+            (defaultLink == nil && onRemove != nil) ||
+            (defaultLink != nil && onRemove != nil && onAdded != nil) {
+            return nil
+        }
+    }
+    
+    func isValidLink(link: String) -> Bool {
+        if let url = URL(string: link) {
+            // Check if the URL has a valid scheme and host
+            return url.scheme != nil && url.host != nil
+        }
+        return false
+    }
+    
+    
+    var body: some View {
+        HStack {
+            if defaultLink != nil {
+                Text(defaultLink!)
+                    .foregroundColor(.Primary.DarkNight)
+                Spacer()
+                Button(action: {
+                    onRemove!(defaultLink!)
+                }, label: {
+                    Image(systemName: "minus")
+                })
+                .clipShape(
+                    RoundedRectangle(cornerRadius: 4)
+                )
+            } else {
+                TextField("https://", text: $relatedLink, prompt: Text("https://"))
+                    .textFieldStyle(.plain)
+                    .foregroundColor(.Primary.DarkNight)
+                    .onChange(of: relatedLink, perform: { value in
+                        isInvalidLinkErrorShown = false
+                    })
+                Spacer()
+                Text("\(isInvalidLinkErrorShown ? "Invalid Link" : "")")
+                    .foregroundStyle(.red)
+                Button(action: {
+                    if isValidLink(link: relatedLink) {
+                        onAdded!(relatedLink)
+                        relatedLink = ""
+                        isInvalidLinkErrorShown = false
+                    } else {
+                        isInvalidLinkErrorShown = true
+                    }
+                }, label: {
+                    Image(systemName: "plus")
+                })
+                .clipShape(
+                    RoundedRectangle(cornerRadius: 4)
+                )
+            }
+        }
+        .padding(4)
+        .overlay(
+            RoundedRectangle(cornerRadius: 4.0)
+                .strokeBorder(Color.ShadesofCadetGray.CadetGray200,
+                              style: StrokeStyle(lineWidth: 1.0))
+        )
     }
 }
