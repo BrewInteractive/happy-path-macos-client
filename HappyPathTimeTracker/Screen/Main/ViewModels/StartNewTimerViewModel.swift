@@ -83,7 +83,6 @@ final class StartNewTimerViewModel: ObservableObject {
     }
     
     func addToRelatedLinks(_ link: String) {
-        //TODO: check link is real url
         //TODO: check is link added before
         self.relatedLinks.append(link)
     }
@@ -121,7 +120,6 @@ final class StartNewTimerViewModel: ObservableObject {
     func logOrUpdateTimer() async {
         guard let mainScreenVm = mainScreenVm else { return }
         if checkIsFormValid() {
-            print("relatedLinks: ", relatedLinks)
             if isEditMode {
                 // because we can't update started timer, send startsAt with endsAt param
                 if let editedTimer = mainScreenVm.getEditedTimer(), editedTimer.startsAt != nil {
