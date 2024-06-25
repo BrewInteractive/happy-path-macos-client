@@ -7,8 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E018D7D2C29758700601C6E /* Dto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E018D7C2C29758700601C6E /* Dto.swift */; };
 		5E060F082B72C60C00888778 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E060F072B72C60C00888778 /* View+Extension.swift */; };
 		5E06CAA82A8254680019E411 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E06CAA72A8254680019E411 /* Bundle.swift */; };
+		5E18339B2C2888F30086BD28 /* BHappyWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5E18339A2C2888F30086BD28 /* BHappyWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5E1833A02C2888F30086BD28 /* BHappyWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E18339F2C2888F30086BD28 /* BHappyWatchApp.swift */; };
+		5E1833A22C2888F30086BD28 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1833A12C2888F30086BD28 /* MainScreen.swift */; };
+		5E1833A42C2888F50086BD28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E1833A32C2888F50086BD28 /* Assets.xcassets */; };
+		5E1833A72C2888F50086BD28 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E1833A62C2888F50086BD28 /* Preview Assets.xcassets */; };
+		5E1833B02C288AB20086BD28 /* MainScreenVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1833AF2C288AB20086BD28 /* MainScreenVm.swift */; };
+		5E1833B52C28935C0086BD28 /* Graphqls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1833B42C28935C0086BD28 /* Graphqls.swift */; };
+		5E1833B72C28954C0086BD28 /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1833B62C28954C0086BD28 /* Requests.swift */; };
+		5E1833BB2C28AADC0086BD28 /* AppVm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1833BA2C28AADC0086BD28 /* AppVm.swift */; };
+		5E1833BF2C28B12F0086BD28 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3DAF242A5B3718005BB83A /* K.swift */; };
+		5E1833C12C28B6690086BD28 /* KeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1833C02C28B6690086BD28 /* KeyStore.swift */; };
+		5E1833C22C28B74B0086BD28 /* KeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1833C02C28B6690086BD28 /* KeyStore.swift */; };
 		5E1D43EA2A588D2400B6BEA4 /* RemoveTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E1D43E92A588D2400B6BEA4 /* RemoveTimer.graphql */; };
 		5E1D44072A59ACBE00B6BEA4 /* LogTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E1D44062A59ACBE00B6BEA4 /* LogTimer.graphql */; };
 		5E1D440A2A59AF7C00B6BEA4 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44092A59AF7C00B6BEA4 /* Date.swift */; };
@@ -81,9 +94,46 @@
 		5EF3DF2E2A726F640070CBCC /* Me.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5EF3DF2D2A726F640070CBCC /* Me.graphql */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		5E18339C2C2888F30086BD28 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5E41B1382A497F51001E90AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5E1833992C2888F30086BD28;
+			remoteInfo = "BHappyWatch Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5E1833AA2C2888F50086BD28 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				5E18339B2C2888F30086BD28 /* BHappyWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		5E018D7C2C29758700601C6E /* Dto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dto.swift; sourceTree = "<group>"; };
 		5E060F072B72C60C00888778 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		5E06CAA72A8254680019E411 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
+		5E1833952C2888F30086BD28 /* BHappyWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BHappyWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E18339A2C2888F30086BD28 /* BHappyWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BHappyWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E18339F2C2888F30086BD28 /* BHappyWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHappyWatchApp.swift; sourceTree = "<group>"; };
+		5E1833A12C2888F30086BD28 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		5E1833A32C2888F50086BD28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5E1833A62C2888F50086BD28 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5E1833AF2C288AB20086BD28 /* MainScreenVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenVm.swift; sourceTree = "<group>"; };
+		5E1833B42C28935C0086BD28 /* Graphqls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graphqls.swift; sourceTree = "<group>"; };
+		5E1833B62C28954C0086BD28 /* Requests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requests.swift; sourceTree = "<group>"; };
+		5E1833BA2C28AADC0086BD28 /* AppVm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVm.swift; sourceTree = "<group>"; };
+		5E1833BC2C28B0340086BD28 /* BHappyWatch Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BHappyWatch Watch App.entitlements"; sourceTree = "<group>"; };
+		5E1833C02C28B6690086BD28 /* KeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyStore.swift; sourceTree = "<group>"; };
 		5E1D43E92A588D2400B6BEA4 /* RemoveTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RemoveTimer.graphql; sourceTree = "<group>"; };
 		5E1D44062A59ACBE00B6BEA4 /* LogTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = LogTimer.graphql; sourceTree = "<group>"; };
 		5E1D44092A59AF7C00B6BEA4 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -157,6 +207,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5E1833972C2888F30086BD28 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5E41B13D2A497F51001E90AC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -172,6 +229,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E18339E2C2888F30086BD28 /* BHappyWatch Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				5E1833BC2C28B0340086BD28 /* BHappyWatch Watch App.entitlements */,
+				5E1833BA2C28AADC0086BD28 /* AppVm.swift */,
+				5E18339F2C2888F30086BD28 /* BHappyWatchApp.swift */,
+				5E1833A12C2888F30086BD28 /* MainScreen.swift */,
+				5E1833AF2C288AB20086BD28 /* MainScreenVm.swift */,
+				5E1833B42C28935C0086BD28 /* Graphqls.swift */,
+				5E1833B62C28954C0086BD28 /* Requests.swift */,
+				5E1833A32C2888F50086BD28 /* Assets.xcassets */,
+				5E1833A52C2888F50086BD28 /* Preview Content */,
+				5E018D7C2C29758700601C6E /* Dto.swift */,
+			);
+			path = "BHappyWatch Watch App";
+			sourceTree = "<group>";
+		};
+		5E1833A52C2888F50086BD28 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				5E1833A62C2888F50086BD28 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		5E1D44082A59AF7300B6BEA4 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +274,7 @@
 			children = (
 				5E3DAF242A5B3718005BB83A /* K.swift */,
 				5EC4AEA12B7A599C0084D4E9 /* Logger.swift */,
+				5E1833C02C28B6690086BD28 /* KeyStore.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -202,6 +285,7 @@
 				5EE13CE92A5757AE004BF3DA /* .gitignore */,
 				5EE372182A50B89700859278 /* Packages */,
 				5E41B1422A497F51001E90AC /* HappyPathTimeTracker */,
+				5E18339E2C2888F30086BD28 /* BHappyWatch Watch App */,
 				5E41B1412A497F51001E90AC /* Products */,
 				5EE3721A2A50B91100859278 /* Frameworks */,
 			);
@@ -211,6 +295,8 @@
 			isa = PBXGroup;
 			children = (
 				5E41B1402A497F51001E90AC /* HappyPathTimeTracker.app */,
+				5E1833952C2888F30086BD28 /* BHappyWatch.app */,
+				5E18339A2C2888F30086BD28 /* BHappyWatch Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -413,6 +499,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5E1833942C2888F30086BD28 /* BHappyWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5E1833AE2C2888F50086BD28 /* Build configuration list for PBXNativeTarget "BHappyWatch" */;
+			buildPhases = (
+				5E1833932C2888F30086BD28 /* Resources */,
+				5E1833AA2C2888F50086BD28 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5E18339D2C2888F30086BD28 /* PBXTargetDependency */,
+			);
+			name = BHappyWatch;
+			productName = BHappyWatch;
+			productReference = 5E1833952C2888F30086BD28 /* BHappyWatch.app */;
+			productType = "com.apple.product-type.application.watchapp2-container";
+		};
+		5E1833992C2888F30086BD28 /* BHappyWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5E1833AD2C2888F50086BD28 /* Build configuration list for PBXNativeTarget "BHappyWatch Watch App" */;
+			buildPhases = (
+				5E1833962C2888F30086BD28 /* Sources */,
+				5E1833972C2888F30086BD28 /* Frameworks */,
+				5E1833982C2888F30086BD28 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "BHappyWatch Watch App";
+			packageProductDependencies = (
+			);
+			productName = "BHappyWatch Watch App";
+			productReference = 5E18339A2C2888F30086BD28 /* BHappyWatch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
 		5E41B13F2A497F51001E90AC /* HappyPathTimeTracker */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5E41B14F2A497F52001E90AC /* Build configuration list for PBXNativeTarget "HappyPathTimeTracker" */;
@@ -444,9 +566,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1520;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
+					5E1833942C2888F30086BD28 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					5E1833992C2888F30086BD28 = {
+						CreatedOnToolsVersion = 15.4;
+					};
 					5E41B13F2A497F51001E90AC = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
@@ -472,11 +600,29 @@
 			projectRoot = "";
 			targets = (
 				5E41B13F2A497F51001E90AC /* HappyPathTimeTracker */,
+				5E1833942C2888F30086BD28 /* BHappyWatch */,
+				5E1833992C2888F30086BD28 /* BHappyWatch Watch App */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5E1833932C2888F30086BD28 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5E1833982C2888F30086BD28 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E1833A72C2888F50086BD28 /* Preview Assets.xcassets in Resources */,
+				5E1833A42C2888F50086BD28 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5E41B13E2A497F51001E90AC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -515,6 +661,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5E1833962C2888F30086BD28 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E1833B02C288AB20086BD28 /* MainScreenVm.swift in Sources */,
+				5E1833A22C2888F30086BD28 /* MainScreen.swift in Sources */,
+				5E1833A02C2888F30086BD28 /* BHappyWatchApp.swift in Sources */,
+				5E1833BB2C28AADC0086BD28 /* AppVm.swift in Sources */,
+				5E1833B72C28954C0086BD28 /* Requests.swift in Sources */,
+				5E018D7D2C29758700601C6E /* Dto.swift in Sources */,
+				5E1833BF2C28B12F0086BD28 /* K.swift in Sources */,
+				5E1833B52C28935C0086BD28 /* Graphqls.swift in Sources */,
+				5E1833C22C28B74B0086BD28 /* KeyStore.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5E41B13C2A497F51001E90AC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -558,12 +720,135 @@
 				5E1D44172A5A8A5D00B6BEA4 /* AppDelegate.swift in Sources */,
 				5E7B54972A6120EE0097EC94 /* Int.swift in Sources */,
 				5EE372032A4FFBA400859278 /* TimeEntry.swift in Sources */,
+				5E1833C12C28B6690086BD28 /* KeyStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		5E18339D2C2888F30086BD28 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5E1833992C2888F30086BD28 /* BHappyWatch Watch App */;
+			targetProxy = 5E18339C2C2888F30086BD28 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		5E1833A82C2888F50086BD28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = EQ52YW953B;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				INFOPLIST_KEY_CFBundleDisplayName = BHappyWatch;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gorkemsevim.BHappyWatch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		5E1833A92C2888F50086BD28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = EQ52YW953B;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				INFOPLIST_KEY_CFBundleDisplayName = BHappyWatch;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gorkemsevim.BHappyWatch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5E1833AB2C2888F50086BD28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "BHappyWatch Watch App/BHappyWatch Watch App.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"BHappyWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = MEXY5CM4N3;
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = BHappyWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gorkemsevim.BHappyWatch.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.5;
+			};
+			name = Debug;
+		};
+		5E1833AC2C2888F50086BD28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "BHappyWatch Watch App/BHappyWatch Watch App.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"BHappyWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = MEXY5CM4N3;
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = BHappyWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gorkemsevim.BHappyWatch.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 10.5;
+			};
+			name = Release;
+		};
 		5E41B14D2A497F52001E90AC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -691,7 +976,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"HappyPathTimeTracker/Preview Content\"";
 				DEVELOPMENT_TEAM = MEXY5CM4N3;
@@ -707,7 +992,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.2.5;
+				MARKETING_VERSION = 1.2.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gorkemsevim.HappyPathTimeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -723,14 +1008,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = HappyPathTimeTracker/HappyPathTimeTracker.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "3rd Party Mac Developer Application";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"HappyPathTimeTracker/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = MEXY5CM4N3;
+				DEVELOPMENT_TEAM = MEXY5CM4N3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -743,11 +1026,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.2.5;
+				MARKETING_VERSION = 1.2.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gorkemsevim.HappyPathTimeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -756,6 +1038,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5E1833AD2C2888F50086BD28 /* Build configuration list for PBXNativeTarget "BHappyWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E1833AB2C2888F50086BD28 /* Debug */,
+				5E1833AC2C2888F50086BD28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5E1833AE2C2888F50086BD28 /* Build configuration list for PBXNativeTarget "BHappyWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E1833A82C2888F50086BD28 /* Debug */,
+				5E1833A92C2888F50086BD28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5E41B13B2A497F51001E90AC /* Build configuration list for PBXProject "HappyPathTimeTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -7,7 +7,6 @@
 
 import Foundation
 import Apollo
-import KeychainSwift
 
 class GraphqlClient {
     private(set) var client: ApolloClient? = nil

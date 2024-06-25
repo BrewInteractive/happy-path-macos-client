@@ -6,18 +6,25 @@
 //
 
 import Foundation
-import KeychainSwift
 
 @MainActor
 final class AppState: ObservableObject {
     @Published var isLoggedIn = false
+    @Published var token: String?
     @Published private(set) var graphqlClient: GraphqlClient? = nil
-    let keychain = KeychainSwift()
     
     init() {
-        let token = keychain.get(K.token)
-        if token != nil {
-            graphqlClient = GraphqlClient(token: token!)
+        let keystore = KeyStore()
+        let testGorkem = keystore.retrieve(key: "test-gorkem")
+        print("test-gorkem: ", testGorkem)
+        if let sharedKeychain = keystore.retrieve(key: K.token) {
+            _token = Published(wrappedValue: sharedKeychain)
+            graphqlClient = GraphqlClient(token: sharedKeychain)
+            isLoggedIn = true
+            HappyLogger.logger.log("user is authenticated")
+        } else {
+            isLoggedIn = false
+            HappyLogger.logger.log("user is not authenticated")
         }
     }
     
