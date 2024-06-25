@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import KeychainSwift
 
 @main
 struct HappyPathTimeTrackerApp: App {
@@ -17,16 +16,6 @@ struct HappyPathTimeTrackerApp: App {
         MenuBarExtra {
             MainScreen()
                 .environmentObject(appState)
-                .onAppear {
-                    let keychain = KeychainSwift()
-                    let token = keychain.get(K.token)
-                    if token != nil {
-                        HappyLogger.logger.log("user is authenticated")
-                        self.appState.isLoggedIn = true
-                    } else {
-                        HappyLogger.logger.log("user is not authenticated")
-                    }
-                }
                 .onReceive(NotificationCenter.default.publisher(for: Notification.Name.loginByMagicLinkNotification)) { token in
                     HappyLogger.logger.log("new token received")
                     self.appState.isLoggedIn = true

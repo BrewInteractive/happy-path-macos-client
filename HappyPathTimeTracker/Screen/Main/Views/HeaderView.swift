@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import AppKit
 
 struct HeaderView: View {
     @EnvironmentObject var mainScreenVm: MainScreenViewModel

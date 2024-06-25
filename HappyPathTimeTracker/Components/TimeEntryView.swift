@@ -69,7 +69,12 @@ struct TimeEntryView: View {
                             Circle()
                                 .foregroundColor(.blue)
                                 .frame(width: 4, height: 4)
-                            Link(timeEntry.relations![index].lowercased(), destination: URL(string: timeEntry.relations![index])!)
+                            Link(destination: URL(string: timeEntry.relations![index])!) {
+                                Text(timeEntry.relations![index].lowercased())
+                                    .lineLimit(1)
+                                    .truncationMode(.tail)
+                            }
+                                
                             if index == RELATED_LINKS_LIMIT - 1 {
                                 Text("...")
                                     .foregroundStyle(Color.ShadesOfTeal.Teal_400)

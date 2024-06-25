@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import KeychainSwift
 
 struct LoginScreen: View {
     @Environment(\.openURL) var openURL

@@ -7,7 +7,6 @@
 
 import Foundation
 import AppKit
-import KeychainSwift
 import SwiftDate
 import AppKit
 
@@ -22,9 +21,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 if let encodedToken = try? JSONDecoder().decode(Auth.self, from: encodedToken),
                     let tokenString = encodedToken.token{
                     DispatchQueue.global().async {
-                        let keychain = KeychainSwift()
-                        HappyLogger.logger.log("setting token")
-                        keychain.set(tokenString, forKey: K.token)
+                        let store = KeyStore()
+                        store.store(key: K.token, value: tokenString)
                     }
                     HappyLogger.logger.log("sharing token")
                     NotificationCenter.default.post(name: Notification.Name.loginByMagicLinkNotification, object: tokenString)
