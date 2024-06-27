@@ -399,10 +399,6 @@ final class MainScreenViewModel: ObservableObject {
         } catch {
             HappyLogger.logger.error("Error occured while fetching all data")
             self.parseError(for: error)
-            DispatchQueue.main.async {
-                self.timer?.invalidate()
-                self.timer = nil
-            }
         }
     }
     
