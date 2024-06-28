@@ -43,7 +43,7 @@ jobs:
         security import $BUILD_CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
         security import $EXPORT_CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
         security list-keychain -d user -s $KEYCHAIN_PATH
-        xcodebuild -scheme HappyPathTimeTracker -configuration Release build
+        xcodebuild -scheme HappyPathTimeTracker -allowProvisioningUpdates -configuration Release build
         xcodebuild -scheme HappyPathTimeTracker -configuration Release archive -archivePath ~/Desktop/Happy/HappyPathTimeTracker.xcarchive
         xcodebuild -exportArchive -archivePath ~/Desktop/Happy/HappyPathTimeTracker.xcarchive -exportPath ~/Desktop/Happy/HappyPathTimeTracker -exportOptionsPlist ExportOptions.plist
         rm -rf ~/Desktop/Happy/HappyPathTimeTracker/*.plist
