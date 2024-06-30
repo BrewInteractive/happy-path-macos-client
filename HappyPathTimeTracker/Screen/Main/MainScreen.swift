@@ -67,7 +67,7 @@ extension MainScreen {
                     .autohideIn(2)
                     .type(.floater(verticalPadding: 8, horizontalPadding: 8, useSafeAreaInset: true))
                     .position(.bottomTrailing)
-                    .appearFrom(.bottom)
+                    .appearFrom(.bottomSlide)
                     .dismissCallback {
                         mainScreenVm.isErrorShown = false
                     }

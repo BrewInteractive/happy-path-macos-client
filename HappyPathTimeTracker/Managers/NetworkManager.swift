@@ -38,6 +38,9 @@ final class NetworkManager: NetworkSource {
 
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse else { return nil }
+            if !(200...299).contains(httpResponse.statusCode) { return nil }
+            
             let authResponse = try JSONDecoder().decode(AuthResponse.self, from: data)
             return authResponse.token
         } catch {

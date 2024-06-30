@@ -29,12 +29,12 @@
 		5E1D44102A59B69400B6BEA4 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D440F2A59B69400B6BEA4 /* Project.swift */; };
 		5E1D44122A59B97000B6BEA4 /* ProjectTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44112A59B97000B6BEA4 /* ProjectTask.swift */; };
 		5E1D44172A5A8A5D00B6BEA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44162A5A8A5D00B6BEA4 /* AppDelegate.swift */; };
+		5E26E4722C3133AB00B714D0 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 5E26E4712C3133AB00B714D0 /* PopupView */; };
 		5E397EA82C301A2B00878992 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E397EA72C301A2B00878992 /* LargeButton.swift */; };
 		5E397EAA2C301EDC00878992 /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E397EA92C301EDC00878992 /* RoundedTextField.swift */; };
 		5E397EAE2C3024E500878992 /* RecoverSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E397EAD2C3024E500878992 /* RecoverSuccessView.swift */; };
 		5E397EB12C30253B00878992 /* RoundedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E397EB02C30253B00878992 /* RoundedContainer.swift */; };
 		5E397EB62C30430000878992 /* LoginScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E397EB52C30430000878992 /* LoginScreenViewModel.swift */; };
-		5E3DAF202A5AF3C4005BB83A /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5E3DAF1F2A5AF3C4005BB83A /* KeychainSwift */; };
 		5E3DAF252A5B3718005BB83A /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3DAF242A5B3718005BB83A /* K.swift */; };
 		5E41B1442A497F51001E90AC /* HappyPathTimeTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E41B1432A497F51001E90AC /* HappyPathTimeTrackerApp.swift */; };
 		5E41B1462A497F51001E90AC /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E41B1452A497F51001E90AC /* MainScreen.swift */; };
@@ -72,7 +72,6 @@
 		5EB384612A70F5B200FDA0E0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB384602A70F5B200FDA0E0 /* Color.swift */; };
 		5EC4AEA02B7A4F530084D4E9 /* StartNewTimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC4AE9F2B7A4F530084D4E9 /* StartNewTimerViewModel.swift */; };
 		5EC4AEA22B7A599C0084D4E9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC4AEA12B7A599C0084D4E9 /* Logger.swift */; };
-		5EC73EF22A80DC6F00528303 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 5EC73EF12A80DC6F00528303 /* PopupView */; };
 		5ED8E43B2A6E342000F871E0 /* RestartTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5ED8E43A2A6E342000F871E0 /* RestartTimer.graphql */; };
 		5EE13CEA2A5757AE004BF3DA /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5EE13CE92A5757AE004BF3DA /* .gitignore */; };
 		5EE371FF2A4EDF0C00859278 /* HappyDividier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE371FE2A4EDF0C00859278 /* HappyDividier.swift */; };
@@ -226,10 +225,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E26E4722C3133AB00B714D0 /* PopupView in Frameworks */,
 				5E797CDF2A4B1CD9003FCD06 /* SwiftDate in Frameworks */,
 				5EE3721C2A50B91100859278 /* DirectusGraphql in Frameworks */,
-				5EC73EF22A80DC6F00528303 /* PopupView in Frameworks */,
-				5E3DAF202A5AF3C4005BB83A /* KeychainSwift in Frameworks */,
 				5EE372122A50483B00859278 /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -572,8 +570,7 @@
 				5E797CDE2A4B1CD9003FCD06 /* SwiftDate */,
 				5EE372112A50483B00859278 /* Apollo */,
 				5EE3721B2A50B91100859278 /* DirectusGraphql */,
-				5E3DAF1F2A5AF3C4005BB83A /* KeychainSwift */,
-				5EC73EF12A80DC6F00528303 /* PopupView */,
+				5E26E4712C3133AB00B714D0 /* PopupView */,
 			);
 			productName = HappyPathTimeTracker;
 			productReference = 5E41B1402A497F51001E90AC /* HappyPathTimeTracker.app */;
@@ -1135,20 +1132,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5E3DAF1F2A5AF3C4005BB83A /* KeychainSwift */ = {
+		5E26E4712C3133AB00B714D0 /* PopupView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5E3DAF1E2A5AF3C4005BB83A /* XCRemoteSwiftPackageReference "keychain-swift" */;
-			productName = KeychainSwift;
+			productName = PopupView;
 		};
 		5E797CDE2A4B1CD9003FCD06 /* SwiftDate */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5E797CDD2A4B1CD9003FCD06 /* XCRemoteSwiftPackageReference "SwiftDate" */;
 			productName = SwiftDate;
-		};
-		5EC73EF12A80DC6F00528303 /* PopupView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5EC73EF02A80DC6F00528303 /* XCRemoteSwiftPackageReference "PopupView" */;
-			productName = PopupView;
 		};
 		5EE372112A50483B00859278 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
