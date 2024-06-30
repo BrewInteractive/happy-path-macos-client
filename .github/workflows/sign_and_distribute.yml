@@ -3,7 +3,7 @@ name: Sign and Distribute macOS App
 on:
   push:
     branches:
-    - 3a3d6a2
+    - main
 
 jobs:
   build:
