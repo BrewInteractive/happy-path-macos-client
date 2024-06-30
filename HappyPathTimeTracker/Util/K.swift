@@ -8,7 +8,7 @@
 import Foundation
 
 struct K {
-    static let token = "TOKEN"
+    static let token = "happy-token"
     static let openURLText = "https://app.usehappypath.com/auth/app/login"
 }
 
