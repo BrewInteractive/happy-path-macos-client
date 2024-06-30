@@ -68,7 +68,7 @@ struct LoginScreen: View {
                     .font(.figtree(size: 14, weight: .medium))
                     .foregroundStyle(Color.Primary.DarkNight)
                 Spacer()
-                                    Link("Forgot password?", destination: URL(string: "https://app.usehappypath.com/forgot-password")!)
+                                    Link("Forgot password ?", destination: URL(string: "https://app.usehappypath.com/forgot-password")!)
             }
             RoundedTextField(text: $loginVm.password, type: .password)
         }
