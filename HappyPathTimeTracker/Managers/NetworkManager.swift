@@ -11,6 +11,7 @@ import DirectusGraphql
 import SwiftDate
 
 protocol NetworkSource {
+    static func login(email: String, password: String) async -> String?
     func me(graphqlClient: GraphqlClient?) async throws -> MeQuery.Data.Me?
     func fetchStats(graphqlClient: GraphqlClient?, date: Date) async throws -> Stats?
     func fetchProjects(graphqlClient: GraphqlClient?) async throws -> [Project]?
@@ -25,6 +26,24 @@ protocol NetworkSource {
 }
 
 final class NetworkManager: NetworkSource {
+
+    static func login(email: String, password: String) async -> String? {
+        let url = URL(string: "https://app.usehappypath.com/hooks/auth")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let json: [String: String] = ["email": email, "password": password]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            let authResponse = try JSONDecoder().decode(AuthResponse.self, from: data)
+            return authResponse.token
+        } catch {
+            return nil
+        }
+    }
     
     func me(graphqlClient: GraphqlClient?) async throws -> MeQuery.Data.Me? {
         if graphqlClient == nil {

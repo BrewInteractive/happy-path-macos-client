@@ -13,17 +13,17 @@ import PopupView
 struct MainScreen: View {
     @EnvironmentObject var appState: AppState
     @StateObject private var mainScreenVm = MainScreenViewModel(networkSource: NetworkManager())
-    @Environment(\.openURL) var openURL
     
     var body: some View {
         ZStack {
-            Color.Primary.RealWhite
+            Color.Primary.LightBabyPowder
             RoundedRectangle(cornerRadius: 6)
                 .stroke(.gray, lineWidth: 1)
             if appState.isLoggedIn {
                 AuthUserView()
             } else {
-               LoginScreen()
+                LoginScreen()
+                    .environmentObject(appState)
             }
         }
         .contextMenu {

@@ -16,11 +16,6 @@ struct HappyPathTimeTrackerApp: App {
         MenuBarExtra {
             MainScreen()
                 .environmentObject(appState)
-                .onReceive(NotificationCenter.default.publisher(for: Notification.Name.loginByMagicLinkNotification)) { token in
-                    HappyLogger.logger.log("new token received")
-                    self.appState.isLoggedIn = true
-                    appState.updateClientAuthToken(token: token.object as! String)
-                }
                 .environment(\.font, .figtree())
                 .frame(width: 400, height: 450)
         } label: {

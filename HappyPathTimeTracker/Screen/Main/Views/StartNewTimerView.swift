@@ -180,22 +180,11 @@ extension StartNewTimerView {
                 HappyDividier()
                     .frame(maxWidth: .infinity)
             }
-            
-            Button(action: {
+            LargeButton(title: startNewTimerVm.saveButtonTitle, disabled: startNewTimerVm.isErrorShown, isLoading: false) {
                 Task {
                     await startNewTimerVm.logOrUpdateTimer()
                 }
-            }, label: {
-                Text(startNewTimerVm.saveButtonTitle)
-                    .foregroundStyle(Color.Primary.RealWhite)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background {
-                        RoundedRectangle(cornerRadius: 28)
-                            .foregroundStyle(startNewTimerVm.isErrorShown ? Color.ShadesOfTeal.Teal_50 : Color.ShadesOfTeal.Teal_300)
-                    }
-            })
-            .disabled(startNewTimerVm.isErrorShown)
+            }
             if !startNewTimerVm.isEditMode {
                 Button(action: {
                     startNewTimerVm.selectedTaskId = nil

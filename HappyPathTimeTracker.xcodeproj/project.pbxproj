@@ -29,8 +29,12 @@
 		5E1D44102A59B69400B6BEA4 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D440F2A59B69400B6BEA4 /* Project.swift */; };
 		5E1D44122A59B97000B6BEA4 /* ProjectTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44112A59B97000B6BEA4 /* ProjectTask.swift */; };
 		5E1D44172A5A8A5D00B6BEA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44162A5A8A5D00B6BEA4 /* AppDelegate.swift */; };
+		5E397EA82C301A2B00878992 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E397EA72C301A2B00878992 /* LargeButton.swift */; };
+		5E397EAA2C301EDC00878992 /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E397EA92C301EDC00878992 /* RoundedTextField.swift */; };
+		5E397EAE2C3024E500878992 /* RecoverSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E397EAD2C3024E500878992 /* RecoverSuccessView.swift */; };
+		5E397EB12C30253B00878992 /* RoundedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E397EB02C30253B00878992 /* RoundedContainer.swift */; };
+		5E397EB62C30430000878992 /* LoginScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E397EB52C30430000878992 /* LoginScreenViewModel.swift */; };
 		5E3DAF202A5AF3C4005BB83A /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5E3DAF1F2A5AF3C4005BB83A /* KeychainSwift */; };
-		5E3DAF222A5B1F5F005BB83A /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3DAF212A5B1F5F005BB83A /* NotificationName.swift */; };
 		5E3DAF252A5B3718005BB83A /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3DAF242A5B3718005BB83A /* K.swift */; };
 		5E41B1442A497F51001E90AC /* HappyPathTimeTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E41B1432A497F51001E90AC /* HappyPathTimeTrackerApp.swift */; };
 		5E41B1462A497F51001E90AC /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E41B1452A497F51001E90AC /* MainScreen.swift */; };
@@ -141,8 +145,12 @@
 		5E1D440F2A59B69400B6BEA4 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		5E1D44112A59B97000B6BEA4 /* ProjectTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTask.swift; sourceTree = "<group>"; };
 		5E1D44162A5A8A5D00B6BEA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5E397EA72C301A2B00878992 /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
+		5E397EA92C301EDC00878992 /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
+		5E397EAD2C3024E500878992 /* RecoverSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverSuccessView.swift; sourceTree = "<group>"; };
+		5E397EB02C30253B00878992 /* RoundedContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedContainer.swift; sourceTree = "<group>"; };
+		5E397EB52C30430000878992 /* LoginScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewModel.swift; sourceTree = "<group>"; };
 		5E3DAF1A2A5AAC71005BB83A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		5E3DAF212A5B1F5F005BB83A /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		5E3DAF242A5B3718005BB83A /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		5E41B1402A497F51001E90AC /* HappyPathTimeTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HappyPathTimeTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E41B1432A497F51001E90AC /* HappyPathTimeTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HappyPathTimeTrackerApp.swift; sourceTree = "<group>"; };
@@ -258,7 +266,6 @@
 			isa = PBXGroup;
 			children = (
 				5E1D44092A59AF7C00B6BEA4 /* Date.swift */,
-				5E3DAF212A5B1F5F005BB83A /* NotificationName.swift */,
 				5E7B54942A611D560097EC94 /* String.swift */,
 				5E7B54962A6120EE0097EC94 /* Int.swift */,
 				5EB384602A70F5B200FDA0E0 /* Color.swift */,
@@ -267,6 +274,22 @@
 				5E060F072B72C60C00888778 /* View+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		5E397EAF2C3024ED00878992 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5E397EAD2C3024E500878992 /* RecoverSuccessView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5E397EB42C3042EE00878992 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				5E397EB52C30430000878992 /* LoginScreenViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		5E3DAF232A5B370F005BB83A /* Util */ = {
@@ -357,17 +380,11 @@
 		5E588B142AB1A1AE00F6DB85 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				5E588B152AB1A1EF00F6DB85 /* Views */,
+				5E397EB42C3042EE00878992 /* ViewModels */,
+				5E397EAF2C3024ED00878992 /* Views */,
 				5E588B162AB1A20A00F6DB85 /* LoginScreen.swift */,
 			);
 			path = Login;
-			sourceTree = "<group>";
-		};
-		5E588B152AB1A1EF00F6DB85 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		5E797CE02A4B1ED0003FCD06 /* Model */ = {
@@ -405,6 +422,9 @@
 				5EE372042A4FFCD900859278 /* TimeEntryView.swift */,
 				5E69F5E42ADC5527000FD1FB /* SearchBar.swift */,
 				5EF0195E2B779F02004ED61B /* Loading.swift */,
+				5E397EA72C301A2B00878992 /* LargeButton.swift */,
+				5E397EA92C301EDC00878992 /* RoundedTextField.swift */,
+				5E397EB02C30253B00878992 /* RoundedContainer.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -685,12 +705,13 @@
 				5E06CAA82A8254680019E411 /* Bundle.swift in Sources */,
 				5EF0195F2B779F02004ED61B /* Loading.swift in Sources */,
 				5EE372092A5030D800859278 /* BottomView.swift in Sources */,
-				5E3DAF222A5B1F5F005BB83A /* NotificationName.swift in Sources */,
 				5E797CE22A4B1EE4003FCD06 /* CircleDay.swift in Sources */,
 				5EE372212A50BE7400859278 /* NetworkInterceptorProvider.swift in Sources */,
 				5E41B1462A497F51001E90AC /* MainScreen.swift in Sources */,
 				5EE372052A4FFCD900859278 /* TimeEntryView.swift in Sources */,
+				5E397EB12C30253B00878992 /* RoundedContainer.swift in Sources */,
 				5E7B54952A611D560097EC94 /* String.swift in Sources */,
+				5E397EAE2C3024E500878992 /* RecoverSuccessView.swift in Sources */,
 				5EE372262A50C1A500859278 /* MainScreenViewModel.swift in Sources */,
 				5EE888DF2B73A68300671E52 /* StartNewTimerView.swift in Sources */,
 				5E1D44102A59B69400B6BEA4 /* Project.swift in Sources */,
@@ -706,6 +727,7 @@
 				5E8FAEF12A6910850016EE08 /* Auth.swift in Sources */,
 				5E1D44122A59B97000B6BEA4 /* ProjectTask.swift in Sources */,
 				5E96C8B82A9C931300121C1A /* CalendarView.swift in Sources */,
+				5E397EAA2C301EDC00878992 /* RoundedTextField.swift in Sources */,
 				5EB384612A70F5B200FDA0E0 /* Color.swift in Sources */,
 				5EC4AEA02B7A4F530084D4E9 /* StartNewTimerViewModel.swift in Sources */,
 				5E69F5E52ADC5527000FD1FB /* SearchBar.swift in Sources */,
@@ -716,7 +738,9 @@
 				5EE3721F2A50BD0C00859278 /* GraphqlClient.swift in Sources */,
 				5E588B172AB1A20A00F6DB85 /* LoginScreen.swift in Sources */,
 				5EE3720F2A50322E00859278 /* CircleDayView.swift in Sources */,
+				5E397EB62C30430000878992 /* LoginScreenViewModel.swift in Sources */,
 				5E96C8B62A9C925800121C1A /* CalendarWeekListView.swift in Sources */,
+				5E397EA82C301A2B00878992 /* LargeButton.swift in Sources */,
 				5E1D44172A5A8A5D00B6BEA4 /* AppDelegate.swift in Sources */,
 				5E7B54972A6120EE0097EC94 /* Int.swift in Sources */,
 				5EE372032A4FFBA400859278 /* TimeEntry.swift in Sources */,

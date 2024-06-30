@@ -15,9 +15,8 @@ final class AppState: ObservableObject {
     
     init() {
         let keystore = KeyStore()
-        let testGorkem = keystore.retrieve(key: "test-gorkem")
-        print("test-gorkem: ", testGorkem)
         if let sharedKeychain = keystore.retrieve(key: K.token) {
+            print(sharedKeychain)
             _token = Published(wrappedValue: sharedKeychain)
             graphqlClient = GraphqlClient(token: sharedKeychain)
             isLoggedIn = true
@@ -28,8 +27,16 @@ final class AppState: ObservableObject {
         }
     }
     
-    func updateClientAuthToken(token: String) {
+    private func updateClientAuthToken(token: String) {
         // TOOD: burada client i update etmek yerine interceptor guncellenebiliyorsa onu yapmak daha mantikli olabilir
         graphqlClient = GraphqlClient(token: token)
+    }
+    
+    func executeLoginPrecess(token: String) {
+        let store = KeyStore()
+        store.store(key: K.token, value: token)
+        isLoggedIn = true
+        self.token = token
+        updateClientAuthToken(token: token)
     }
 }

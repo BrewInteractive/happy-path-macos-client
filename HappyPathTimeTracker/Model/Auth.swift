@@ -16,3 +16,7 @@ struct Metadata: Decodable {
     let issuer, publicAddress, email, oauthProvider, phoneNumber: String?
     let wallets: [String]?
 }
+
+struct AuthResponse: Decodable {
+    let token: String
+}
