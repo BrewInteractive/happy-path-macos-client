@@ -16,7 +16,7 @@ struct MainScreen: View {
     
     var body: some View {
         ZStack {
-            Color.Primary.LightBabyPowder
+            appState.isLoggedIn ? Color.Primary.RealWhite : Color.Primary.LightBabyPowder
             RoundedRectangle(cornerRadius: 6)
                 .stroke(.gray, lineWidth: 1)
             if appState.isLoggedIn {
