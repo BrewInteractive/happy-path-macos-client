@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		5E060F082B72C60C00888778 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E060F072B72C60C00888778 /* View+Extension.swift */; };
 		5E06CAA82A8254680019E411 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E06CAA72A8254680019E411 /* Bundle.swift */; };
-		5E1833C12C28B6690086BD28 /* KeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1833C02C28B6690086BD28 /* KeyStore.swift */; };
 		5E1D43EA2A588D2400B6BEA4 /* RemoveTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E1D43E92A588D2400B6BEA4 /* RemoveTimer.graphql */; };
 		5E1D44072A59ACBE00B6BEA4 /* LogTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E1D44062A59ACBE00B6BEA4 /* LogTimer.graphql */; };
 		5E1D440A2A59AF7C00B6BEA4 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D44092A59AF7C00B6BEA4 /* Date.swift */; };
@@ -34,6 +33,7 @@
 		5E646F142A671AB800B92B96 /* Stats.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E646F132A671AB800B92B96 /* Stats.graphql */; };
 		5E646F162A67212A00B92B96 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E646F152A67212A00B92B96 /* Stats.swift */; };
 		5E69F5E52ADC5527000FD1FB /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E69F5E42ADC5527000FD1FB /* SearchBar.swift */; };
+		5E6F2DA72C32985F0008FB4E /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5E6F2DA62C32985F0008FB4E /* KeychainSwift */; };
 		5E78758F2AB1A61700866AD1 /* Figtree-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7875812AB1A61600866AD1 /* Figtree-ExtraBoldItalic.ttf */; };
 		5E7875902AB1A61700866AD1 /* Figtree-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7875822AB1A61600866AD1 /* Figtree-Medium.ttf */; };
 		5E7875912AB1A61700866AD1 /* Figtree-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7875832AB1A61600866AD1 /* Figtree-Bold.ttf */; };
@@ -88,7 +88,6 @@
 /* Begin PBXFileReference section */
 		5E060F072B72C60C00888778 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		5E06CAA72A8254680019E411 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
-		5E1833C02C28B6690086BD28 /* KeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyStore.swift; sourceTree = "<group>"; };
 		5E1D43E92A588D2400B6BEA4 /* RemoveTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RemoveTimer.graphql; sourceTree = "<group>"; };
 		5E1D44062A59ACBE00B6BEA4 /* LogTimer.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = LogTimer.graphql; sourceTree = "<group>"; };
 		5E1D44092A59AF7C00B6BEA4 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -172,6 +171,7 @@
 			files = (
 				5E26E4722C3133AB00B714D0 /* PopupView in Frameworks */,
 				5E797CDF2A4B1CD9003FCD06 /* SwiftDate in Frameworks */,
+				5E6F2DA72C32985F0008FB4E /* KeychainSwift in Frameworks */,
 				5EE3721C2A50B91100859278 /* DirectusGraphql in Frameworks */,
 				5EE372122A50483B00859278 /* Apollo in Frameworks */,
 			);
@@ -215,7 +215,6 @@
 			children = (
 				5E3DAF242A5B3718005BB83A /* K.swift */,
 				5EC4AEA12B7A599C0084D4E9 /* Logger.swift */,
-				5E1833C02C28B6690086BD28 /* KeyStore.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -452,6 +451,7 @@
 				5EE372112A50483B00859278 /* Apollo */,
 				5EE3721B2A50B91100859278 /* DirectusGraphql */,
 				5E26E4712C3133AB00B714D0 /* PopupView */,
+				5E6F2DA62C32985F0008FB4E /* KeychainSwift */,
 			);
 			productName = HappyPathTimeTracker;
 			productReference = 5E41B1402A497F51001E90AC /* HappyPathTimeTracker.app */;
@@ -582,7 +582,6 @@
 				5E1D44172A5A8A5D00B6BEA4 /* AppDelegate.swift in Sources */,
 				5E7B54972A6120EE0097EC94 /* Int.swift in Sources */,
 				5EE372032A4FFBA400859278 /* TimeEntry.swift in Sources */,
-				5E1833C12C28B6690086BD28 /* KeyStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -836,6 +835,11 @@
 		5E26E4712C3133AB00B714D0 /* PopupView */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PopupView;
+		};
+		5E6F2DA62C32985F0008FB4E /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5E3DAF1E2A5AF3C4005BB83A /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
 		};
 		5E797CDE2A4B1CD9003FCD06 /* SwiftDate */ = {
 			isa = XCSwiftPackageProductDependency;

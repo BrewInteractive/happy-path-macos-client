@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import KeychainSwift
 
 @MainActor
 final class AppState: ObservableObject {
@@ -14,11 +15,11 @@ final class AppState: ObservableObject {
     @Published private(set) var graphqlClient: GraphqlClient? = nil
     
     init() {
-        let keystore = KeyStore()
-        if let sharedKeychain = keystore.retrieve(key: K.token) {
-            print(sharedKeychain)
-            _token = Published(wrappedValue: sharedKeychain)
-            graphqlClient = GraphqlClient(token: sharedKeychain)
+        let keychainStore = KeychainSwift()
+        if let keychainValue = keychainStore.get(K.token) {
+            print(keychainValue)
+            _token = Published(wrappedValue: keychainValue)
+            graphqlClient = GraphqlClient(token: keychainValue)
             isLoggedIn = true
             HappyLogger.logger.log("user is authenticated")
         } else {
@@ -33,8 +34,8 @@ final class AppState: ObservableObject {
     }
     
     func executeLoginPrecess(token: String) {
-        let store = KeyStore()
-        store.store(key: K.token, value: token)
+        let keychainStore = KeychainSwift()
+        keychainStore.set(token, forKey: K.token)
         isLoggedIn = true
         self.token = token
         updateClientAuthToken(token: token)
