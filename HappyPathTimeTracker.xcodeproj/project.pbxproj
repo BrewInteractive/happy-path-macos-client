@@ -27,6 +27,7 @@
 		5E41B1462A497F51001E90AC /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E41B1452A497F51001E90AC /* MainScreen.swift */; };
 		5E41B1482A497F52001E90AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E41B1472A497F52001E90AC /* Assets.xcassets */; };
 		5E41B14B2A497F52001E90AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E41B14A2A497F52001E90AC /* Preview Assets.xcassets */; };
+		5E4DE7D92C33ECC80020B8E5 /* Github.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4DE7D82C33ECC80020B8E5 /* Github.swift */; };
 		5E588AF52AB16F3700F6DB85 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E588AF42AB16F3700F6DB85 /* Font.swift */; };
 		5E588B172AB1A20A00F6DB85 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E588B162AB1A20A00F6DB85 /* LoginScreen.swift */; };
 		5E5FC02C2A5F45AD00A19330 /* StartTimer.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5E5FC02B2A5F45AD00A19330 /* StartTimer.graphql */; };
@@ -108,6 +109,7 @@
 		5E41B1472A497F52001E90AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5E41B14A2A497F52001E90AC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5E41B14C2A497F52001E90AC /* HappyPathTimeTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HappyPathTimeTracker.entitlements; sourceTree = "<group>"; };
+		5E4DE7D82C33ECC80020B8E5 /* Github.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Github.swift; sourceTree = "<group>"; };
 		5E4E64A72AB32A8900713FFA /* RobotoMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Regular.ttf"; sourceTree = "<group>"; };
 		5E588AF42AB16F3700F6DB85 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		5E588B162AB1A20A00F6DB85 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 				5E1D44112A59B97000B6BEA4 /* ProjectTask.swift */,
 				5E646F152A67212A00B92B96 /* Stats.swift */,
 				5E8FAEF02A6910850016EE08 /* Auth.swift */,
+				5E4DE7D82C33ECC80020B8E5 /* Github.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 				5EE372092A5030D800859278 /* BottomView.swift in Sources */,
 				5E797CE22A4B1EE4003FCD06 /* CircleDay.swift in Sources */,
 				5EE372212A50BE7400859278 /* NetworkInterceptorProvider.swift in Sources */,
+				5E4DE7D92C33ECC80020B8E5 /* Github.swift in Sources */,
 				5E41B1462A497F51001E90AC /* MainScreen.swift in Sources */,
 				5EE372052A4FFCD900859278 /* TimeEntryView.swift in Sources */,
 				5E397EB12C30253B00878992 /* RoundedContainer.swift in Sources */,

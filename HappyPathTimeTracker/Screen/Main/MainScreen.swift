@@ -56,6 +56,7 @@ extension MainScreen {
             .clipShape(RoundedRectangle(cornerRadius: 6))
             .task {
                 await mainScreenVm.updateViewModel(appState: appState)
+                await mainScreenVm.checkVersionUpdate()
             }
             .popup(isPresented: $mainScreenVm.isErrorShown) {
                 Text("Error occured")

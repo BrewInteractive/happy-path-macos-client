@@ -9,7 +9,7 @@ import Foundation
 
 struct K {
     static let token = "happy-token"
-    static let openURLText = "https://app.usehappypath.com/auth/app/login"
+    static let latestFetchDate = "last-fetch-date"
 }
 
 enum IntervalType: String {

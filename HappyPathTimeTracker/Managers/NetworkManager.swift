@@ -23,9 +23,29 @@ protocol NetworkSource {
     func startTimer(graphqlClient: GraphqlClient?, projectTaskId: Int, notes: String, relations: [String]?) async throws -> StartTimerMutation.Data.Start?
     func stopTimer(graphqlClient: GraphqlClient?, for id: Int) async throws -> StopTimerMutation.Data.Stop?
     func restartTimer(graphqlClient: GraphqlClient?, for id: Int) async throws -> RestartTimerMutation.Data.Restart?
+    
+    static func fetchLatestRelease() async -> String?
 }
 
 final class NetworkManager: NetworkSource {
+    
+    static func fetchLatestRelease() async -> String? {
+        let url = URL(string: "https://api.github.com/repos/BrewInteractive/happy-path-macos-client/releases/latest")!
+        var request = URLRequest(url: url)
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                return nil
+            }
+            
+            let release = try JSONDecoder().decode(Github.self, from: data)
+            return release.tagName
+            
+        } catch {
+            return nil
+        }
+    }
 
     static func login(email: String, password: String) async -> String? {
         let url = URL(string: "https://app.usehappypath.com/hooks/auth")!

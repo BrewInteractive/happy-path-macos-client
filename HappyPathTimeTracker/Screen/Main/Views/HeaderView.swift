@@ -21,32 +21,15 @@ struct HeaderView: View {
                 .fill(Color.ShadesOfTeal.Teal_400)
                 .frame(height:36)
             HStack {
-//                if mainScreenVm.appState?.isError == true {
-//                    Image(systemName: "exclamationmark.triangle.fill")
-//                        .foregroundColor(.Primary.Cavendish)
-//                        .opacity(isFlashing ? 1.0 : 0.2)
-//                        .animation(.easeIn(duration: 1).repeatForever(), value: isFlashing)
-//                        .onHover(perform: { isHovered in
-//                            isErrorInfoShown = isHovered
-//                        })
-//                        .onAppear{
-//                            self.isFlashing = true
-//                        }
-//                        .popover(isPresented: $isErrorInfoShown) {
-//                            ZStack {
-//                                Rectangle()
-//                                    .foregroundColor(Color.Primary.CadetGray)
-//                                Text("Sistemde bir hata olustu, kontrol ediliyor...")
-//                            }
-//                        }
-//                }
                 Text("\(mainScreenVm.selectedDate.toFormat("EEEE, dd MMM"))")
                     .font(.figtree(weight: .medium))
                     .frame(maxWidth: .infinity, alignment: .center)
                 Spacer()
                 Image(systemName: "info.circle")
                     .resizable()
-                    .frame(width: 16, height: 16)
+                    .frame(width: 18, height: 18)
+                    .foregroundStyle(mainScreenVm.isUpdateInfoShown ? Color.Primary.Cavendish : .Primary.RealWhite)
+                    .fontWeight(.bold)
                     .popover(isPresented: $isInfoShown, content: {
                         InfoView()
                     })
@@ -125,9 +108,29 @@ extension HeaderView {
                 })
                 .buttonStyle(.plain)
                 Spacer()
-                Text("Version: \(Bundle.main.appVersion)")
-                    .font(.figtree(size: 12))
-                    .foregroundColor(.Primary.DarkNight)
+                HStack {
+                    Text("Version: \(Bundle.main.appVersion)")
+                        .font(.figtree(size: 12))
+                        .foregroundColor(.Primary.DarkNight)
+                    if mainScreenVm.isUpdateInfoShown {
+                        Button {
+                            print("downloading")
+                        } label: {
+                            if #available(macOS 14.0, *) {
+                                UpdateIconView()
+                                    .symbolEffect(.pulse.wholeSymbol, options: .repeating.speed(20), value: isFlashing)
+                            } else {
+                                UpdateIconView()
+                            }
+                        }
+                        .buttonStyle(.plain)
+                        .onAppear {
+                            isFlashing = true
+                        }
+                    }
+                    
+
+                }
             }
         }
         .padding()
@@ -135,6 +138,16 @@ extension HeaderView {
             Color.Primary.LightBabyPowder
                 .padding(-80)
         }
+    }
+}
+
+struct UpdateIconView: View {
+    var body: some View {
+        Image(systemName: "arrow.down.circle")
+            .resizable()
+            .frame(width: 18, height: 18)
+            .foregroundStyle(Color.Primary.Cavendish)
+            .fontWeight(.bold)
     }
 }
 

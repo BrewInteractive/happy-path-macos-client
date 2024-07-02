@@ -32,6 +32,7 @@ final class MainScreenViewModel: ObservableObject {
     @Published var editedTimerItemId: Int? = nil
     @Published var stats: Stats? = nil
     @Published var isErrorShown = false
+    @Published var isUpdateInfoShown = false
     
 //    func readAllLogs() {
 //        do {
@@ -57,6 +58,20 @@ final class MainScreenViewModel: ObservableObject {
     
     var groupedTimers: [Int: [TimeEntry]] {
         Dictionary(grouping: timers, by: { $0.projectId })
+    }
+    
+    func checkVersionUpdate() async  {
+        
+        let defaults = UserDefaults.standard
+        let lastFetchDate = defaults.object(forKey: K.latestFetchDate) as? Date ?? Date.distantPast
+        let currentDate = Date()
+        
+        if !Calendar.current.isDate(currentDate, equalTo: lastFetchDate, toGranularity: .day) {
+            HappyLogger.logger.log("checking version in date : \(currentDate) , last fetch date: \(lastFetchDate)")
+            let latestRelease = await NetworkManager.fetchLatestRelease()
+            defaults.set(currentDate, forKey: K.latestFetchDate)
+            isUpdateInfoShown = latestRelease != Bundle.main.appVersion
+        }
     }
     
     func updateViewModel(appState: AppState) async {
