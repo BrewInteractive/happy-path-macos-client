@@ -45,10 +45,16 @@ jobs:
         rm -rf ~/Desktop/Happy/HappyPathTimeTracker/*.plist
         rm -rf ~/Desktop/Happy/HappyPathTimeTracker/*.log
         pkgbuild --root ~/Desktop/Happy/HappyPathTimeTracker/ --identifier com.gorkemsevim.HappyPathTimeTracker --version 1.1.1 --install-location /Applications happy-path-macos-client.pkg
-
+        
+    - name: Get version from Info.plist
+      id: get_version
+      run: |
+        VERSION=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "Info.plist")
+        echo "version=$VERSION" >> $GITHUB_ENV
+        
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: test
+        tag_name: ${{ env.version }}
         files: |
           happy-path-macos-client.pkg
