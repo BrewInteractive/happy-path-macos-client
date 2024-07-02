@@ -125,7 +125,7 @@ extension HeaderView {
                 })
                 .buttonStyle(.plain)
                 Spacer()
-                Text("Version: \(Bundle.main.appVersionLong)")
+                Text("Version: \(Bundle.main.appVersion)")
                     .font(.figtree(size: 12))
                     .foregroundColor(.Primary.DarkNight)
             }
