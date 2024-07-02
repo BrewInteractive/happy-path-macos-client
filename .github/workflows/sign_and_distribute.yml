@@ -49,7 +49,7 @@ jobs:
     - name: Get version from Info.plist
       id: get_version
       run: |
-        VERSION=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "Info.plist")
+        VERSION=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "HappyPathTimeTracker/Info.plist")
         echo "version=$VERSION" >> $GITHUB_ENV
         
     - name: Release
