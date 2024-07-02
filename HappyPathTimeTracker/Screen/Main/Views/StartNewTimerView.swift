@@ -210,6 +210,7 @@ struct RelatedLink: View {
     let onAdded: ((_ value: String) -> Void)?
     @State private var relatedLink: String = ""
     @State private var isInvalidLinkErrorShown: Bool = false
+    @State private var isAnimatePlusButton = false
     
     init?(defaultLink: String?, onRemove: ( (_: String) -> Void)?, onAdded: ((_: String) -> Void)?) {
         self.defaultLink = defaultLink
@@ -225,7 +226,6 @@ struct RelatedLink: View {
     
     func isValidLink(link: String) -> Bool {
         if let url = URL(string: link) {
-            // Check if the URL has a valid scheme and host
             return url.scheme != nil && url.host != nil
         }
         return false
@@ -252,6 +252,9 @@ struct RelatedLink: View {
                     .foregroundColor(.Primary.DarkNight)
                     .onChange(of: relatedLink, perform: { value in
                         isInvalidLinkErrorShown = false
+                        withAnimation(.linear(duration: 0.2)) {
+                            isAnimatePlusButton = isValidLink(link: relatedLink)
+                        }
                     })
                 Spacer()
                 Text("\(isInvalidLinkErrorShown ? "Invalid Link" : "")")
@@ -266,6 +269,8 @@ struct RelatedLink: View {
                     }
                 }, label: {
                     Image(systemName: "plus")
+                        .foregroundStyle(.red)
+                        .opacity(isAnimatePlusButton ? 1.0 : 0.0)
                 })
                 .clipShape(
                     RoundedRectangle(cornerRadius: 4)
