@@ -59,7 +59,7 @@ extension MainScreen {
                 await mainScreenVm.checkVersionUpdate()
             }
             .popup(isPresented: $mainScreenVm.isErrorShown) {
-                Text("Error occured")
+                Text(mainScreenVm.errorMessage ?? "Error")
                     .padding()
                     .background(Color.red)
                     .cornerRadius(10)

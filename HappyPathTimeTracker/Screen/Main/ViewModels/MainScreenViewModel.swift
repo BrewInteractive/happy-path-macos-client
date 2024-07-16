@@ -32,6 +32,7 @@ final class MainScreenViewModel: ObservableObject {
     @Published var editedTimerItemId: Int? = nil
     @Published var stats: Stats? = nil
     @Published var isErrorShown = false
+    @Published var errorMessage: String? = nil
     @Published var isUpdateInfoShown = false
     
 //    func readAllLogs() {
@@ -121,6 +122,7 @@ final class MainScreenViewModel: ObservableObject {
         do {
             let res = try await networkManager.me(graphqlClient: appState?.graphqlClient ?? client)
             email = res?.email ?? ""
+            clearError()
             HappyLogger.logger.log("Me fetched successfully")
         } catch {
             HappyLogger.logger.error("Error occured while fetching Me")
@@ -131,7 +133,8 @@ final class MainScreenViewModel: ObservableObject {
     func getStats(client: GraphqlClient? = nil) async {
         do {
             stats = try await networkManager.fetchStats(graphqlClient: appState?.graphqlClient ?? client,
-                                                               date: selectedDate)
+                                                        date: selectedDate)
+            clearError()
             HappyLogger.logger.log("Stats fetched successfully")
         } catch {
             HappyLogger.logger.error("Error occured while fetching Stats")
@@ -145,6 +148,7 @@ final class MainScreenViewModel: ObservableObject {
             DispatchQueue.main.async {
                 onFinish?()
             }
+            clearError()
             HappyLogger.logger.log("Timers fetched successfully")
         } catch {
             DispatchQueue.main.async {
@@ -169,6 +173,7 @@ final class MainScreenViewModel: ObservableObject {
         
         do {
             tasks = try await networkManager.fetchTasks(graphqlClient: appState?.graphqlClient, projectId: projectId) ?? []
+            clearError()
             HappyLogger.logger.log("Tasks fetched successfully")
         } catch {
             HappyLogger.logger.error("Error occured while fetching Tasks")
@@ -223,6 +228,7 @@ final class MainScreenViewModel: ObservableObject {
             self.timers.append(tmpNewTimer)
             try? await Task.sleep(for: .seconds(1))
             await self.getStats()
+            clearError()
             HappyLogger.logger.log("Log timer successfully with id: \(loggedTimerId)")
         } catch {
             HappyLogger.logger.error("Error occured while logging Timer with projectId: \(projectId), projectTaskId: \(projectTaskId)")
@@ -274,6 +280,7 @@ final class MainScreenViewModel: ObservableObject {
             self.timers[tmpUpdatedTimerIndex].endsAt = updatedTimerInfo.endsAt
             self.timers[tmpUpdatedTimerIndex].startsAt = updatedTimerInfo.startsAt
             self.timers[tmpUpdatedTimerIndex].relations = relations
+            clearError()
             HappyLogger.logger.log("Update timer successfully with id: \(editedTimerItemId)")
         } catch {
             HappyLogger.logger.error("Error occured while updating Timer with id: \(editedTimerItemId)")
@@ -297,6 +304,7 @@ final class MainScreenViewModel: ObservableObject {
                 }
                 self.timers.remove(at: removedTimerIndex)
             }
+            clearError()
             HappyLogger.logger.log("Remove timer successfully with id: \(id)")
         } catch {
             HappyLogger.logger.error("Error occured while removing Timer with id: \(id)")
@@ -331,6 +339,7 @@ final class MainScreenViewModel: ObservableObject {
                                             relations: relations,
                                             totalDuration: 0)
             self.timers.append(tmpStartedTimer)
+            clearError()
             HappyLogger.logger.log("Start timer successfully with id: \(startedTimerId)")
         } catch {
             HappyLogger.logger.error("Error occured while starting Timer with projectId: \(projectId), projectTaskId: \(projectTaskId)")
@@ -360,6 +369,7 @@ final class MainScreenViewModel: ObservableObject {
             tmpStoppedTimer.totalDuration = stoppedTimerTotalDuration
             
             timers[stoppedTimerIndex] = tmpStoppedTimer
+            clearError()
             HappyLogger.logger.log("Stop timer successfully with id: \(id)")
         } catch {
             HappyLogger.logger.error("Error occured while stopping Timer with id: \(id)")
@@ -383,6 +393,7 @@ final class MainScreenViewModel: ObservableObject {
             tmpRestartedTimer.endsAt = nil
             
             timers[tmpRestartedTimeEntryIndex] = tmpRestartedTimer
+            clearError()
             HappyLogger.logger.log("Restart timer successfully with id: \(id)")
         } catch {
             HappyLogger.logger.error("Error occured while stopping Timer with id: \(id)")
@@ -410,6 +421,7 @@ final class MainScreenViewModel: ObservableObject {
             
             let responses = try await [tmpProjects ?? [], tmpTimers, tmpStats, tmpMe] as [Any]
             projects = responses[0] as! [Project]
+            clearError()
             HappyLogger.logger.log("Fetched all data successfully")
         } catch {
             HappyLogger.logger.error("Error occured while fetching all data")
@@ -423,15 +435,25 @@ final class MainScreenViewModel: ObservableObject {
             case .invalidResponseCode(let response, _):
                 if response?.statusCode == 403 {
                     HappyLogger.logger.error("403 Error occured: \(error.localizedDescription)")
-                    self.appState?.isLoggedIn = false
-                } else if response?.statusCode == 504 {
-                    HappyLogger.logger.error("504 Error occured: \(error.localizedDescription)")
+                    showError(message: "Isleminiz gerceklestirilemedi")
+                } else if let statusCode = response?.statusCode, (500...599).contains(statusCode) {
+                    HappyLogger.logger.error("\(statusCode) Error occurred: \(error.localizedDescription)")
+                    showError(message: "Serverda hata oluştu")
                 }
             }
         } else {
             HappyLogger.logger.error("Undefined error occured: \(error.localizedDescription)")
-            // show error popup
-            isErrorShown = true
+            showError(message: "Hata olustu")
         }
+    }
+    
+    private func showError(message: String) {
+        isErrorShown = true
+        errorMessage = message
+    }
+    
+    private func clearError() {
+        isErrorShown = false
+        errorMessage = nil
     }
 }
