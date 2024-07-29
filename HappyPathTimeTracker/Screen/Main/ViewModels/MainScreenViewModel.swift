@@ -436,6 +436,7 @@ final class MainScreenViewModel: ObservableObject {
                 if response?.statusCode == 403 {
                     HappyLogger.logger.error("403 Error occured: \(error.localizedDescription)")
                     showError(message: "Isleminiz gerceklestirilemedi")
+                    appState?.logout()
                 } else if let statusCode = response?.statusCode, (500...599).contains(statusCode) {
                     HappyLogger.logger.error("\(statusCode) Error occurred: \(error.localizedDescription)")
                     showError(message: "Serverda hata oluştu")

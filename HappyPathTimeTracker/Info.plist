@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleShortVersionString</key>
-	<string>1.2.14</string>
+	<string>1.2.15</string>
 	<key>CFBundleVersion</key>
-	<string>1.2.14.25</string>
+	<string>1.2.15.26</string>
 	<key>ATSApplicationFontsPath</key>
 	<string>./</string>
 	<key>CFBundleURLTypes</key>
